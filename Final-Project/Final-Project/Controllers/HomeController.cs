@@ -1,4 +1,7 @@
 ﻿
+using Final_Project.Dal;
+using Final_Project.Models;
+using Final_Project.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,11 +14,19 @@ namespace Final_Project.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly WoltDbContext _context;
+
+        public HomeController(WoltDbContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
-            return View();
+            HomeVM homeVM = new HomeVM
+            {
+                Sliders = _context.Sliders.ToList()
+            };
+            return View(homeVM);
         }
-
-    
     }
 }

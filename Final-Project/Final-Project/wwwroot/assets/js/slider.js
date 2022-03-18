@@ -63,14 +63,10 @@ function showSlide(i){
    var ImgElement=Slides[0].children
    var TextElement=Slides[0].children
    var  img=ImgElement[0].getAttribute("src")
-   var textA=TextElement[1]
-   var textB=textA.innerHTML
-  
-   MainSlide.children[0].children[0].setAttribute("src",img)
- document.querySelector(".title-slide").innerHTML=textB
+    var textA = TextElement[1]
+    var textB = textA.innerText
+    MainSlide.children[0].children[0].setAttribute("src", img)
+    document.querySelector(".title-slide").nextElementSibling.style.display="none"
+    document.querySelector(".title-slide").innerHTML = textB
 
-//    console.log(img);
-    // document.querySelector('.card-title').innerHTML=models[index].name
-    // document.querySelector('.card-img-top').setAttribute('src',models[index].img)
-    // document.querySelector('.card-link').setAttribute('href',models[index].link)
 }

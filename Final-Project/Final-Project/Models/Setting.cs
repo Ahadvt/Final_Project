@@ -14,16 +14,18 @@ namespace Final_Project.Models
         [StringLength(100)]
         public string Logo { get; set; }
         [StringLength(100)]
-
+        [Required]
         public string FacebbokLink { get; set; }
+        [Required]
         [StringLength(100)]
 
         public string InstagramLink { get; set; }
+        [Required]
         [StringLength(100)]
 
         public string TwitterLink { get; set; }
         [StringLength(100)]
-
+        [Required]
         public string LInkedinLink { get; set; }
         [NotMapped]
         public IFormFile LogoFile { get; set; }

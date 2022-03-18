@@ -1,4 +1,4 @@
-﻿
+﻿@model HomeVM
 @{
     ViewData["Title"] = "Index";
 }
@@ -93,27 +93,19 @@
     <div class="slides row">
         <div class="slide-main  col-md-8" data-aos="fade-down">
             <div class="img ">
-                <img src="/assets/image/slider-1.jpg" alt="">
+                <img src="~/assets/image/@Model.Sliders.FirstOrDefault().Image" alt="">
             </div>
         </div>
-        <div class="slide" data-id="1">
-            <div class="img ">
-                <img src="~/assets/image/slider-1.jpg" alt="">
-                <p style="display: none;">lorem1</p>
+        @foreach (Slider slider in Model.Sliders)
+        {
+            <div class="slide" data-id="1">
+                <div class="img ">
+                    <img src="~/assets/image/@slider.Image.ToString()" alt="">
+                    <p style="display: none;">@slider.SliderText.ToString()</p>
+                </div>
             </div>
-        </div>
-        <div class="slide" data-id="2">
-            <div class="img ">
-                <img src="~/assets/image/slider-2.jpg" alt="">
-                <p style="display: none;">lorem2</p>
-            </div>
-        </div>
-        <div class="slide" data-id="2">
-            <div class="img ">
-                <img src="~/assets/image/slider-3.jpg" alt="">
-                <p style="display: none;">lorem3</p>
-            </div>
-        </div>
+        }
+
         <div class="text  col-md-4">
 
             <div class="prews-dots">
@@ -127,7 +119,9 @@
                     </div>
                 </div>
             </div>
-            <p class="title-slide">Lorem1</p>
+            <div style="text-align:center">
+                <p class="title-slide">@Html.Raw(Model.Sliders.FirstOrDefault().SliderText)</p>
+            </div>
         </div>
 
     </div>
