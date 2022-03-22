@@ -102,6 +102,39 @@ namespace Final_Project.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Final_Project.Models.BasketItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("ISsaleComlete")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RestuorantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("RestuorantId");
+
+                    b.ToTable("BasketItems");
+                });
+
             modelBuilder.Entity("Final_Project.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -163,7 +196,12 @@ namespace Final_Project.Migrations
                         .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
+                    b.Property<int?>("RestuorantId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("RestuorantId");
 
                     b.ToTable("ProductCategories");
                 });
@@ -424,6 +462,23 @@ namespace Final_Project.Migrations
                         .HasForeignKey("RestuorantId1");
                 });
 
+            modelBuilder.Entity("Final_Project.Models.BasketItem", b =>
+                {
+                    b.HasOne("Final_Project.Models.AppUser", "AppUser")
+                        .WithMany("BasketItems")
+                        .HasForeignKey("AppUserId");
+
+                    b.HasOne("Final_Project.Models.Product", "Product")
+                        .WithMany("V")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Final_Project.Models.Restuorant", "Restuorant")
+                        .WithMany("BasketItems")
+                        .HasForeignKey("RestuorantId");
+                });
+
             modelBuilder.Entity("Final_Project.Models.Product", b =>
                 {
                     b.HasOne("Final_Project.Models.ProductCategory", "productCategory")
@@ -437,6 +492,13 @@ namespace Final_Project.Migrations
                         .HasForeignKey("RestuorantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Final_Project.Models.ProductCategory", b =>
+                {
+                    b.HasOne("Final_Project.Models.Restuorant", "Restuorant")
+                        .WithMany("ProductCategories")
+                        .HasForeignKey("RestuorantId");
                 });
 
             modelBuilder.Entity("Final_Project.Models.Restuorant_Category", b =>

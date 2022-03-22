@@ -22,6 +22,7 @@ namespace Final_Project.Dal
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<Restuorant_Category> Restuorant_Categories { get; set; }
         public DbSet<Restuorant> Restuorants { get; set; }
+        public DbSet<BasketItem> BasketItems { get; set; }
 
     }
 }

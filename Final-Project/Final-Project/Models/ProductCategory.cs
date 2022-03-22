@@ -12,6 +12,9 @@ namespace Final_Project.Models
         [Required]
         [StringLength(30)]
         public string Name { get; set; }
+        public int? RestuorantId { get; set; }
+        public Restuorant Restuorant { get; set; }
+        
         public List<Product> Products { get; set; }
     }
 }

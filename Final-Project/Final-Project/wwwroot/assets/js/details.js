@@ -2,6 +2,7 @@ var img=document.querySelector(".bg")
 var details=document.querySelector(".details")
 var file=img.getAttribute("src")
 details.style.backgroundImage = `url(${file})`;
+details.style.backgroundSize = `cover`;
 
 var prewicon='<svg xmlns="http://www.w3.org/2000/svg" class="HeroCarousel-module__caretIcon___ZySqK" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M15.477 3.977a.503.503 0 01.365.841l-6.68 7.159 6.679 7.159a.502.502 0 01.159.366.5.5 0 01-.888.315l-7-7.5a.498.498 0 010-.682l7-7.5a.496.496 0 01.365-.16"></path></svg>'
 
@@ -41,30 +42,30 @@ $(document).ready(function () {
         // $(".basket-item-li .plus-minus.input").hide()
     
     })
-    $(".basket-item-li").click(function (e) {
-        e.preventDefault()
-       let count= $(this).children(".count").hide()
-       let plus=$(this).children(".plus-minus-input").show()
+    //$(".basket-item-li").click(function (e) {
+    //    e.preventDefault()
+    //   //let count= $(this).children(".count").hide()
+    //   let plus=$(this).children(".plus-minus-input").show()
        
        
-        // $(this).children().toggle()
-        // $(".basket-item-li .input-group").toggle()
-    })
+    //    // $(this).children().toggle()
+    //    // $(".basket-item-li .input-group").toggle()
+    //})
    
  })
 
  var Categorys=document.querySelectorAll(".category_Name")
- var CategoryA=document.querySelectorAll(".category_Name a")
 
  var Products=document.querySelectorAll(".products a")
   Categorys.forEach(category => {
       category.addEventListener("click",function (e) {
-          
-         var CategoryDataId= e.target.getAttribute("data-id")
+         
+         var CategoryDataId= e.target.parentElement.getAttribute("data-id")
          e.preventDefault()
          Products.forEach(product => {
              
-          var ProductDataId= product.getAttribute("data-id")
+             var ProductDataId = product.getAttribute("data-id")
+             console.log(ProductDataId)
           if(CategoryDataId!="All"){
             if(CategoryDataId==ProductDataId){
                 product.style.display="block"

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Final_Project.Controllers
 {
+ 
     public class AccountController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -22,14 +23,7 @@ namespace Final_Project.Controllers
             _roleManager = roleManager;
         }
 
-        //public async Task<IActionResult> CreateRole()
-        //{
-        //    await _roleManager.CreateAsync(new IdentityRole("SuperAdmin"));
-        //    await _roleManager.CreateAsync(new IdentityRole("Admin"));
-        //    await _roleManager.CreateAsync(new IdentityRole("Courier"));
-        //    await _roleManager.CreateAsync(new IdentityRole("Restaurant"));
-        //    return Ok();
-        //}
+    
         [HttpPost]
         public async Task<IActionResult> Register(RegisterUserVM register)
         {
@@ -38,7 +32,9 @@ namespace Final_Project.Controllers
                 FullName=register.FullName,
                 UserName=register.UserName,
                 Email=register.Email,
-                PhoneNumber=register.PhoneNumber
+                PhoneNumber=register.PhoneNumber,
+                Role="User"
+                
             };
             IdentityResult result = await _userManager.CreateAsync(user, register.Password);
             if (!result.Succeeded)
@@ -49,6 +45,7 @@ namespace Final_Project.Controllers
                 }
                 return Json(new { status = result.Errors });
             }
+            await _userManager.AddToRoleAsync(user,"User");
             await _signInManager.SignInAsync(user, true);
 
             return Json(new {status=200 });  
@@ -60,6 +57,7 @@ namespace Final_Project.Controllers
             if (login.UserName == null || login.Password == null) return Json(new { status = 404 });
             AppUser user = await _userManager.FindByNameAsync(login.UserName);
             if (user == null) return Json(new { status = 404 });
+            if (user.Role != "User") return Json(new { status = 404 });
             Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(user, login.Password, login.RememberMe, true);
             if (!result.Succeeded)
             {
@@ -110,7 +108,7 @@ namespace Final_Project.Controllers
                 ModelState.AddModelError("", $"The {editUser.UserName} is alrady taken");
                 return View(editUser);
             }
-            if (ModelState.IsValid) return View(EditUser);
+            if (!ModelState.IsValid) return View(EditUser);
             ExsistUser.UserName = editUser.UserName;
             ExsistUser.FullName = editUser.FullName;
             ExsistUser.Email = editUser.Email;
@@ -118,7 +116,13 @@ namespace Final_Project.Controllers
            
             if (!string.IsNullOrEmpty(editUser.CurrentPassword))
             {
+                if (editUser.Password == null)
+                {
+                    ModelState.AddModelError("Password", "The field password is required");
+                    return View(EditUser);
+                }
                 IdentityResult result = await _userManager.ChangePasswordAsync(ExsistUser, editUser.CurrentPassword, editUser.Password);
+             
                 if (!result.Succeeded)
                 {
                     foreach (IdentityError Error in result.Errors)
@@ -130,7 +134,10 @@ namespace Final_Project.Controllers
                 }
                 await _signInManager.PasswordSignInAsync(ExsistUser, editUser.Password, true, true);
             }
-            return RedirectToAction(nameof(editUser));
+            await _userManager.UpdateAsync(ExsistUser);
+            await _signInManager.SignInAsync(ExsistUser, true);
+            TempData["message"] = "Data saved";
+            return RedirectToAction(nameof(EditUser));
         }
     }
 }

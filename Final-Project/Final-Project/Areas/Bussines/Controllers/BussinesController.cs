@@ -2,9 +2,11 @@
 using Final_Project.Areas.Extensions;
 using Final_Project.Dal;
 using Final_Project.Models;
+using Final_Project.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +36,32 @@ namespace Final_Project.Areas.Bussines.Controllers
         {
 
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginUserVM loginUser)
+        {
+            if (!ModelState.IsValid) return View();
+            if (loginUser.UserName == null || loginUser.Password == null)
+            {
+                ModelState.AddModelError("", "Username or password incorrect");
+                return View();
+            }
+            AppUser user = await _userManager.FindByNameAsync(loginUser.UserName);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Username or password incorrect");
+                return View();
+            }
+            Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(user, loginUser.Password, true, false);
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError("", "Username or password incorrect");
+                return View();
+            }
+
+            return RedirectToAction(nameof(RestuorantMain));
         }
         public IActionResult Register()
         {
@@ -104,7 +132,16 @@ namespace Final_Project.Areas.Bussines.Controllers
             Restuorant CreatedRestuorant = _context.Restuorants.FirstOrDefault(cr => cr.AppUserId == User.Id);
             User.RestuorantId = CreatedRestuorant.Id;
             await _userManager.UpdateAsync(User);
+            
             return RedirectToAction("login","bussines");
         }
+
+        public async Task<IActionResult> RestuorantMain()
+        {
+            AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+            Restuorant restuorant = _context.Restuorants.FirstOrDefault(c => c.AppUserId == user.Id);
+            return View(restuorant);
+        }
+
     }
 }

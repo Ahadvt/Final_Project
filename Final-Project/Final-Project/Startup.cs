@@ -33,6 +33,7 @@ namespace Final_Project
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
+
             services.AddScoped<LayoutServices>();
             services.AddHttpContextAccessor();
 
@@ -52,7 +53,9 @@ namespace Final_Project
                 option.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 option.Lockout.AllowedForNewUsers = true;
             }).AddDefaultTokenProviders().AddEntityFrameworkStores<WoltDbContext>();
-
+            services.AddControllers().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 
         }
 

@@ -28,18 +28,29 @@
                     </div>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <div style="display:flex; justify-content:flex-end; z-index:99999999" class="mobile-user-account-language col col-md-3 ">
-                            <div class="icon">
-                                <img src="~/assets/image/download.svg">
-                                <i class="fa-solid fa-chevron-down"></i>
-                            </div>
+                        if (User.IsInRole("User"))
+                        {
+                            <div style="display:flex; justify-content:flex-end; z-index:99999999" class=" login-after mobile-user-account-language  col col-md-3 ">
+                                <div class="icon">
+                                    <img src="~/assets/image/download.svg">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </div>
 
-                            <div style="text-align:center; width:50%;" class="menulist">
-                                <p><a asp-area="" asp-controller="account" asp-action="edituser">Setting</a></p>
-                                
-                                <p><a asp-area="" asp-controller="account" asp-action="logout">Logout</a></p>
+                                <div style="text-align:center; width:50%;" class="menulist">
+                                    <p><a asp-area="" asp-controller="account" asp-action="edituser">Setting</a></p>
+
+                                    <p><a asp-area="" asp-controller="account" asp-action="logout">Logout</a></p>
+                                </div>
                             </div>
-                        </div>
+                        }
+                        else
+                        {
+                            <div class="user-account-language col col-md-3 ">
+                                <p onclick="document.getElementById('id01').style.display='block'"><a>Log in</a></p>
+                                <p onclick="document.getElementById('id02').style.display='block'"><a>Sign up</a></p>
+                                <p><a asp-area="bussines" asp-controller="bussines" asp-action="login">Bussines</a></p>
+                            </div>
+                        }
                     }
                     else
                     {
@@ -285,6 +296,7 @@
                                     val.description
                                     var li = document.createElement("li")
                                     li.innerHTML = val.description
+                                    
                                     ul.append(li)
                                     validator.append(ul)
                                     validator.style.display = "block"
@@ -323,7 +335,6 @@
                             $('#modellogin').html(status)
                             $('#modellogin').css("display", "block")
                         }
-
                     }
                 })
             })

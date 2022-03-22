@@ -1,4 +1,4 @@
-﻿
+﻿@model LoginUserVM
 @{
     Layout = null;
 }
@@ -32,10 +32,6 @@
 
 </head>
 <body>
-    <!-- Button trigger modal -->
-    
-
-    <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -61,18 +57,18 @@
                             <div class="card-body p-5">
 
                                 <h2 class="text-uppercase text-center mb-5"><img style="width:60%;" src="~/assets/image/cdbe7be1-6efd-473c-9f5d-1104414be4a0logo.svg" /><br /><small style=" font-size: 20px; color: #3AA6D4;">Bussines Area</small></h2>
-
-
-                                <form>
-
+                                <form method="post">
+                                    <div class="alert alert-danger" asp-validation-summary="ModelOnly"> </div>
                                     <div class="form-outline mb-4">
-                                        <input type="text" id="form3Example1cg" class="form-control form-control-lg" />
-                                        <label class="form-label" for="form3Example1cg">UserName</label>
+                                        <input type="text" asp-for="UserName" class="form-control form-control-lg" />
+                                        <label class="form-label" asp-for="UserName">UserName</label>
+                                        <span class="text text-danger" asp-validation-for="UserName"></span>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="password" id="form3Example4cg" class="form-control form-control-lg" />
-                                        <label class="form-label" for="form3Example4cg">Password</label>
+                                        <input type="text" asp-for="Password" class="form-control form-control-lg" />
+                                        <label class="form-label" asp-for="Password">Password</label>
+                                        <span class="text text-danger" asp-validation-for="Password"></span>
                                     </div>
 
 

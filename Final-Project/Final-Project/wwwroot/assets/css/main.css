@@ -34,12 +34,13 @@ a:hover {
 }
 
 @media only screen and (max-width: 1020px) {
-  .user-account-language {
-    display: none !important;
-  }
+   
   .mobile-user-account-language {
     display: block !important;
   }
+    .user-account-language, .login-after{
+        display: none !important;
+    }
   .details header .basket-mobile {
     visibility: visible !important;
   }
@@ -51,6 +52,7 @@ a:hover {
   }
   .pleasent-favourite-mobile {
     display: block !important;
+    line-height:100%;
   }
   .category-product-info {
     display: block !important;
@@ -66,10 +68,12 @@ a:hover {
     width: 100% !important;
   }
   .category-product-info .products .product .img {
-    width: 30%;
+    width: 30% !important;
+    height:auto !important;
   }
   .category-product-info .products .product .img img {
-    width: 100%;
+    width: 100% !important;
+    height:100% !important;
   }
   .category-product-info .products .product .description p {
     color: gray;
@@ -78,6 +82,7 @@ a:hover {
   .category-product-info .information {
     display: none;
   }
+
 }
 
 @media only screen and (max-width: 780px) {
@@ -614,70 +619,138 @@ header .head-menu .menu .navbar .mobile-user-account-language {
   position: relative;
 }
 
-header .head-menu .menu .navbar .mobile-user-account-language .icon {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-  -webkit-transition: 1s;
-  transition: 1s;
-  cursor: pointer;
+    header .head-menu .menu .navbar .mobile-user-account-language .icon {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: end;
+        -ms-flex-pack: end;
+        justify-content: flex-end;
+        -webkit-transition: 1s;
+        transition: 1s;
+        cursor: pointer;
+    }
+
+        header .head-menu .menu .navbar .mobile-user-account-language .icon img {
+            width: 2rem;
+        }
+
+        header .head-menu .menu .navbar .mobile-user-account-language .icon i {
+            color: #e4e2e2;
+            font-size: 1rem;
+            margin-left: 3px;
+        }
+
+    header .head-menu .menu .navbar .mobile-user-account-language .menulist {
+        background-color: white;
+        width: 140%;
+        position: absolute;
+        top: 140%;
+        right: 10%;
+        border-radius: 2px;
+        z-index: 10;
+        display: none;
+        -webkit-transition: opacity 0.3s;
+        transition: opacity 0.3s;
+        -webkit-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        line-height: 30px;
+    }
+
+        header .head-menu .menu .navbar .mobile-user-account-language .menulist p {
+            padding: 15px;
+            margin: 0px 10px;
+            border-bottom: 1px solid #cfcaca;
+        }
+
+            header .head-menu .menu .navbar .mobile-user-account-language .menulist p a {
+                color: black;
+                font-size: 1.2rem;
+            }
+
+        header .head-menu .menu .navbar .mobile-user-account-language .menulist::after {
+            content: "";
+            position: absolute;
+            bottom: 100%;
+            left: 86%;
+            margin-left: -5px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: transparent transparent white transparent;
+            -webkit-box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.9) 0px 18px 36px -18px inset;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.9) 0px 18px 36px -18px inset;
+        }
+.login-after{
+    position:relative;
 }
 
-header .head-menu .menu .navbar .mobile-user-account-language .icon img {
-  width: 2rem;
+header .head-menu .menu .navbar .login-after .icon {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    -webkit-transition: 1s;
+    transition: 1s;
+    cursor: pointer;
 }
 
-header .head-menu .menu .navbar .mobile-user-account-language .icon i {
-  color: #e4e2e2;
-  font-size: 1rem;
-  margin-left: 3px;
+    header .head-menu .menu .navbar .login-after .icon img {
+        width: 2rem;
+    }
+
+    header .head-menu .menu .navbar .login-after .icon i {
+        color: #e4e2e2;
+        font-size: 1rem;
+        margin-left: 3px;
+    }
+
+header .head-menu .menu .navbar .login-after .menulist {
+    background-color: white;
+    width: 140%;
+    position: absolute;
+    top: 140%;
+    right: 10%;
+    border-radius: 2px;
+    z-index: 10;
+    display: none;
+    -webkit-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+    -webkit-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    line-height: 30px;
 }
 
-header .head-menu .menu .navbar .mobile-user-account-language .menulist {
-  background-color: white;
-  width: 140%;
-  position: absolute;
-  top: 140%;
-  right: 10%;
-  border-radius: 2px;
-  z-index: 10;
-  display: none;
-  -webkit-transition: opacity 0.3s;
-  transition: opacity 0.3s;
-  -webkit-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-          box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  line-height: 30px;
-}
+    header .head-menu .menu .navbar .login-after .menulist p {
+        padding: 15px;
+        margin: 0px 10px;
+        border-bottom: 1px solid #cfcaca;
+    }
 
-header .head-menu .menu .navbar .mobile-user-account-language .menulist p {
-  padding: 15px;
-  margin: 0px 10px;
-  border-bottom: 1px solid #cfcaca;
-}
+        header .head-menu .menu .navbar .login-after .menulist p a {
+            color: black;
+            font-size: 1.2rem;
+        }
 
-header .head-menu .menu .navbar .mobile-user-account-language .menulist p a {
-  color: black;
-  font-size: 1.2rem;
-}
-
-header .head-menu .menu .navbar .mobile-user-account-language .menulist::after {
-  content: "";
-  position: absolute;
-  bottom: 100%;
-  left: 86%;
-  margin-left: -5px;
-  border-width: 10px;
-  border-style: solid;
-  border-color: transparent  transparent white transparent;
-  -webkit-box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.9) 0px 18px 36px -18px inset;
-          box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.9) 0px 18px 36px -18px inset;
-}
+    header .head-menu .menu .navbar .login-after .menulist::after {
+        content: "";
+        position: absolute;
+        bottom: 100%;
+        left: 86%;
+        margin-left: -5px;
+        border-width: 10px;
+        border-style: solid;
+        border-color: transparent transparent white transparent;
+        -webkit-box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.9) 0px 18px 36px -18px inset;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.9) 0px 18px 36px -18px inset;
+    }
 
 .details {
   background-attachment: fixed;
@@ -1324,19 +1397,24 @@ main #tag h4, main #restuorants h4, main #stores h4 {
   font-weight: 600;
 }
 
-main #tag .card, main #restuorants .card, main #stores .card {
-  padding: 0px;
-  margin-bottom: 2rem;
-  border-radius: 6px;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-          box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  line-height: 0.5rem;
-  border: none;
-}
+    main #tag .card, main #restuorants .card, main #stores .card {
+        padding: 0px;
+        margin-bottom: 2rem;
+        border-radius: 6px;
+        -webkit-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        line-height: 0.5rem;
+        border: none;
+        
+    }
+
+
 
 main #tag .card .img img, main #restuorants .card .img img, main #stores .card .img img {
   border-radius: 6px;
   width: 100%;
+
+  
 }
 
 main #tag .card .title-name-time, main #restuorants .card .title-name-time, main #stores .card .title-name-time {
@@ -1596,12 +1674,16 @@ main .pleasent-favourite-mobile .icons-point .icon-smile-point {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+
   width: 100%;
 }
 
-main .pleasent-favourite-mobile .icons-point .icon-smile-point .icon-smile {
-  padding-right: 2%;
-}
+    main .pleasent-favourite-mobile .icons-point .icon-smile-point .icon-smile {
+        padding-right: 2%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
 main .pleasent-favourite-mobile .icons-point .icon-smile-point .icon-smile img {
   width: 70%;
@@ -1611,7 +1693,11 @@ main .pleasent-favourite-mobile .icons-point .favourite a {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  align-items:center;
+  justify-content:center;
+
 }
+   
 
 main .pleasent-favourite-mobile .work-time {
   width: 100%;
@@ -1773,6 +1859,9 @@ main .category-product-info .information .venues .description h6 {
 main .category-product-info .information .venues .categories2 h5 {
   margin-bottom: 0px;
 }
+    main .category-product-info .information .venues .categories2 a p {
+        color: #29C6EA !important;
+    }
 
 #map {
   margin-bottom: 6%;

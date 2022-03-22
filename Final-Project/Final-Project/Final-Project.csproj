@@ -20,10 +20,17 @@
     <Compile Remove="Migrations\20220317203130_test.Designer.cs" />
     <Compile Remove="Migrations\20220317204918_TEST2.cs" />
     <Compile Remove="Migrations\20220317204918_TEST2.Designer.cs" />
+    <Compile Remove="Migrations\20220318160745_CreatedNewRelationBetwenProductCategoryAndRestaurants.cs" />
+    <Compile Remove="Migrations\20220318160745_CreatedNewRelationBetwenProductCategoryAndRestaurants.Designer.cs" />
+    <Compile Remove="Migrations\20220320170526_createdBasket.cs" />
+    <Compile Remove="Migrations\20220320170526_createdBasket.Designer.cs" />
+    <Compile Remove="Migrations\20220320170803_Created_Order.cs" />
+    <Compile Remove="Migrations\20220320170803_Created_Order.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.22" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.22" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.22" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.22" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.22">

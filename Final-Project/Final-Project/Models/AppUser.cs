@@ -15,5 +15,7 @@ namespace Final_Project.Models
         public int? RestuorantId { get; set; }
         public Restuorant Restuorant { get; set; }
         public string Role { get; set; }
+        public List<BasketItem> BasketItems { get; set; }
+
     }
 }

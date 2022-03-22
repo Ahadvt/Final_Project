@@ -24,10 +24,14 @@ namespace Final_Project.Models
         public bool IsCampaign { get; set; }
         public int? Campaign { get; set; }
         public List<Restuorant_Category> Restuorant_Categories { get; set; }
+        public List<ProductCategory> ProductCategories { get; set; }
         public List<Product> Products { get; set; }
         public string AppUserId { get; set; }
-       
-       
+        public List<BasketItem> BasketItems { get; set; }
+
+
+
+
 
     }
 }

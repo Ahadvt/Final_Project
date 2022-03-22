@@ -28,5 +28,6 @@ namespace Final_Project.ViewModels
         
         [Compare(nameof(Password))]
         public string ConfirmPassword { get; set; }
+
     }
 }
