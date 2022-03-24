@@ -14,5 +14,7 @@ namespace Final_Project.Areas.Bussines.ViewModels
         public Restuorant restuorant { get; set; }
         [NotMapped]
         public IFormFile ImageFile { get; set; }
+        public List<int> CategoryIds { get; set; }
+
     }
 }

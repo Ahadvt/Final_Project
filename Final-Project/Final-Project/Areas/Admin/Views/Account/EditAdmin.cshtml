@@ -7,14 +7,13 @@
     <div class="login-form d-flex justify-content-center">
 
         <form style="width:50%;" method="post">
-            <div class="alert alert-danger " asp-validation-summary="ModelOnly">gfgdxfhjhgjfhjgjdhj</div>
+            <div class="alert alert-danger " asp-validation-summary="ModelOnly"></div>
             <div class="form-group">
                 <label asp-for="FullName"></label>
                 <input class="form-control" asp-for="FullName" placeholder="FullName">
                 <div> <span class="text text-danger" asp-validation-for="FullName"></span></div>
 
                 <label asp-for="UserName"></label>
-
                 <input class="form-control" asp-for="UserName" placeholder="UserName">
                 <div> <span class="text text-danger" asp-validation-for="UserName"></span></div>
 
@@ -23,36 +22,32 @@
                 <div> <span class="text text-danger" asp-validation-for="Email"></span></div>
 
                 <label asp-for="PhoneNumber"></label>
-
                 <input class="form-control" t asp-for="PhoneNumber" placeholder="PhoneNumber">
                 <div><span class="text text-danger" asp-validation-for="PhoneNumber"></span></div>
-
 
                 <label asp-for="Role"></label>
                 <select class="form-select" style="margin-bottom:10px;" asp-for="Role">
                     @foreach (var a in ViewBag.Roles)
                     {
-
                         <option value="@a">@a</option>
                     }
-
                 </select>
                 <div><span class=" text text-danger" asp-validation-for="Role"></span></div>
 
-                <label asp-for="Password"></label>
+                <label asp-for="CurrentPassword"></label>
+                <input class="form-control" asp-for="CurrentPassword" placeholder="CurrentPassword">
+                <div> <span class="text text-danger" asp-validation-for="CurrentPassword"></span></div>
 
+                <label asp-for="Password"></label>
                 <input class="form-control" asp-for="Password" placeholder="Password">
                 <div> <span class="text text-danger" asp-validation-for="Password"></span></div>
 
                 <label asp-for="ConfirmPassword"></label>
-
                 <input class="form-control" asp-for="ConfirmPassword" placeholder="Confirm Password">
                 <div><span class="text text-danger" asp-validation-for="ConfirmPassword"></span></div>
 
-
-                <div class="button-box">
-
-                    <button type="submit" class="btn btn-outline-secondary">Create</button>
+                <div style="text-align:right;" class="button-box mt-2">
+                    <button type="submit" class="btn btn-outline-secondary">Save Changes</button>
                 </div>
             </div>
         </form>

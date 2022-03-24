@@ -1,14 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Final_Project.Models
 {
-    public class Restuorant
+    public class Store
     {
         public int Id { get; set; }
         [StringLength(30)]
@@ -32,17 +30,11 @@ namespace Final_Project.Models
         public string WorkTime { get; set; }
         public bool IsCampaign { get; set; }
         public bool IsDeliveryFree { get; set; }
-        public List<Restuorant_Category> Restuorant_Categories { get; set; }
         public List<ProductCategory> ProductCategories { get; set; }
         public List<Product> Products { get; set; }
         public string AppUserId { get; set; }
         public int? CampaignId { get; set; }
         public Campaign Campaign { get; set; }
         public List<BasketItem> BasketItems { get; set; }
-
-
-
-
-
     }
 }

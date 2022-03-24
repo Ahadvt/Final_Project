@@ -23,7 +23,6 @@ namespace Final_Project.Controllers
             _roleManager = roleManager;
         }
 
-    
         [HttpPost]
         public async Task<IActionResult> Register(RegisterUserVM register)
         {

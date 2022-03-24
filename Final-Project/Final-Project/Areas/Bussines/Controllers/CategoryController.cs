@@ -75,7 +75,6 @@ namespace Final_Project.Areas.Bussines.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
-
         public IActionResult Delete(int id)
         {
             ProductCategory category = _context.ProductCategories.FirstOrDefault(pc => pc.Id == id);

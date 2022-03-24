@@ -12,9 +12,15 @@ namespace Final_Project.Models
     {
         public int Id { get; set; }
         [Required]
+        [StringLength(20)]
         public string Name { get; set; }
         public string Image { get; set; }
+        [Required]
         public double Price { get; set; }
+        [Required]
+        [StringLength(100)]
+        public string Description { get; set; }
+        [Required]
         public int ProductCategoryId { get; set; }
         public int RestuorantId { get; set; }
         public Restuorant restuorant { get; set; }

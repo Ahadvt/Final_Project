@@ -36,21 +36,18 @@ $(document).ready(function () {
         $(".mobile-user-account-language .menulist").slideToggle()
         $(".mobile-user-account-language .fa-solid").toggleClass("active")
     })
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 200) {
+            $('#basket-main').css({ "position": "fixed", "top": "5%", "right":"3%","z-index":"999999999999" ,"height":"7%" });
+        } else {
+            $('#basket-main').css({ "position": "static","height":"auto"});
+        }
+       
+        
+        
 
-    $(window).click(function () {
-        // $(".basket-item-li .count").show()
-        // $(".basket-item-li .plus-minus.input").hide()
-    
     })
-    //$(".basket-item-li").click(function (e) {
-    //    e.preventDefault()
-    //   //let count= $(this).children(".count").hide()
-    //   let plus=$(this).children(".plus-minus-input").show()
-       
-       
-    //    // $(this).children().toggle()
-    //    // $(".basket-item-li .input-group").toggle()
-    //})
+
    
  })
 

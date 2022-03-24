@@ -810,6 +810,10 @@ header .head-menu .menu .navbar .login-after .menulist {
   color: white;
   cursor: pointer;
 }
+    .details header .head-menu .menu .navbar .user-account-language p a{
+        color: white;
+      
+    }
 
 .details header .head-menu .menu .navbar .mobile-user-account-language {
   display: none;
@@ -1774,22 +1778,31 @@ main .category-product-info .categories {
 main .category-product-info .categories ul {
   margin: 0px;
   padding: 0px;
-  line-height: 280%;
+  line-height: 200%;
   text-align: center;
   list-style: none;
 }
 
-main .category-product-info .categories ul li {
-  cursor: pointer;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-}
+    main .category-product-info .categories ul li {
+        cursor: pointer;
+        -webkit-transition: 0.3s;
+        transition: 0.3s;
+        border-radius: 10px;
+        width: 90%;
 
-main .category-product-info .categories ul li:hover {
-  -webkit-box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
-          box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
-  border-radius: 4px;
-}
+    }
+        main .category-product-info .categories ul li p{
+            margin-bottom:0.5rem;
+        }
+
+        main .category-product-info .categories ul li:hover {
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+            border-radius: 10px;
+            color: white;
+            background-color: #009DE0;
+            border: none;
+            width: 90%;
+        }
 
 main .category-product-info .categories ul li a {
   color: #4b4a4a;

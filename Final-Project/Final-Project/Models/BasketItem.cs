@@ -12,8 +12,10 @@ namespace Final_Project.Models
         public string AppUserId { get; set; }
         public int ProductId { get; set; }
         public int? RestuorantId { get; set; }
+        public int? StoreId { get; set; }
         public AppUser AppUser { get; set; }
         public Restuorant Restuorant { get; set; }
+        public Store Store { get; set; }
         public Product Product { get; set; }
         public bool ISsaleComlete { get; set; }
     }

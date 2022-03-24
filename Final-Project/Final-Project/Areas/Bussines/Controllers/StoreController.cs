@@ -1,12 +1,9 @@
-﻿using Final_Project.Areas.Bussines.ViewModels;
-using Final_Project.Areas.Extensions;
-using Final_Project.Dal;
+﻿using Final_Project.Dal;
 using Final_Project.Models;
 using Final_Project.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +11,7 @@ using System.Threading.Tasks;
 
 namespace Final_Project.Areas.Bussines.Controllers
 {
-    [Area("bussines")]
-    public class BussinesController : Controller
+    public class StoreController : Controller
     {
         private readonly WoltDbContext _context;
         private readonly UserManager<AppUser> _userManager;
@@ -23,8 +19,8 @@ namespace Final_Project.Areas.Bussines.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IWebHostEnvironment _env;
 
-        public BussinesController(WoltDbContext context,UserManager<AppUser> userManager,SignInManager<AppUser> signInManager ,RoleManager<IdentityRole> roleManager,IWebHostEnvironment env)
-        { 
+        public StoreController(WoltDbContext context, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager, IWebHostEnvironment env)
+        {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
@@ -32,7 +28,7 @@ namespace Final_Project.Areas.Bussines.Controllers
             _env = env;
         }
 
-        public  IActionResult Login()
+        public IActionResult Login()
         {
 
             return View();
@@ -60,7 +56,7 @@ namespace Final_Project.Areas.Bussines.Controllers
                 ModelState.AddModelError("", "Username or password incorrect");
                 return View();
             }
-
+            
             return RedirectToAction(nameof(RestuorantMain));
         }
         public IActionResult Register()
@@ -95,11 +91,11 @@ namespace Final_Project.Areas.Bussines.Controllers
             }
             AppUser appUser = new AppUser
             {
-                FullName= restuorantInfo.FullName,
-                UserName= restuorantInfo.UserName,
-                PhoneNumber= restuorantInfo.PhoneNumber,
-                Email= restuorantInfo.Email,
-                Role= "Restaurant"
+                FullName = restuorantInfo.FullName,
+                UserName = restuorantInfo.UserName,
+                PhoneNumber = restuorantInfo.PhoneNumber,
+                Email = restuorantInfo.Email,
+                Role = "Restaurant"
             };
             var Result = await _userManager.CreateAsync(appUser, restuorantInfo.Password);
             if (!Result.Succeeded)
@@ -109,7 +105,7 @@ namespace Final_Project.Areas.Bussines.Controllers
                     ModelState.AddModelError("", error.Description);
                 }
                 return View();
-            } 
+            }
             Restuorant restuorant = new Restuorant();
             restuorant.Restuorant_Categories = new List<Restuorant_Category>();
             restuorant.Name = restuorantInfo.RestuorantName;
@@ -136,7 +132,7 @@ namespace Final_Project.Areas.Bussines.Controllers
             User.RestuorantId = CreatedRestuorant.Id;
             await _userManager.AddToRoleAsync(User, "Restaurant");
             await _userManager.UpdateAsync(User);
-            return RedirectToAction("login","bussines");
+            return RedirectToAction("login", "bussines");
         }
 
         public async Task<IActionResult> RestuorantMain()
@@ -145,6 +141,5 @@ namespace Final_Project.Areas.Bussines.Controllers
             Restuorant restuorant = _context.Restuorants.FirstOrDefault(c => c.AppUserId == user.Id);
             return View(restuorant);
         }
-
     }
 }

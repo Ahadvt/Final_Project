@@ -24,6 +24,11 @@
                     <span class="mt-2 text text-danger" asp-validation-for="@Model.Name"></span>
                 </div>
                 <div style="width:40%;">
+                    <label style="margin-bottom:10px; font-size:20px;" asp-for="@Model.Description">Description</label>
+                    <input class="form-control" asp-for="@Model.Description" type="text">
+                    <span class="mt-2 text text-danger" asp-validation-for="@Model.Description"></span>
+                </div>
+                <div style="width:40%;">
                     <label style="margin-bottom:10px; font-size:20px;" asp-for="@Model.Price">Price</label>
                     <input class="form-control" asp-for="@Model.Price" type="text">
                     <span class="mt-2 text text-danger" asp-validation-for="@Model.Price"></span>

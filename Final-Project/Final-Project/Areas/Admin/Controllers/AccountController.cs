@@ -180,7 +180,6 @@ namespace Final_Project.Areas.Admin.Controllers
                 return View(eadmin);
             }
 
-
             Admins.UserName = adminvm.UserName;
             Admins.FullName = adminvm.FullName;
             Admins.Email = adminvm.Email;

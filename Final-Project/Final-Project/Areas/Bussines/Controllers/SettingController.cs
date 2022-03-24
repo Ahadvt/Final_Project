@@ -30,37 +30,35 @@ namespace Final_Project.Areas.Bussines.Controllers
             _roleManager = roleManager;
             _env = env;
         }
-      
+
 
         public async Task<IActionResult> Edit()
         {
             ViewBag.Categories = _context.Categories.ToList();
+            ViewBag.Campaigns = _context.Campaigns.ToList();
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
-          
-            Restuorant restuorant = _context.Restuorants.FirstOrDefault(c => c.AppUserId == user.Id);
+            Restuorant restuorant = _context.Restuorants.Include(r => r.Restuorant_Categories).FirstOrDefault(c => c.AppUserId == user.Id);
             RestuorantEditVm restuorantEdit = new RestuorantEditVm
             {
-                AppUser=user,
-                restuorant=restuorant
+                AppUser = user,
+                restuorant = restuorant
             };
-         
             return View(restuorantEdit);
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(RestuorantEditVm editVm)
         {
             ViewBag.Categories = _context.Categories.ToList();
+            ViewBag.Campaigns = _context.Campaigns.ToList();
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
-            Restuorant restuorant = _context.Restuorants.FirstOrDefault(c => c.AppUserId == user.Id);
+            Restuorant restuorant = _context.Restuorants.Include(r => r.Restuorant_Categories).FirstOrDefault(c => c.AppUserId == user.Id);
             RestuorantEditVm restuorantEdit = new RestuorantEditVm
             {
                 AppUser = user,
                 restuorant = restuorant
             };
             if (!ModelState.IsValid) return View(restuorantEdit);
-         
             user.UserName = editVm.AppUser.UserName;
             user.FullName = editVm.AppUser.FullName;
             user.Email = editVm.AppUser.Email;
@@ -68,13 +66,40 @@ namespace Final_Project.Areas.Bussines.Controllers
             user.Email = editVm.AppUser.Email;
             await _userManager.UpdateAsync(user);
             await _signInManager.SignInAsync(user, true);
-
+            //if (editVm.restuorant.Title==null)
+            //{
+            //    ModelState.AddModelError("Title", "The field Is Required");
+            //    return View(restuorantEdit);
+            //}
             restuorant.Name = editVm.restuorant.Name;
             restuorant.Title = editVm.restuorant.Title;
-            restuorant.IsCampaign = editVm.restuorant.IsCampaign;
-            restuorant.Campaign = editVm.restuorant.Campaign;
+            restuorant.IsDeliveryFree = editVm.restuorant.IsDeliveryFree;
+            restuorant.CampaignId = editVm.restuorant.CampaignId;
+
+            restuorant.Description = editVm.restuorant.Description;
+            restuorant.PhoneNumber = editVm.restuorant.PhoneNumber;
             restuorant.Adress = editVm.restuorant.Adress;
-            if (editVm.ImageFile!=null)
+            restuorant.WorkTime = editVm.restuorant.WorkTime;
+            if (editVm.CategoryIds != null)
+            {
+                List<Restuorant_Category> RemoveAbleCategories = restuorant.Restuorant_Categories.Where(rc => !editVm.CategoryIds.Contains(rc.CategoryId)).ToList();
+                restuorant.Restuorant_Categories.RemoveAll(rc => RemoveAbleCategories.Any(rmc => rmc.Id == rc.Id));
+                foreach (var categoryId in editVm.CategoryIds)
+                {
+                    Restuorant_Category restuorant_Category = restuorant.Restuorant_Categories.FirstOrDefault(rc => rc.CategoryId == categoryId);
+                    if (restuorant_Category == null)
+                    {
+                        Restuorant_Category NewRestuorantCategory = new Restuorant_Category
+                        {
+                            RestuorantId = restuorant.Id,
+                            CategoryId = categoryId
+                        };
+                        restuorant.Restuorant_Categories.Add(NewRestuorantCategory);
+                    }
+                }
+            }
+
+            if (editVm.ImageFile != null)
             {
                 if (!editVm.ImageFile.IsImage())
                 {
@@ -91,6 +116,7 @@ namespace Final_Project.Areas.Bussines.Controllers
                 restuorant.Image = editVm.ImageFile.SaveImage(_env.WebRootPath, "assets/image");
             }
             _context.SaveChanges();
+            TempData["message"] = "Data saved";
             return RedirectToAction(nameof(Edit));
         }
     }

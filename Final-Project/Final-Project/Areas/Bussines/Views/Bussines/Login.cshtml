@@ -40,8 +40,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p  ><a class="register" asp-controller="bussines" asp-action="register">Restaurant</a></p>
-                    <p ><a  class="register"asp-controller="bussines" asp-action="courierregister">Courier</a></p>
+                    <p><a class="register" asp-controller="bussines" asp-action="register">Restaurant</a></p>
+                    <p><a class="register" asp-controller="bussines" asp-action="storeregister">Store</a></p>
+                    <p><a class="register" asp-controller="bussines" asp-action="courierregister">Courier</a></p>
                 </div>
               
             </div>
@@ -70,7 +71,6 @@
                                         <label class="form-label" asp-for="Password">Password</label>
                                         <span class="text text-danger" asp-validation-for="Password"></span>
                                     </div>
-
 
                                     <div class="d-flex justify-content-center">
                                         <button style="background-color: #3AA6D4; color:white !important;" type="submit" class="btn btn-block btn-lg gradient-custom-4 text-body">Login</button>

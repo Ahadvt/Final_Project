@@ -70,7 +70,7 @@ namespace Final_Project.Areas.Bussines.Controllers
                 Price=product.Price,
                 RestuorantId=restuorant.Id,
                 ProductCategoryId=product.ProductCategoryId,
-                
+                Description=product.Description
             };
                NewProduct.Image = product.ImageFile.SaveImage(_env.WebRootPath, "assets/image");
             _context.Products.Add(NewProduct);
@@ -97,6 +97,7 @@ namespace Final_Project.Areas.Bussines.Controllers
             ExsistProduct.Name = product.Name;
             ExsistProduct.Price = product.Price;
             ExsistProduct.ProductCategoryId = product.ProductCategoryId;
+            ExsistProduct.Description = product.Description;
             if (product.ImageFile!=null)
             {
                 if (!product.ImageFile.IsImage())

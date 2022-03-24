@@ -10,7 +10,6 @@ namespace Final_Project.Areas.Bussines.ViewModels
 {
     public class RestuorantRegisterVM
     {
-        public int Id { get; set; }
         [Required]
         [StringLength(50)]
         public string FullName { get; set; }
@@ -38,10 +37,21 @@ namespace Final_Project.Areas.Bussines.ViewModels
         public string RestuorantImage { get; set; }
         [Required]
         public string Adress { get; set; }
+        [StringLength(100)]
+        [Required]
+        public string Description { get; set; }
+        [Required]
+        [StringLength(13)]
+        public string PhoneNumberRestuorant { get; set; }
+        [Required]
+        [StringLength(15)]
+        public string WorkTime { get; set; }
+        public int? CampaignId { get; set; }
         [NotMapped]
         public IFormFile ImageFile { get; set; }
         [NotMapped]
         public List<int> CategoryIds { get; set; }
+
 
 
 

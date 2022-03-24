@@ -26,6 +26,10 @@
     <Compile Remove="Migrations\20220320170526_createdBasket.Designer.cs" />
     <Compile Remove="Migrations\20220320170803_Created_Order.cs" />
     <Compile Remove="Migrations\20220320170803_Created_Order.Designer.cs" />
+    <Compile Remove="Migrations\20220323150628_CretedStore.cs" />
+    <Compile Remove="Migrations\20220323150628_CretedStore.Designer.cs" />
+    <Compile Remove="Migrations\20220323163050_CreatedStoreAndEditdeRestuorantAndCampaign.cs" />
+    <Compile Remove="Migrations\20220323163050_CreatedStoreAndEditdeRestuorantAndCampaign.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
