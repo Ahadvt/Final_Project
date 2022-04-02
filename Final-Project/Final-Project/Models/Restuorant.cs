@@ -39,6 +39,8 @@ namespace Final_Project.Models
         public int? CampaignId { get; set; }
         public Campaign Campaign { get; set; }
         public List<BasketItem> BasketItems { get; set; }
+        public List<OrderItems> OrderItems { get; set; }
+        public List<Order> Orders { get; set; }
 
 
 

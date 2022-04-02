@@ -73,7 +73,7 @@
                             }
                         </ul>
                     </div>
-                    <a href="" class="submit_button" type="submit">
+                    <a asp-controller="restuorantorder" asp-action="checkout" asp-route-id="@Model.Restuorant.Id" class="submit_button" >
                         <div class="basket" >
                             <div class="info-basket ">
                                 <div class="count total-count">@Model.BasketVM.Count</div>

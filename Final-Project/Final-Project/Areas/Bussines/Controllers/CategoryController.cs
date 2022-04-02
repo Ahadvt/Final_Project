@@ -31,6 +31,12 @@ namespace Final_Project.Areas.Bussines.Controllers
         public async Task<IActionResult> Index()
         {
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+            if (user.Role=="Store")
+            {
+                Store store = _context.Stores.FirstOrDefault(r => r.AppUserId == user.Id);
+                List<ProductCategory> productCategoriess = _context.ProductCategories.Where(pc => pc.StoreId == store.Id).ToList();
+                return View(productCategoriess);
+            }
             Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.AppUserId == user.Id);
             List<ProductCategory> productCategories = _context.ProductCategories.Where(pc=>pc.RestuorantId==restuorant.Id).ToList();
             return View(productCategories);
@@ -44,7 +50,23 @@ namespace Final_Project.Areas.Bussines.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProductCategory category)
         {
+            if (!ModelState.IsValid) return View();
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            if (user.Role=="Store")
+            {
+                Store store = _context.Stores.FirstOrDefault(r => r.AppUserId == user.Id);
+                ProductCategory StoreCategory = new ProductCategory
+                {
+                    Name = category.Name,
+                    StoreId = store.Id
+
+                };
+                _context.ProductCategories.Add(StoreCategory);
+                
+            }
+            else
+            {
             Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.AppUserId == user.Id);
             ProductCategory NewCategory = new ProductCategory
             {
@@ -53,8 +75,11 @@ namespace Final_Project.Areas.Bussines.Controllers
                 
             };
             _context.ProductCategories.Add(NewCategory);
+
+            }
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
+                
 
         }
 

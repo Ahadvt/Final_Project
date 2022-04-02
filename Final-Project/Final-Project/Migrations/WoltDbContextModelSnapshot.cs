@@ -31,6 +31,9 @@ namespace Final_Project.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ConnectionId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
@@ -80,6 +83,12 @@ namespace Final_Project.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("StoreId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StoreId1")
+                        .HasColumnType("int");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -98,6 +107,8 @@ namespace Final_Project.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.HasIndex("RestuorantId1");
+
+                    b.HasIndex("StoreId1");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -172,6 +183,121 @@ namespace Final_Project.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("Final_Project.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Adress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CardMonth")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CardNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CardYear")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Cvv")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsAccept")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsCard")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsCourierFind")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDelivery")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsOrderComlete")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("OrderComleete")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Owner")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RestuorantId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StoreId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("RestuorantId");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Final_Project.Models.OrderItems", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("ISsaleComlete")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RestuorantId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StoreId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("RestuorantId");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("OrderItems");
+                });
+
             modelBuilder.Entity("Final_Project.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -198,7 +324,7 @@ namespace Final_Project.Migrations
                     b.Property<int>("ProductCategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RestuorantId")
+                    b.Property<int?>("RestuorantId")
                         .HasColumnType("int");
 
                     b.Property<int?>("StoreId")
@@ -575,6 +701,10 @@ namespace Final_Project.Migrations
                     b.HasOne("Final_Project.Models.Restuorant", "Restuorant")
                         .WithMany()
                         .HasForeignKey("RestuorantId1");
+
+                    b.HasOne("Final_Project.Models.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId1");
                 });
 
             modelBuilder.Entity("Final_Project.Models.BasketItem", b =>
@@ -584,7 +714,7 @@ namespace Final_Project.Migrations
                         .HasForeignKey("AppUserId");
 
                     b.HasOne("Final_Project.Models.Product", "Product")
-                        .WithMany("V")
+                        .WithMany("BasketItems")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -598,6 +728,48 @@ namespace Final_Project.Migrations
                         .HasForeignKey("StoreId");
                 });
 
+            modelBuilder.Entity("Final_Project.Models.Order", b =>
+                {
+                    b.HasOne("Final_Project.Models.AppUser", "AppUser")
+                        .WithMany("Orders")
+                        .HasForeignKey("AppUserId");
+
+                    b.HasOne("Final_Project.Models.Restuorant", "Restuorant")
+                        .WithMany("Orders")
+                        .HasForeignKey("RestuorantId");
+
+                    b.HasOne("Final_Project.Models.Store", "Store")
+                        .WithMany("Orders")
+                        .HasForeignKey("StoreId");
+                });
+
+            modelBuilder.Entity("Final_Project.Models.OrderItems", b =>
+                {
+                    b.HasOne("Final_Project.Models.AppUser", "AppUser")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("AppUserId");
+
+                    b.HasOne("Final_Project.Models.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Final_Project.Models.Product", "Product")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Final_Project.Models.Restuorant", "Restuorant")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("RestuorantId");
+
+                    b.HasOne("Final_Project.Models.Store", "Store")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("StoreId");
+                });
+
             modelBuilder.Entity("Final_Project.Models.Product", b =>
                 {
                     b.HasOne("Final_Project.Models.ProductCategory", "productCategory")
@@ -608,11 +780,9 @@ namespace Final_Project.Migrations
 
                     b.HasOne("Final_Project.Models.Restuorant", "restuorant")
                         .WithMany("Products")
-                        .HasForeignKey("RestuorantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RestuorantId");
 
-                    b.HasOne("Final_Project.Models.Store", null)
+                    b.HasOne("Final_Project.Models.Store", "Store")
                         .WithMany("Products")
                         .HasForeignKey("StoreId");
                 });

@@ -66,16 +66,10 @@ namespace Final_Project.Areas.Bussines.Controllers
             user.Email = editVm.AppUser.Email;
             await _userManager.UpdateAsync(user);
             await _signInManager.SignInAsync(user, true);
-            //if (editVm.restuorant.Title==null)
-            //{
-            //    ModelState.AddModelError("Title", "The field Is Required");
-            //    return View(restuorantEdit);
-            //}
             restuorant.Name = editVm.restuorant.Name;
             restuorant.Title = editVm.restuorant.Title;
             restuorant.IsDeliveryFree = editVm.restuorant.IsDeliveryFree;
             restuorant.CampaignId = editVm.restuorant.CampaignId;
-
             restuorant.Description = editVm.restuorant.Description;
             restuorant.PhoneNumber = editVm.restuorant.PhoneNumber;
             restuorant.Adress = editVm.restuorant.Adress;
@@ -98,7 +92,6 @@ namespace Final_Project.Areas.Bussines.Controllers
                     }
                 }
             }
-
             if (editVm.ImageFile != null)
             {
                 if (!editVm.ImageFile.IsImage())
@@ -119,5 +112,7 @@ namespace Final_Project.Areas.Bussines.Controllers
             TempData["message"] = "Data saved";
             return RedirectToAction(nameof(Edit));
         }
+
+
     }
 }

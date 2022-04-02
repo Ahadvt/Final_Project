@@ -1,4 +1,5 @@
 using Final_Project.Dal;
+using Final_Project.Hubs;
 using Final_Project.Models;
 using Final_Project.Services;
 using Microsoft.AspNetCore.Builder;
@@ -36,7 +37,7 @@ namespace Final_Project
 
             services.AddScoped<LayoutServices>();
             services.AddHttpContextAccessor();
-
+            services.AddSignalR().AddJsonProtocol();
             services.AddSession();
             services.AddIdentity<AppUser, IdentityRole>(option =>
             {
@@ -77,6 +78,7 @@ namespace Final_Project
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+           
             app.UseSession();
 
             app.UseEndpoints(endpoints =>
@@ -91,6 +93,7 @@ namespace Final_Project
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<OrderHub>("/OrderHub");
             });
         }
     }

@@ -14,7 +14,6 @@ namespace Final_Project.Dal
         {
 
         }
-        //public DbSet MyProperty { get; set; }
         public DbSet<Setting> Setting { get; set; }
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -25,6 +24,8 @@ namespace Final_Project.Dal
         public DbSet<BasketItem> BasketItems { get; set; }
         public DbSet<Campaign> Campaigns { get; set; }
         public DbSet<Store> Stores { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItems> OrderItems { get; set; }
 
     }
 }

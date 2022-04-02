@@ -18,10 +18,10 @@ namespace Final_Project.Areas.Bussines.Controllers
         private readonly WoltDbContext _context;
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
-        private readonly RoleManager<IdentityRole>_roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IWebHostEnvironment _env;
 
-        public ProductController(WoltDbContext context,UserManager<AppUser> userManager,SignInManager<AppUser> signInManager,RoleManager<IdentityRole> roleManager,IWebHostEnvironment env)
+        public ProductController(WoltDbContext context, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager, IWebHostEnvironment env)
         {
             _context = context;
             _userManager = userManager;
@@ -32,48 +32,103 @@ namespace Final_Project.Areas.Bussines.Controllers
         public async Task<IActionResult> Index()
         {
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
-            Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.AppUserId == user.Id);
-            List<Product> products = _context.Products.Include(p=>p.productCategory).Where(p=>p.RestuorantId==restuorant.Id).ToList();
-            return View(products);
+            if (user.Role == "Store")
+            {
+                Store store = _context.Stores.FirstOrDefault(r => r.AppUserId == user.Id);
+                List<Product> productss = _context.Products.Include(p => p.productCategory).Where(p => p.StoreId == store.Id).ToList();
+                return View(productss);
+            }
+            else
+            {
+
+                Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.AppUserId == user.Id);
+                List<Product> products = _context.Products.Include(p => p.productCategory).Where(p => p.RestuorantId == restuorant.Id).ToList();
+                return View(products);
+            }
         }
 
         public async Task<IActionResult> Create()
         {
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
-            Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.AppUserId == user.Id);
-            ViewBag.Categories = _context.ProductCategories.Where(pc => pc.RestuorantId == restuorant.Id);
+            if (user.Role == "Store")
+            {
+                Store store = _context.Stores.FirstOrDefault(r => r.AppUserId == user.Id);
+                ViewBag.Categories = _context.ProductCategories.Where(pc => pc.StoreId == store.Id);
+            }
+            else
+            {
+                Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.AppUserId == user.Id);
+                ViewBag.Categories = _context.ProductCategories.Where(pc => pc.RestuorantId == restuorant.Id);
+            }
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> Create(Product product)
         {
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
-            Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.AppUserId == user.Id);
-            ViewBag.Categories = _context.ProductCategories.Where(pc => pc.RestuorantId == restuorant.Id);
-            if (!ModelState.IsValid) return View();
-            if (product.ImageFile == null)
+
+            if (user.Role == "Store")
             {
-                ModelState.AddModelError("ImageFile", "The field image is required");
-                return View();
+                Store store = _context.Stores.FirstOrDefault(r => r.AppUserId == user.Id);
+                ViewBag.Categories = _context.ProductCategories.Where(pc => pc.StoreId == store.Id);
+                if (!ModelState.IsValid) return View();
+                if (product.ImageFile == null)
+                {
+                    ModelState.AddModelError("ImageFile", "The field image is required");
+                    return View();
+                }
+                if (!product.ImageFile.IsImage())
+                {
+                    ModelState.AddModelError("ImageFile", "The field image type must be image file");
+                }
+                if (!product.ImageFile.IsSizeOk(2))
+                {
+                    ModelState.AddModelError("ImageFile", "The field image max  sixe must be  2mb");
+                }
+
+                Product NewProductt = new Product { 
+                Name = product.Name,
+                Price = product.Price,
+                StoreId = store.Id,
+                ProductCategoryId = product.ProductCategoryId,
+                Description = product.Description
+                };
+
+
+
+                NewProductt.Image = product.ImageFile.SaveImage(_env.WebRootPath, "assets/image");
+                _context.Products.Add(NewProductt);
             }
-            if (!product.ImageFile.IsImage())
+            else
             {
-                ModelState.AddModelError("ImageFile", "The field image type must be image file");
+
+                Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.AppUserId == user.Id);
+                ViewBag.Categories = _context.ProductCategories.Where(pc => pc.RestuorantId == restuorant.Id);
+                if (!ModelState.IsValid) return View();
+                if (product.ImageFile == null)
+                {
+                    ModelState.AddModelError("ImageFile", "The field image is required");
+                    return View();
+                }
+                if (!product.ImageFile.IsImage())
+                {
+                    ModelState.AddModelError("ImageFile", "The field image type must be image file");
+                }
+                if (!product.ImageFile.IsSizeOk(2))
+                {
+                    ModelState.AddModelError("ImageFile", "The field image max  sixe must be  2mb");
+                }
+                Product NewProduct = new Product
+                {
+                    Name = product.Name,
+                    Price = product.Price,
+                    RestuorantId = restuorant.Id,
+                    ProductCategoryId = product.ProductCategoryId,
+                    Description = product.Description
+                };
+                NewProduct.Image = product.ImageFile.SaveImage(_env.WebRootPath, "assets/image");
+                _context.Products.Add(NewProduct);
             }
-            if (!product.ImageFile.IsSizeOk(2))
-            {
-                ModelState.AddModelError("ImageFile", "The field image max  sixe must be  2mb");
-            }
-            Product NewProduct = new Product
-            {
-                Name=product.Name,
-                Price=product.Price,
-                RestuorantId=restuorant.Id,
-                ProductCategoryId=product.ProductCategoryId,
-                Description=product.Description
-            };
-               NewProduct.Image = product.ImageFile.SaveImage(_env.WebRootPath, "assets/image");
-            _context.Products.Add(NewProduct);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
@@ -81,8 +136,16 @@ namespace Final_Project.Areas.Bussines.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
-            Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.AppUserId == user.Id);
-            ViewBag.Categories = _context.ProductCategories.Where(pc => pc.RestuorantId == restuorant.Id);
+            if (user.Role == "Store")
+            {
+                Store store = _context.Stores.FirstOrDefault(r => r.AppUserId == user.Id);
+                ViewBag.Categories = _context.ProductCategories.Where(pc => pc.StoreId == store.Id);
+            }
+            else
+            {
+                Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.AppUserId == user.Id);
+                ViewBag.Categories = _context.ProductCategories.Where(pc => pc.RestuorantId == restuorant.Id);
+            }
             Product product = _context.Products.FirstOrDefault(p => p.Id == id);
             return View(product);
         }
@@ -90,15 +153,23 @@ namespace Final_Project.Areas.Bussines.Controllers
         public async Task<IActionResult> Edit(Product product)
         {
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
-            Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.AppUserId == user.Id);
-            ViewBag.Categories = _context.ProductCategories.Where(pc => pc.RestuorantId == restuorant.Id);
-            Product ExsistProduct = _context.Products.FirstOrDefault(p => p.Id ==product.Id);
+            if (user.Role == "Store")
+            {
+                Store store = _context.Stores.FirstOrDefault(r => r.AppUserId == user.Id);
+                ViewBag.Categories = _context.ProductCategories.Where(pc => pc.StoreId == store.Id);
+            }
+            else
+            {
+                Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.AppUserId == user.Id);
+                ViewBag.Categories = _context.ProductCategories.Where(pc => pc.RestuorantId == restuorant.Id);
+            }
+            Product ExsistProduct = _context.Products.FirstOrDefault(p => p.Id == product.Id);
             if (!ModelState.IsValid) return View(ExsistProduct);
             ExsistProduct.Name = product.Name;
             ExsistProduct.Price = product.Price;
             ExsistProduct.ProductCategoryId = product.ProductCategoryId;
             ExsistProduct.Description = product.Description;
-            if (product.ImageFile!=null)
+            if (product.ImageFile != null)
             {
                 if (!product.ImageFile.IsImage())
                 {

@@ -22,12 +22,16 @@ namespace Final_Project.Models
         public string Description { get; set; }
         [Required]
         public int ProductCategoryId { get; set; }
-        public int RestuorantId { get; set; }
+        public int? RestuorantId { get; set; }
+        public int? StoreId { get; set; }
         public Restuorant restuorant { get; set; }
+        public Store Store { get; set; }
         public ProductCategory productCategory { get; set; }
         [NotMapped]
         public IFormFile ImageFile { get; set; }
-        public List<BasketItem> V { get; set; }
+        public List<BasketItem> BasketItems { get; set; }
+        public List<OrderItems> OrderItems { get; set; }
+      
 
     }
 }
