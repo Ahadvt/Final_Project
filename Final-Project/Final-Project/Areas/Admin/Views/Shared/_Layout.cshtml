@@ -169,37 +169,29 @@
         <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_sidebar.html -->
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">
+                <ul style="background-color:white;"  class="nav">
+                    <li  style="background-color:white !important;"  class="nav-item">
+                        <a style="background-color:white !important;" class="nav-link" href="index.html">
                             <i class="mdi mdi-home menu-icon"></i>
                             <span class="menu-title">Admin</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item adminnn">
                         <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                             <i class="mdi mdi-circle-outline menu-icon"></i>
                             <span class="menu-title">Admin Menu</span>
                             <i class="menu-arrow"></i>
                         </a>
                         <div class="collapse" id="ui-basic">
-                            <ul class="nav flex-column sub-menu">
+                            <ul style="background-color:white;" class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" asp-controller="setting" asp-action="index">Setting</a></li>
                                 <li class="nav-item"> <a class="nav-link" asp-controller="slider" asp-action="index">Slider</a></li>
                                 <li class="nav-item"> <a class="nav-link" asp-controller="account" asp-action="index">AccountAdmin</a></li>
-                                <li class="nav-item"> <a class="nav-link" asp-controller="blog" asp-action="index">Blog</a></li>
-                                <li class="nav-item"> <a class="nav-link" asp-controller="category" asp-action="index">Category</a></li>
-                                <li class="nav-item"> <a class="nav-link" asp-controller="course" asp-action="index">Course</a></li>
-                                <li class="nav-item"> <a class="nav-link" asp-controller="event" asp-action="index">Event</a></li>
-                                <li class="nav-item"> <a class="nav-link " asp-controller="faculty" asp-action="index">Faculty</a></li>
-                                <li class="nav-item"> <a class="nav-link" asp-controller="hobbie" asp-action="index">Hobbie</a></li>
-                                <li class="nav-item"> <a class="nav-link" asp-controller="notice" asp-action="index">Notice</a></li>
-                                <li class="nav-item"> <a class="nav-link" asp-controller="position" asp-action="index">Position</a></li>
-                                <li class="nav-item"> <a class="nav-link" asp-controller="speaker" asp-action="index">Spekare</a></li>
-                                <li class="nav-item"> <a class="nav-link" asp-controller="student" asp-action="index">Student</a></li>
-                                <li class="nav-item"> <a class="nav-link" asp-controller="tag" asp-action="index">Tag</a></li>
-                                <li class="nav-item"> <a class="nav-link" asp-controller="teacher" asp-action="index">Teacher</a></li>
-                                <li class="nav-item"> <a class="nav-link" asp-controller="contact" asp-action="index">Contact</a></li>
+                                <li class="nav-item"> <a class="nav-link" asp-controller="chat" asp-action="index">Messenger</a></li>
+                                <li class="nav-item"> <a class="nav-link" asp-controller="companies" asp-action="restaurant">Restaurants</a></li>
+                                <li class="nav-item"> <a class="nav-link" asp-controller="companies" asp-action="store">Stores</a></li>
+                                <li class="nav-item"> <a class="nav-link" asp-controller="companies" asp-action="courier">Couriers</a></li>
+
                             </ul>
                         </div>
                     </li>
@@ -246,8 +238,12 @@
     @RenderSection("Script", false)
 
     <script src="~/admin/assets/js/jquery.cookie.js" type="text/javascript"></script>
-
-
+    <script>
+        var admin = document.querySelector(".adminnn")
+        console.log(admin)
+        admin.classList.remove("active")
+    </script>
+  
 </body>
 
 </html>

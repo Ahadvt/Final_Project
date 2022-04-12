@@ -19,8 +19,15 @@ using Final_Project.Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 2 "C:\Users\HP\Desktop\final\Final-Project\Final-Project\Areas\Admin\Views\_ViewImports.cshtml"
+using Final_Project.ViewModels;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"9d1d96cacda30fe2a6e77bafa56d254c3dd29663", @"/Areas/Admin/Views/Account/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"92bbe08827fc5a7c17f8dc0e2ca7aebe484aa6e7", @"/Areas/Admin/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"e1e0c8e717f8e079dbc23c4b9ad3c7f9f21b12f1", @"/Areas/Admin/Views/_ViewImports.cshtml")]
     public class Areas_Admin_Views_Account_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<List<AppUser>>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-controller", "account", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -104,7 +111,7 @@ using Final_Project.Models;
 #line hidden
 #nullable disable
             WriteLiteral("</td>\r\n                    \r\n                    <td>");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9d1d96cacda30fe2a6e77bafa56d254c3dd296636742", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9d1d96cacda30fe2a6e77bafa56d254c3dd296636947", async() => {
                 WriteLiteral("<i class=\"fas fa-edit text text-primary\"></i>");
             }
             );
@@ -166,7 +173,7 @@ using Final_Project.Models;
 #line hidden
 #nullable disable
             WriteLiteral("                    <li class=\"page-item \">\r\n                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9d1d96cacda30fe2a6e77bafa56d254c3dd2966310399", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9d1d96cacda30fe2a6e77bafa56d254c3dd2966310604", async() => {
                 WriteLiteral("Previous");
             }
             );
@@ -236,7 +243,7 @@ WriteAttributeValue("", 1601, ViewBag.CurrentPage==i ? "pointer-events:none" :""
 #nullable disable
             EndWriteAttribute();
             WriteLiteral(">");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9d1d96cacda30fe2a6e77bafa56d254c3dd2966314313", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9d1d96cacda30fe2a6e77bafa56d254c3dd2966314518", async() => {
 #nullable restore
 #line 61 "C:\Users\HP\Desktop\final\Final-Project\Final-Project\Areas\Admin\Views\Account\Index.cshtml"
                                                                                                                                                                                                                                       Write(i);
@@ -293,7 +300,7 @@ WriteAttributeValue("", 1601, ViewBag.CurrentPage==i ? "pointer-events:none" :""
 #line hidden
 #nullable disable
             WriteLiteral("                    <li class=\"page-item disabled\">\r\n                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9d1d96cacda30fe2a6e77bafa56d254c3dd2966317923", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9d1d96cacda30fe2a6e77bafa56d254c3dd2966318128", async() => {
                 WriteLiteral("Next");
             }
             );
@@ -338,7 +345,7 @@ WriteAttributeValue("", 1601, ViewBag.CurrentPage==i ? "pointer-events:none" :""
 #line hidden
 #nullable disable
             WriteLiteral("                    <li class=\"page-item\">\r\n                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9d1d96cacda30fe2a6e77bafa56d254c3dd2966320925", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9d1d96cacda30fe2a6e77bafa56d254c3dd2966321130", async() => {
                 WriteLiteral("Next");
             }
             );
@@ -380,7 +387,7 @@ WriteAttributeValue("", 1601, ViewBag.CurrentPage==i ? "pointer-events:none" :""
 #line hidden
 #nullable disable
             WriteLiteral("            </ul>\r\n        </nav>\r\n    </div>\r\n    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9d1d96cacda30fe2a6e77bafa56d254c3dd2966323762", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9d1d96cacda30fe2a6e77bafa56d254c3dd2966323967", async() => {
                 WriteLiteral(" <div style=\"width:100%; \" class=\"btn btn-outline-success\">Create Admin </div>");
             }
             );

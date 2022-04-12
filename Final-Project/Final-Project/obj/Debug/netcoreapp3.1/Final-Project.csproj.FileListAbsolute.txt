@@ -202,3 +202,16 @@ C:\Users\HP\Desktop\final\Final-Project\Final-Project\bin\Debug\netcoreapp3.1\Co
 C:\Users\HP\Desktop\final\Final-Project\Final-Project\bin\Debug\netcoreapp3.1\Microsoft.Azure.DocumentDB.Core.dll
 C:\Users\HP\Desktop\final\Final-Project\Final-Project\bin\Debug\netcoreapp3.1\runtimes\win7-x64\native\Cosmos.CRTCompat.dll
 C:\Users\HP\Desktop\final\Final-Project\Final-Project\bin\Debug\netcoreapp3.1\runtimes\win7-x64\native\Microsoft.Azure.Documents.ServiceInterop.dll
+C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Areas\Bussines\Views\Courier\Register.cshtml.g.cs
+C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Areas\Bussines\Views\Courier\Index.cshtml.g.cs
+C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Areas\Bussines\Views\Courier\Setting.cshtml.g.cs
+C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Views\Shared\ResatuorantPartial.cshtml.g.cs
+C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_HomePartial.cshtml.g.cs
+C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Views\Shared\RestaurantPartialCampaign.cshtml.g.cs
+C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_StorePartial.cshtml.g.cs
+C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Views\Account\ResetPasword.cshtml.g.cs
+C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Areas\Bussines\Views\Chat\RestaurantAcceptChat.cshtml.g.cs
+C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Chat\Index.cshtml.g.cs
+C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Companies\Restaurant.cshtml.g.cs
+C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Companies\Store.cshtml.g.cs
+C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Companies\Courier.cshtml.g.cs

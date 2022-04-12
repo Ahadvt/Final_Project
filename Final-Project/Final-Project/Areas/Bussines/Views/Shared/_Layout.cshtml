@@ -191,6 +191,12 @@
                                     <li class="nav-item"> <a class="nav-link" asp-controller="category" asp-action="index">Menyu-Category</a></li>
                                     <li class="nav-item"> <a class="nav-link" asp-controller="product" asp-action="index">Menyu</a></li>
                                 }
+                                else if (User.IsInRole("Courier"))
+                                {
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="courier" asp-action="index">Main</a></li>
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="courier" asp-action="setting">Setting</a></li>
+            
+                                }
                                 else
                                 {
                                     <li class="nav-item"> <a class="nav-link" asp-controller="BussinesAccount" asp-action="storemain">Main</a></li>

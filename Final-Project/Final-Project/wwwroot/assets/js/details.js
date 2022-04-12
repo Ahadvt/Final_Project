@@ -15,15 +15,20 @@ $('.owl-carousel').owlCarousel({
     responsiveClass:true,
     responsive:{
         0:{
-            items:6,
+            items:3,
             nav:true
         },
-        600:{
-            items:10,
+      
+        700:{
+            items:5,
             nav:false
         },
+        900: {
+            items: 8,
+            nav: false
+        },
         1000:{
-            items:10,
+            items:9,
             nav:true,
             loop:false
         }

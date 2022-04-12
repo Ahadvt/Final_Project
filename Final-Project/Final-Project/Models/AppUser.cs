@@ -21,6 +21,7 @@ namespace Final_Project.Models
         public List<BasketItem> BasketItems { get; set; }
         public List<OrderItems> OrderItems { get; set; }
         public List<Order> Orders { get; set; }
+        public List<Message> Messages { get; set; }
 
     }
 }

@@ -24,9 +24,17 @@ namespace Final_Project.Controllers
         }
         public async Task<IActionResult> Checkout(int id)
         {
+            if (User.Identity.Name==null)
+            {
+                return NotFound();
+            }
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
-            Store store = _context.Stores.FirstOrDefault(s => s.Id == id);
+            //Store store = _context.Stores.FirstOrDefault(s => s.Id == id);
             Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.Id == id);
+            if (restuorant==null)
+            {
+                return NotFound();
+            }
             OrderVM order = new OrderVM
             {
                 BasketItems = _context.BasketItems.Include(b=>b.Product).Where(b => b.AppUserId == user.Id && b.RestuorantId == id).ToList(),

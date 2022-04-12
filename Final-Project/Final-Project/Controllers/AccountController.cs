@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace Final_Project.Controllers
@@ -137,6 +139,66 @@ namespace Final_Project.Controllers
             await _signInManager.SignInAsync(ExsistUser, true);
             TempData["message"] = "Data saved";
             return RedirectToAction(nameof(EditUser));
+        }
+
+
+        [HttpPost]
+        
+        public async Task<IActionResult> ForgetPasword(string email)
+        {
+            AppUser user = await _userManager.FindByEmailAsync(email);
+            if (user == null) return Json(new { status=404});
+            string token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            string Link = Url.Action(nameof(ResetPasword), "Account", new { email = user.Email, token }, Request.Scheme, Request.Host.ToString());
+            MailMessage mail = new MailMessage();
+            mail.From = new MailAddress("homeedu91@gmail.com", "eduhome");
+            mail.To.Add(user.Email);
+            mail.Subject = "Reset Password";
+            mail.Body = $"<a href='{Link}'>Plaese click gere for reset password<a/>";
+            mail.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.gmail.com";
+            smtp.Port = 587;
+            smtp.EnableSsl = true;
+            smtp.Credentials = new NetworkCredential("homeedu91@gmail.com", "072719991");
+            smtp.Send(mail);
+            return Json(new {status=200 });
+        }
+
+        public async Task<IActionResult> ResetPasword(string email, string token)
+        {
+            AppUser appuser = await _userManager.FindByEmailAsync(email);
+            if (appuser == null) return BadRequest();
+            AccountVM account = new AccountVM
+            {
+                Appuser = appuser,
+                Token = token
+            };
+            return View(account);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPasword(AccountVM account)
+        {
+            //return Json(account.Token);
+            AppUser user = await _userManager.FindByEmailAsync(account.Appuser.Email);
+            AccountVM model = new AccountVM
+            {
+                Appuser = account.Appuser,
+                Token = account.Token
+            };
+            if (!ModelState.IsValid) return View(model);
+            IdentityResult Result = await _userManager.ResetPasswordAsync(user, account.Token, account.Password);
+            if (!Result.Succeeded)
+            {
+                foreach (var item in Result.Errors)
+                {
+                    ModelState.AddModelError("", item.Description);
+                }
+                return View(model);
+            }
+            return RedirectToAction("index", "home");
         }
     }
 }

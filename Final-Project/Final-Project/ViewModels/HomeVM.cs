@@ -9,5 +9,9 @@ namespace Final_Project.ViewModels
     public class HomeVM
     {
         public List<Slider> Sliders { get; set; }
+        public List<Restuorant> RestuorantsDeliveryFree { get; set; }
+        public List<Restuorant> RestuorantsCampaign { get; set; }
+        public List<Restuorant> RestaurantSweet { get; set; }
+        public List<Store> Stores { get; set; }
     }
 }

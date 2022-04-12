@@ -16,6 +16,8 @@ namespace Final_Project.Models
         public bool IsAccept { get; set; }
         public bool IsOrderComlete { get; set; }
         public bool IsCourierFind { get; set; }
+        public string CourierID { get; set; }
+        public bool IsCourierTaked { get; set; }
         public bool IsCard { get; set; }
         public string Owner { get; set; }
         public int Cvv { get; set; }
@@ -25,6 +27,7 @@ namespace Final_Project.Models
         public bool OrderComleete { get; set; }
         public DateTime Date { get; set; }
         public AppUser AppUser { get; set; }
+        
         public Store Store { get; set; }
         public Restuorant Restuorant { get; set; }
         public double TotalPrice { get; set; }

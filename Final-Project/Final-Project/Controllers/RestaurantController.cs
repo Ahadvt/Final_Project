@@ -31,9 +31,19 @@ namespace Final_Project.Controllers
             List<Restuorant> Restuorants = _context.Restuorants.ToList();  
             return View(Restuorants);
         }
+        public async Task<IActionResult> Sort(bool isdelivery, bool isdicount)
+        {
+            List<Restuorant> restuorants = _context.Restuorants.Where(r=>r.IsDeliveryFree==isdelivery&&r.IsCampaign==isdicount).ToList();
+            return Json(restuorants);
+        }
 
         public async Task<IActionResult> Details(int id)
         {
+            Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.Id == id);
+            if (restuorant==null)
+            {
+                return NotFound();
+            }
             BasketVM basketVM = new BasketVM
             {
                 TotalPrice = 0,

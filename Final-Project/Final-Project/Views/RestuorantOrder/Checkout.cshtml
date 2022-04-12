@@ -220,7 +220,6 @@
                         <p>AZN:@TotalPrice</p>
                     </div>
                     <button class="order-button" type="Submit">
-
                         Order
                     </button>
                 </div>
@@ -231,7 +230,7 @@
 </div>
 @section Script{
     <script src="~/assets/js/checkout.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+ 
 
     <script>
         var modal2 = document.getElementById('id11');
@@ -251,13 +250,10 @@
 
 }
 @section ScriptSlider{
-    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
-
-
-
+    @*<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>*@
     <script>
-        var connection = new signalR.HubConnectionBuilder().withUrl("/OrderHub").build()
-        connection.start()
+        //var connection = new signalR.HubConnectionBuilder().withUrl("/OrderHub").build()
+        //connection.start()
         $(".order-button").click(function (e) {
             e.preventDefault()
             var button = document.querySelector(".order-button")
@@ -272,9 +268,9 @@
             let IsCard = $("#cba").is(":checked") ? "true" : "false";
             var Id = document.querySelector(".id")
             var RestuorantId = Id.getAttribute("data-id")
-            connection.invoke("OrderProduct", RestuorantId, Isdelivery, Adress, IsCard)
+            Connection.invoke("OrderProduct", RestuorantId, Isdelivery, Adress, IsCard)
         })
-        connection.on("orderaccept", function () {
+        Connection.on("orderaccept", function () {
             Swal.fire({
                 position: 'bottom-center',
                 icon: 'success',
@@ -289,6 +285,18 @@
 
             var button = document.querySelector(".order-button")
             button.style.display="none"
+        })
+        Connection.on("rejected", function myfunction(data) {
+            Swal.fire({
+                icon: 'error',
+                text: 'Order Rejected',
+              
+            })
+            setTimeout(myfunction, 1500)
+            function myfunction() {
+                location.href = `https://localhost:44378/restaurant/details/${data}`
+            }
+           
         })
     </script>
 }

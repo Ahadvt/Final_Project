@@ -33,7 +33,7 @@ namespace Final_Project.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Create(Slider slider)
         {
-          
+         
             if (!ModelState.IsValid) return View();
             if (slider.ImageFile == null)
             {

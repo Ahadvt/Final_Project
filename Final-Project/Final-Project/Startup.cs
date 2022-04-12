@@ -94,6 +94,7 @@ namespace Final_Project
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapHub<OrderHub>("/OrderHub");
+                
             });
         }
     }

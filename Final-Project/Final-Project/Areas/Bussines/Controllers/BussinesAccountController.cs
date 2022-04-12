@@ -65,6 +65,11 @@ namespace Final_Project.Areas.Bussines.Controllers
             {
                 return RedirectToAction(nameof(StoreSettingEdit));
             }
+            if (user.Role == "Courier")
+            {
+                return RedirectToAction("index","courier");
+            }
+
             return RedirectToAction(nameof(RestuorantMain));
         }
         public IActionResult CreateRestuorant()
@@ -90,12 +95,12 @@ namespace Final_Project.Areas.Bussines.Controllers
             }
             if (!restuorantInfo.ImageFile.IsImage())
             {
-                ModelState.AddModelError("ImageFilw", "image file must be");
+                ModelState.AddModelError("ImageFile", "image file must be");
                 return View();
             }
             if (!restuorantInfo.ImageFile.IsSizeOk(2))
             {
-                ModelState.AddModelError("ImageFilw", "The field image max size 2mb");
+                ModelState.AddModelError("ImageFile", "The field image max size 2mb");
                 return View();
             }
             AppUser appUser = new AppUser
@@ -228,17 +233,19 @@ namespace Final_Project.Areas.Bussines.Controllers
             }
             _context.SaveChanges();
             TempData["message"] = "Data saved";
-            return RedirectToAction(nameof(restuorantEdit));
+            return RedirectToAction(nameof(RestuorantSettingEdit));
         }
 
-        public IActionResult Order()
+        public async Task<IActionResult> Order()
         {
-            return View();
+            AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+            List<Order> orders = _context.Orders.Include(o=>o.AppUser).Include(o=>o.OrderItems).ThenInclude(o=>o.Product).Where(o=>o.IsCourierTaked==false&&o.RestuorantId==user.RestuorantId&&o.IsOrderComlete==false).ToList();
+            return View(orders);
         }
         [HttpPost]
-        public IActionResult ShowOrders(string userid,int restuorantid)
+        public IActionResult ShowOrders(int orderid)
         {
-            Order order = _context.Orders.Include(o => o.OrderItems).ThenInclude(oi=>oi.Product).FirstOrDefault(o => o.AppUserId == userid && o.RestuorantId == restuorantid);
+            Order order = _context.Orders.Include(o=>o.Restuorant).Include(o=>o.AppUser).Include(o => o.OrderItems).ThenInclude(oi=>oi.Product).FirstOrDefault(o => o.Id==orderid);
             //if (orderItems == null) return NotFound();
             return Json(order);
             
@@ -247,6 +254,7 @@ namespace Final_Project.Areas.Bussines.Controllers
         {
             return View();
         }
+      
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -261,12 +269,12 @@ namespace Final_Project.Areas.Bussines.Controllers
             }
             if (!storeRegister.ImageFile.IsImage())
             {
-                ModelState.AddModelError("ImageFilw", "image file must be");
+                ModelState.AddModelError("ImageFile", "image file must be");
                 return View();
             }
             if (!storeRegister.ImageFile.IsSizeOk(2))
             {
-                ModelState.AddModelError("ImageFilw", "The field image max size 2mb");
+                ModelState.AddModelError("ImageFile", "The field image max size 2mb");
                 return View();
             }
             AppUser appUser = new AppUser

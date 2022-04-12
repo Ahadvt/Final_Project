@@ -31,6 +31,11 @@ namespace Final_Project.Controllers
             List<Store> Stores = _context.Stores.ToList();
             return View(Stores);
         }
+        public async Task<IActionResult> Sort(bool isdelivery, bool isdicount)
+        {
+            List<Store> stores = _context.Stores.Where(r => r.IsDeliveryFree == isdelivery && r.IsCampaign == isdicount).ToList();
+            return Json(stores);
+        }
 
         public async Task<IActionResult> Details(int id)
         {

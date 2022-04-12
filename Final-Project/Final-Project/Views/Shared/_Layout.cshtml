@@ -11,107 +11,106 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/assets/css/main.css">
     <link rel="stylesheet" href="~/assets/css/owl.carousel.min.css">
-     <style>
-         .hh-grayBox {
-             background-color: #F8F8F8;
-             margin-bottom: 20px;
-             padding: 35px;
-             margin-top: 20px;
-         }
+    <style>
+        .hh-grayBox {
+            background-color: #F8F8F8;
+            margin-bottom: 20px;
+            padding: 35px;
+            margin-top: 20px;
+        }
 
-         .pt45 {
-             padding-top: 45px;
-         }
+        .pt45 {
+            padding-top: 45px;
+        }
 
-         .order-tracking {
-             text-align: center;
-             width: 20%;
-             position: relative;
-             display: block;
-         }
+        .order-tracking {
+            text-align: center;
+            width: 16.6%;
+            position: relative;
+            display: block;
+        }
 
-             .order-tracking .is-complete {
-                 display: block;
-                 position: relative;
-                 border-radius: 50%;
-                 height: 30px;
-                 width: 30px;
-                 border: 0px solid #AFAFAF;
-                 background-color: #f7be16;
-                 margin: 0 auto;
-                 transition: background 0.25s linear;
-                 -webkit-transition: background 0.25s linear;
-                 z-index: 2;
-             }
+            .order-tracking .is-complete {
+                display: block;
+                position: relative;
+                border-radius: 50%;
+                height: 30px;
+                width: 30px;
+                border: 0px solid #AFAFAF;
+                background-color: #f7be16;
+                margin: 0 auto;
+                transition: background 0.25s linear;
+                -webkit-transition: background 0.25s linear;
+                z-index: 2;
+            }
 
-                 .order-tracking .is-complete:after {
-                     display: block;
-                     position: absolute;
-                     content: '';
-                     height: 14px;
-                     width: 7px;
-                     top: -2px;
-                     bottom: 0;
-                     left: 5px;
-                     margin: auto 0;
-                     border: 0px solid #AFAFAF;
-                     border-width: 0px 2px 2px 0;
-                     transform: rotate(45deg);
-                     opacity: 0;
-                 }
+                .order-tracking .is-complete:after {
+                    display: block;
+                    position: absolute;
+                    content: '';
+                    height: 14px;
+                    width: 7px;
+                    top: -2px;
+                    bottom: 0;
+                    left: 5px;
+                    margin: auto 0;
+                    border: 0px solid #AFAFAF;
+                    border-width: 0px 2px 2px 0;
+                    transform: rotate(45deg);
+                    opacity: 0;
+                }
 
-             .order-tracking.completed .is-complete {
-                 border-color: #27aa80;
-                 border-width: 0px;
-                 background-color: #27aa80;
-             }
+            .order-tracking.completed .is-complete {
+                border-color: #27aa80;
+                border-width: 0px;
+                background-color: #27aa80;
+            }
 
-                 .order-tracking.completed .is-complete:after {
-                     border-color: #fff;
-                     border-width: 0px 3px 3px 0;
-                     width: 7px;
-                     left: 11px;
-                     opacity: 1;
-                 }
+                .order-tracking.completed .is-complete:after {
+                    border-color: #fff;
+                    border-width: 0px 3px 3px 0;
+                    width: 7px;
+                    left: 11px;
+                    opacity: 1;
+                }
 
-             .order-tracking p {
-                 color: #A4A4A4;
-                 font-size: 16px;
-                 margin-top: 8px;
-                 margin-bottom: 0;
-                 line-height: 20px;
-             }
+            .order-tracking p {
+                color: #A4A4A4;
+                font-size: 16px;
+                margin-top: 8px;
+                margin-bottom: 0;
+                line-height: 20px;
+            }
 
-                 .order-tracking p span {
-                     font-size: 14px;
-                 }
+                .order-tracking p span {
+                    font-size: 14px;
+                }
 
-             .order-tracking.completed p {
-                 color: #000;
-             }
+            .order-tracking.completed p {
+                color: #000;
+            }
 
-             .order-tracking::before {
-                 content: '';
-                 display: block;
-                 height: 3px;
-                 width: calc(100% - 40px);
-                 background-color: #f7be16;
-                 top: 13px;
-                 position: absolute;
-                 left: calc(-50% + 20px);
-                 z-index: 0;
-             }
+            .order-tracking::before {
+                content: '';
+                display: block;
+                height: 3px;
+                width: calc(100% - 40px);
+                background-color: #f7be16;
+                top: 13px;
+                position: absolute;
+                left: calc(-50% + 20px);
+                z-index: 0;
+            }
 
-             .order-tracking:first-child:before {
-                 display: none;
-             }
+            .order-tracking:first-child:before {
+                display: none;
+            }
 
-             .order-tracking.completed:before {
-                 background-color: #27aa80;
-             }
-
-     </style>
-    @RenderSection("Css",false)
+            .order-tracking.completed:before {
+                background-color: #27aa80;
+            }
+    </style>
+    @RenderSection("Css", false)
 </head>
 
 <body>
@@ -125,8 +124,10 @@
                             <img src="~/assets/image/@layoutservice.GetSetting().Logo" alt="">
                         </a>
                     </div>
-                    <div class="search col col-md-6">
+                    <div style="position:relative;" class="search col col-md-6">
                         <input class="search-input" type="text" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" />
+                        <ul id="search-ul" style="position:absolute; left:16%;  background-color:white; width:60%; z-index:99; " class=" mt-3 list-group">  
+                        </ul>
                     </div>
                     @if (User.Identity.IsAuthenticated)
                     {
@@ -141,6 +142,13 @@
                                 <div style="text-align:center; width:50%;" class="menulist">
                                     <p><a asp-area="" asp-controller="account" asp-action="edituser">Setting</a></p>
                                     <p><a asp-area="" asp-controller="account" asp-action="logout">Logout</a></p>
+                                    @if (layoutservice.GetOrder().Count > 0 && layoutservice.GetOrder().FirstOrDefault().IsOrderComlete != true)
+                                    {
+                                        <p><a style="cursor:pointer;" data-toggle="modal" data-target=".bd-example-modal-lg"> Order</a></p>
+                                    }
+
+
+
                                 </div>
                             </div>
                         }
@@ -163,18 +171,47 @@
                     }
 
                     <!-- Responsive user-account-language -->
-                    <div class="mobile-user-account-language col col-md-2 ">
-                        <div class="icon">
-                            <img src="~/assets/image/download.svg">
-                            <i class="fa-solid fa-chevron-down"></i>
-                        </div>
-
-                        <div class="menulist">
-                            <p><a href="">Log in</a></p>
-                            <p><a href="">Sign up</a></p>
-                            <p><a href="">English</a></p>
-                        </div>
+                <div class="mobile-user-account-language col col-md-2 ">
+                    <div class="icon">
+                        <img src="~/assets/image/download.svg">
+                        <i class="fa-solid fa-chevron-down"></i>
                     </div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("User"))
+                        {
+
+                                <div  class="menulist">
+                                    <p><a asp-area="" asp-controller="account" asp-action="edituser">Setting</a></p>
+                                    <p><a asp-area="" asp-controller="account" asp-action="logout">Logout</a></p>
+                                    @if (layoutservice.GetOrder().Count > 0 && layoutservice.GetOrder().FirstOrDefault().IsOrderComlete != true)
+                                    {
+                                        <p><a style="cursor:pointer;" data-toggle="modal" data-target=".bd-example-modal-lg"> Order</a></p>
+                                    }
+
+                                </div>
+                        }
+                        else
+                        {
+                            <div class="user-account-language col col-md-3 ">
+                                <p onclick="document.getElementById('id01').style.display='block'"><a>Log in</a></p>
+                                <p onclick="document.getElementById('id02').style.display='block'"><a>Sign up</a></p>
+                                <p><a asp-area="bussines" asp-controller="bussinesaccount" asp-action="login">Bussines</a></p>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        
+                        <div class="menulist">
+                            <p onclick="document.getElementById('id01').style.display='block'"><a>Log in</a></p>
+                            <p onclick="document.getElementById('id02').style.display='block'"><a>Sign up</a></p>
+                            <p><a asp-area="bussines" asp-controller="bussinesaccount" asp-action="login">Bussines</a></p>
+                        </div>
+                    }
+
+
+                </div>
                 </div>
                 <!-- end responsive user account language -->
 
@@ -184,106 +221,136 @@
 
     <!-- Header-end -->
     <main role="main" class="pb-3">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
+        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>*@
 
         <div style="width:100% !important;" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content d-flex justify-content-center">
                     <div class="container">
-                        <div class="row">
-                            <div class="col-12 col-md-12 hh-grayBox pt45 pb20">
-                                <div class="row justify-content-between">
-                                    <div class="order-tracking completed">
-                                        <span class="is-complete"></span>
-                                        <p>Order<br><span>Acepted</span></p>
-                                    </div>
-                                    <div class="order-tracking completed">
-                                        <span class="is-complete"></span>
-                                        <p>Prepareing<br><span>food is being prepared</span></p>
-                                    </div>
-                                    <div class="order-tracking">
-                                        <span class="is-complete"></span>
-                                        <p>Food<br><span>Ready</span></p>
-                                    </div>
-                                    <div class="order-tracking">
-                                        <span class="is-complete"></span>
-                                        <p>Courier<br><span>courier was appointed</span></p>
-                                    </div>
-                                    <div class="order-tracking">
-                                        <span class="is-complete"></span>
-                                        <p>Delivered<br><span>Fri, June 28</span></p>
+                        @foreach (Order order in layoutservice.GetOrder())
+                        {
+                            @if (order != null && order.IsOrderComlete != true)
+                            {
+                                <div class="row">
+                                    <div class="col-12 col-md-12 hh-grayBox pt45 pb20">
+                                        <div class="row justify-content-between">
+                                            <div style="width:@(order.IsDelivery?"16.6%":"33.3%")" class="order-tracking  @(order.IsAccept?"completed":"null")">
+                                                <span class="is-complete"></span>
+                                                <p>Order<br><span>Acepted</span></p>
+                                            </div>
+                                            <div style="width:@(order.IsDelivery?"16.6%":"33.3%")" class="order-tracking @(order.IsAccept?"completed":"null")">
+                                                <span class="is-complete"></span>
+                                                <p>Prepareing<br><span>food is being prepared</span></p>
+                                            </div>
+                                            <div style="width:@(order.IsDelivery?"16.6%":"33.3%")" data-id="@order.Id" class=" is-ready order-tracking @(order.OrderComleete?"completed":"null")">
+                                                <span class="is-complete"></span>
+                                                <p>Food<br><span>Ready</span></p>
+                                            </div>
+                                            @if (order.IsDelivery)
+                                            {
+                                                <div data-id="@order.Id" class="order-tracking isfindcourier @(order.IsCourierFind?"completed":"null")">
+                                                    <span class="is-complete"></span>
+                                                    <p>Courier<br><span>courier was appointed</span></p>
+                                                </div>
+                                                <div data-id="@order.Id" class="order-tracking istake @(order.IsCourierTaked?"completed":"null")">
+                                                    <span class="is-complete"></span>
+                                                    <p>Courier<br><span>the courier got your order</span></p>
+                                                </div>
+                                                <div data-id="@order.Id" class="order-tracking iscompleted @(order.IsOrderComlete?"completed":"null")">
+                                                    <span class="is-complete"></span>
+                                                    <p>Delivered<br><span>Fri, June 28</span></p>
+                                                </div>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            }
+                        }
                     </div>
                 </div>
             </div>
         </div>
-        <div class="login-page">
-            <div id="id01" class="modal">
-                <form class="modal-content animate" asp-area="" asp-controller="account" asp-action="login" method="post">
-                    <div class="container">
-                        <div class="cancel_button"><div onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">X</div></div>
-                        <div style="display:none" id="modellogin" class="alert alert-danger"></div>
-                        <label asp-for="@layoutservice.LogginVM"><b>Username</b></label>
-                        <input class="usernamelogin" type="text" placeholder="Enter Username" asp-for="@layoutservice.LogginVM">
+        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>*@
 
 
-                        <label for="psw"><b>Password</b></label>
-                        <input class="passwordlogin" type="password" asp-for="@layoutservice.LogginVM.Password" placeholder="Enter Password">
+    <div class="login-page">
+        <div id="id01" class="modal">
+            <form class="modal-content animate" asp-area="" asp-controller="account" asp-action="login" method="post">
+                <div class="container">
+                    <div class="cancel_button"><div onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">X</div></div>
+                    <div style="display:none" id="modellogin" class="alert alert-danger"></div>
+                    <label asp-for="@layoutservice.LogginVM"><b>Username</b></label>
+                    <input class="usernamelogin" type="text" placeholder="Enter Username" asp-for="@layoutservice.LogginVM">
 
-                        <button class="submit_button submit_login" type="submit">Login</button>
 
-                        <div class="container">
+                    <label for="psw"><b>Password</b></label>
+                    <input class="passwordlogin" type="password" asp-for="@layoutservice.LogginVM.Password" placeholder="Enter Password">
 
-                            <span class="psw"> <a href="#">Forgot password?</a></span>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div id="id02" class="modal">
-                <form class="modal-content animate" asp-area="" asp-controller="account" asp-action="register" method="post">
-                    <div style="display:none" id="modelonly" class="alert alert-danger"></div>
-                    <div class="container">
-                        <div class="cancel_button"><div onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">X</div></div>
-                        <label asp-for="@layoutservice.RegisterVM.FullName"><b>FullName</b></label>
-                        <input class="fullname" type="text" placeholder="Enter FullName" asp-for="@layoutservice.RegisterVM.FullName">
-                        <div><span id="fullname" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM.FullName"></span></div>
-
-                        <label asp-for="@layoutservice.RegisterVM.UserName"><b>UserName</b></label>
-                        <input class="username" type="text" placeholder="Enter UserName" asp-for="@layoutservice.RegisterVM.UserName">
-                        <div><span id="username" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM.UserName"></span></div>
-
-                        <label asp-for="@layoutservice.RegisterVM.PhoneNumber"><b>PhoneNumber</b></label>
-                        <input class="phonenumber" style="width: 100%;border: 1px solid #ccc; padding:12px 20px;" type="tel" placeholder="Enter PhoneNumber" asp-for="@layoutservice.RegisterVM.PhoneNumber">
-                        <div><span id="phonenumber" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM.PhoneNumber"></span></div>
-
-                        <label asp-for="@layoutservice.RegisterVM.Email"><b>Email</b></label>
-                        <input class="email" type="text" placeholder="Enter Email" asp-for="@layoutservice.RegisterVM.Email">
-                        <div><span id="email" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM.Email"></span></div>
-
-                        <label asp-for="@layoutservice.RegisterVM.Password"><b>Password</b></label>
-                        <input class="password" type="password" placeholder="Enter Password" asp-for="@layoutservice.RegisterVM.Password">
-                        <div><span id="password" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM.Password"></span></div>
-
-                        <label asp-for="@layoutservice.RegisterVM.ConfirmPassword"><b>Confirm Password</b></label>
-                        <input class="confirmpassword" type="password" placeholder="Confirm Password" asp-for="@layoutservice.RegisterVM.ConfirmPassword">
-                        <div><span id="confirmpassword" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM.ConfirmPassword"></span></div>
-
-                        <button class="submit_button submit_button_register" type="submit">Login</button>
-                        <label>
-                            <input class="terms" asp-for="@layoutservice.RegisterVM.Terms" type="checkbox" checked="checked" name="remember"> Termss
-                        </label>
-                    </div>
+                    <button class="submit_button submit_login" type="submit">Login</button>
 
                     <div class="container">
 
-                        <span class="psw"> <a href="#">Forgot password?</a></span>
+                        <span  onclick="document.getElementById('id03').style.display = 'block'; document.getElementById('id01').style.display='none'" id="forgot-password" class="psw"> <a href="#">Forgot password?</a></span>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
+        <div id="id02" class="modal">
+            <form class="modal-content animate" asp-area="" asp-controller="account" asp-action="register" method="post">
+                <div style="display:none" id="modelonly" class="alert alert-danger"></div>
+                <div class="container">
+                    <div class="cancel_button"><div onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">X</div></div>
+                    <label asp-for="@layoutservice.RegisterVM.FullName"><b>FullName</b></label>
+                    <input class="fullname" type="text" placeholder="Enter FullName" asp-for="@layoutservice.RegisterVM.FullName">
+                    <div><span id="fullname" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM.FullName"></span></div>
+
+                    <label asp-for="@layoutservice.RegisterVM.UserName"><b>UserName</b></label>
+                    <input class="username" type="text" placeholder="Enter UserName" asp-for="@layoutservice.RegisterVM.UserName">
+                    <div><span id="username" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM.UserName"></span></div>
+
+                    <label asp-for="@layoutservice.RegisterVM.PhoneNumber"><b>PhoneNumber</b></label>
+                    <input class="phonenumber" style="width: 100%;border: 1px solid #ccc; padding:12px 20px;" type="tel" placeholder="Enter PhoneNumber" asp-for="@layoutservice.RegisterVM.PhoneNumber">
+                    <div><span id="phonenumber" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM.PhoneNumber"></span></div>
+
+                    <label asp-for="@layoutservice.RegisterVM.Email"><b>Email</b></label>
+                    <input class="email" type="text" placeholder="Enter Email" asp-for="@layoutservice.RegisterVM.Email">
+                    <div><span id="email" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM.Email"></span></div>
+
+                    <label asp-for="@layoutservice.RegisterVM.Password"><b>Password</b></label>
+                    <input class="password" type="password" placeholder="Enter Password" asp-for="@layoutservice.RegisterVM.Password">
+                    <div><span id="password" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM.Password"></span></div>
+
+                    <label asp-for="@layoutservice.RegisterVM.ConfirmPassword"><b>Confirm Password</b></label>
+                    <input class="confirmpassword" type="password" placeholder="Confirm Password" asp-for="@layoutservice.RegisterVM.ConfirmPassword">
+                    <div><span id="confirmpassword" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM.ConfirmPassword"></span></div>
+
+                    <button class="submit_button submit_button_register" type="submit">Login</button>
+                    <label>
+                        <input class="terms" asp-for="@layoutservice.RegisterVM.Terms" type="checkbox" checked="checked" name="remember"> Termss
+                    </label>
+                </div>
+
+                <div class="container">
+
+                    <span onclick="document.getElementById('id01').style.display = 'block'; document.getElementById('id02').style.display='none'" class="psw"> <a href="#">Alrady has account?</a></span>
+                </div>
+            </form>
+        </div>
+        <div id="id03" class="modal">
+            <form class="modal-content animate" asp-area="" asp-controller="account" asp-action="login" method="post">
+                <div class="container">
+                    <div class="cancel_button"><div onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">X</div></div>
+                    <div style="display:none" id="modelforget" class="alert alert-danger"></div>
+
+                    <label asp-for="@layoutservice.RegisterVM"><b>Email</b></label>
+                    <input id="forgot-email" class="email" type="text" placeholder="Enter Email" asp-for="@layoutservice.RegisterVM">
+                    <div><span id="email" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM"></span></div>
+                    <button class="submit_button submit_login button_forgot" type="submit">Reset Password</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
         @RenderBody()
     </main>
     <footer data-aos="zoom-in-down">
@@ -368,6 +435,7 @@
         // Get the modal
         var modal = document.getElementById('id01');
         var modal2 = document.getElementById('id02');
+        var modal3 = document.getElementById('id03');
 
         window.onclick = function (event) {
             if (event.target == modal) {
@@ -376,7 +444,108 @@
             if (event.target == modal2) {
                 modal2.style.display = "none";
             }
+            if (event.target == modal3) {
+                modal3.style.display = "none";
+            }
         }
+    </script>
+    <script>
+        var input = document.querySelector(".search-input")
+        input.addEventListener("keyup", function () {
+            console.log(input.value)
+            var ul = document.getElementById("search-ul")
+            $(window).click(function () {
+                ul.innerHTML=" "
+            })
+            if (input.value == "") {
+                ul.innerHTML = " "
+            }
+            $.ajax({
+                url: "/home/search",
+                data: {
+                    content: input.value
+                },
+                dataType: 'json',
+                type: "post",
+                success: function (data) {
+                   
+                    ul.innerHTML=" "
+                    $.map(data, function (val, i) {
+                        var li = this.document.createElement("li")
+                        li.classList.add("list-group-item")
+                            li.style.backgroundColor="white"
+
+                        li.innerHTML =
+                               `      <a href="https://localhost:44378/restaurant/details/${val.id}" class="d-flex align-items-center ">
+                                    <div style="width:30%;">
+                                        <img style="width:100%;" src="./assets/image/${val.image}" />
+                                    </div>
+                                    <div style="padding-left:5%;">
+                                        <h6 style=" margin:0px; font-family:Arial, Helvetica, sans-serif;">${val.name}</h6>
+                                     
+                                        <p style=" color: gray; margin: 0px;" > ${val.adress}</p>
+
+                                    </div>
+                                </a>`
+                               ul.appendChild(li)
+                              
+                    })
+               
+                },
+                error: function (status) {
+                    console.log(status)
+                }
+            })
+         
+        })
+    </script>
+    <script>
+        var button = document.querySelector(".button_forgot")
+        button.addEventListener("click", function (e) {
+            e.preventDefault()
+            button.innerHTML = `<i class="fa fa-circle-o-notch fa-spin"></i> please wait`
+            button.style.backgroundColor = "gray";
+            var email = document.getElementById("forgot-email").value
+            $.ajax({
+                url: "/account/ForgetPasword",
+                data: {
+                    email: email
+                },
+                dataType: 'json',
+                type: "post",
+                success: function (status) {
+                    if (status.status==404) {
+                        var modal = document.getElementById("modelforget")
+                        modal.style.display = "block"
+                        modal.innerHTML = "Please add valid email"
+                        button.innerHTML = `Reset Password`
+                        button.style.backgroundColor = "#009DE0";
+                    }
+                    if (status.status == 200) {
+                        var page = document.getElementById("id03")
+                        page.style.display = "none"
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Please check your email'
+                        })
+                    }
+                },
+                error: function (status) {
+                    console.log(status)
+                }
+            })
+        })
     </script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
@@ -389,7 +558,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-
     <script src="~/assets/js/owl.carousel.min.js"></script>
     <script src="~/assets/js/index.js"></script>
     <script type="text/javascript">
@@ -479,7 +647,143 @@
             })
         })
     </script>
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
 
+        var Connection = new signalR.HubConnectionBuilder().withUrl("/orderhub").build()
+        Connection.start()
+       
+        Connection.on("orderready", function (data) {
+            var ready = document.querySelectorAll(".is-ready")
+            for (var i = 0; i <= ready.length; i++) {
+                var id = ready[i].getAttribute("data-id")
+                if (id==data.id) {
+                    ready[i].classList.add("completed")
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Your order is ready'
+                    })
+                    break;
+                }
+            }
+        })
+        Connection.on("courierwasappointed", function (data) {
+            var Courier = document.querySelectorAll(".isfindcourier")
+            console.log(Courier)
+            console.log(data.id)
+            for (var i = 0; i <= Courier.length; i++) {
+                var id = Courier[i].getAttribute("data-id")
+                if (id == data.id) {
+                    Courier[i].classList.add("completed")
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Your order is ready'
+                    })
+                    break;
+                }
+            }
+        })
+        Connection.on("taked", function (data) {
+            var taked = document.querySelectorAll(".istake")
+            for (var i = 0; i <= taked.length; i++) {
+                var id = taked[i].getAttribute("data-id")
+                if (id == data.id) {
+                    taked[i].classList.add("completed")
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Your order is ready'
+                    })
+                    break;
+                }
+            }
+        })
+        Connection.on("order", function (data) {
+            var completed = document.querySelectorAll(".istake")
+            for (var i = 0; i <= completed.length; i++) {
+                var id = completed[i].getAttribute("data-id")
+                if (id == data.id) {
+                    completed[i].classList.add("completed")
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Your order is ready'
+                    })
+                    break;
+                }
+            }
+       
+        })
+        Connection.on("completed", function (data) {
+            var completed = document.querySelectorAll(".iscompleted")
+            for (var i = 0; i <= completed.length; i++) {
+                var id = completed[i].getAttribute("data-id")
+                if (id == data.id) {
+                    completed[i].classList.add("completed")
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Your order is ready'
+                    })
+                    break;
+                }
+            }
+        })
+
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" integrity="sha512-o6XqxgrUsKmchwy9G5VRNWSSxTS4Urr4loO6/0hYdpWmFUfHqGzawGxeQGMDqYzxjY9sbktPbNlkIQJWagVZQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @RenderSection("ScriptSlider", false)

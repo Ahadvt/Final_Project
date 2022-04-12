@@ -350,7 +350,7 @@ a:hover {
   /* Sit on top */
   left: 0;
   top: 0;
-  width: 100%;
+  width: 120%;
   /* Full width */
   height: 100%;
   /* Full height */
@@ -365,7 +365,7 @@ a:hover {
 
 .details #baskets .modal-content {
   background-color: #fefefe;
-  margin: 5% auto 15% auto;
+  margin: 5% auto 15% 24%;
   border: 1px solid #888;
   width: 40%;
   /* Could be more or less, depending on screen size */

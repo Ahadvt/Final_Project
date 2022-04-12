@@ -26,6 +26,8 @@ namespace Final_Project.Dal
         public DbSet<Store> Stores { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItems> OrderItems { get; set; }
+        public DbSet<Message> Messages { get; set; }
+       
 
     }
 }

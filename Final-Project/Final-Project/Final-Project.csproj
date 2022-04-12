@@ -30,6 +30,12 @@
     <Compile Remove="Migrations\20220323150628_CretedStore.Designer.cs" />
     <Compile Remove="Migrations\20220323163050_CreatedStoreAndEditdeRestuorantAndCampaign.cs" />
     <Compile Remove="Migrations\20220323163050_CreatedStoreAndEditdeRestuorantAndCampaign.Designer.cs" />
+    <Compile Remove="Migrations\20220410210552_CreatedChat.cs" />
+    <Compile Remove="Migrations\20220410210552_CreatedChat.Designer.cs" />
+    <Compile Remove="Migrations\20220410210907_ChatEdited.cs" />
+    <Compile Remove="Migrations\20220410210907_ChatEdited.Designer.cs" />
+    <Compile Remove="Migrations\20220410212101_addeddatetime.cs" />
+    <Compile Remove="Migrations\20220410212101_addeddatetime.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

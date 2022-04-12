@@ -183,6 +183,32 @@ namespace Final_Project.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("Final_Project.Models.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ReciveUserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("Final_Project.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -205,6 +231,9 @@ namespace Final_Project.Migrations
                     b.Property<string>("CardYear")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CourierID")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Cvv")
                         .HasColumnType("int");
 
@@ -218,6 +247,9 @@ namespace Final_Project.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsCourierFind")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsCourierTaked")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsDelivery")
@@ -726,6 +758,13 @@ namespace Final_Project.Migrations
                     b.HasOne("Final_Project.Models.Store", "Store")
                         .WithMany("BasketItems")
                         .HasForeignKey("StoreId");
+                });
+
+            modelBuilder.Entity("Final_Project.Models.Message", b =>
+                {
+                    b.HasOne("Final_Project.Models.AppUser", "AppUser")
+                        .WithMany("Messages")
+                        .HasForeignKey("AppUserId");
                 });
 
             modelBuilder.Entity("Final_Project.Models.Order", b =>
