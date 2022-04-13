@@ -90,9 +90,9 @@ namespace Final_Project.Hubs
             bool IsDelivery = bool.Parse(Isdelivery);
             bool Iscard = bool.Parse(IsCard);
             int Restuorantid = int.Parse(restuorantid);
+
             Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.Id == Restuorantid);
             AppUser user = await _userManager.FindByNameAsync(Context.User.Identity.Name);
-           
             AppUser ResUser = await _userManager.FindByIdAsync(restuorant.AppUserId);
             List<BasketItem> basketitems = _context.BasketItems.Include(bi => bi.Product).Include(bi => bi.AppUser).Include(bi => bi.Restuorant).Include(bi => bi.Store).Where(b => b.AppUserId == user.Id && b.RestuorantId == restuorant.Id).ToList();
             Order order = new Order
@@ -108,6 +108,7 @@ namespace Final_Project.Hubs
                 Cvv = 78,
                 Date = DateTime.UtcNow.AddHours(3),
             };
+
             if (Adress != null)
             {
                 order.Adress = Adress;
@@ -141,6 +142,63 @@ namespace Final_Project.Hubs
 
 
         }
+        public async Task OrderProductStore(string storeid, string Isdelivery, string Adress, string IsCard)
+        {
+            bool IsDelivery = bool.Parse(Isdelivery);
+            bool Iscard = bool.Parse(IsCard);
+            int StoreId = int.Parse(storeid);
+
+            Store store = _context.Stores.FirstOrDefault(r => r.Id == StoreId);
+            AppUser user = await _userManager.FindByNameAsync(Context.User.Identity.Name);
+            AppUser Storeuser = await _userManager.FindByIdAsync(store.AppUserId);
+            List<BasketItem> basketitems = _context.BasketItems.Include(bi => bi.Product).Include(bi => bi.AppUser).Include(bi => bi.Restuorant).Include(bi => bi.Store).Where(b => b.AppUserId == user.Id && b.StoreId == store.Id).ToList();
+            Order order = new Order
+            {
+                AppUserId = user.Id,
+                StoreId = store.Id,
+                IsDelivery = IsDelivery,
+                IsCard = Iscard,
+                CardMonth = "1",
+                CardYear = "1",
+                CardNumber = 1,
+                Owner = "ahad",
+                Cvv = 78,
+                Date = DateTime.UtcNow.AddHours(3),
+            };
+
+            if (Adress != null)
+            {
+                order.Adress = Adress;
+            }
+            foreach (var item in basketitems)
+            {
+                order.TotalPrice += item.Count * item.Product.Price;
+                OrderItems orderItems = new OrderItems
+                {
+                    Order = order,
+                    Product = item.Product,
+                    AppUserId = user.Id,
+                    StoreId = store.Id,
+                    Count = item.Count
+
+
+                };
+
+                _context.OrderItems.Add(orderItems);
+            }
+            _context.Orders.Add(order);
+            _context.BasketItems.RemoveRange(basketitems);
+            _context.SaveChanges();
+            Order order2 = order;
+            await Clients.Client(Storeuser.ConnectionId).SendAsync("thereisorder", new
+            {
+                restuorantid = storeid,
+                userid = user.Id,
+                orderid = order2.Id
+            });
+
+
+        }
         public async Task OrderAccept(string orderid)
         {
             int orderId = int.Parse(orderid);
@@ -155,10 +213,19 @@ namespace Final_Project.Hubs
             int orderId = int.Parse(orderid);
             Order order = _context.Orders.FirstOrDefault(o => o.Id == orderId);
             AppUser User = await _userManager.FindByIdAsync(order.AppUserId);
-            Restuorant restuorant = _context.Restuorants.FirstOrDefault(r=>r.Id==order.RestuorantId);
             _context.Orders.Remove(order);
             _context.SaveChanges();
+            if (order.RestuorantId!=null)
+            {
+
+            Restuorant restuorant = _context.Restuorants.FirstOrDefault(r=>r.Id==order.RestuorantId);
             await Clients.Client(User.ConnectionId).SendAsync("rejected",restuorant.Id);
+            }
+            else
+            {
+                Store store = _context.Stores.FirstOrDefault(r => r.Id == order.StoreId);
+                await Clients.Client(User.ConnectionId).SendAsync("rejected", store.Id);
+            }
         }
         public async Task OrderReady(string orderid)
         {

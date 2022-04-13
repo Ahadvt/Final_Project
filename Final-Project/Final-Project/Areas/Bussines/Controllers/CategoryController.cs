@@ -28,8 +28,10 @@ namespace Final_Project.Areas.Bussines.Controllers
             _roleManager = roleManager;
             _env = env;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page=1)
         {
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPage = Math.Ceiling((decimal)_context.Categories.Count() / 4);
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
             if (user.Role=="Store")
             {
@@ -38,7 +40,7 @@ namespace Final_Project.Areas.Bussines.Controllers
                 return View(productCategoriess);
             }
             Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.AppUserId == user.Id);
-            List<ProductCategory> productCategories = _context.ProductCategories.Where(pc=>pc.RestuorantId==restuorant.Id).ToList();
+            List<ProductCategory> productCategories = _context.ProductCategories.Where(pc=>pc.RestuorantId==restuorant.Id).Skip((page - 1) * 4).Take(4).ToList();
             return View(productCategories);
         }
 

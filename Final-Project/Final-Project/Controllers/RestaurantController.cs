@@ -54,7 +54,7 @@ namespace Final_Project.Controllers
             {
                 AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
 
-                List<BasketItem> basketItem = _context.BasketItems.Where(b => b.AppUserId == user.Id && b.RestuorantId == id).ToList();
+                List<BasketItem> basketItem = _context.BasketItems.Include(b=>b.Restuorant).ThenInclude(r=>r.Campaign).Where(b => b.AppUserId == user.Id && b.RestuorantId == id).ToList();
 
                 foreach (BasketItem item in basketItem)
                 {
@@ -67,7 +67,7 @@ namespace Final_Project.Controllers
                             Product=_context.Products.FirstOrDefault(p=>p.Id==item.ProductId),
                            
                         };
-                        basketItemVM.Price = basketItemVM.Product.Price;
+                        basketItemVM.Price = item.Restuorant.CampaignId == null ? product.Price : product.Price * (100 - item.Restuorant.Campaign.CampaignPercent) / 100;
                         basketVM.Count++;
                         basketVM.TotalPrice += basketItemVM.Price * basketItemVM.Count;
                         basketVM.BasketItemVMs.Add(basketItemVM);
@@ -124,7 +124,7 @@ namespace Final_Project.Controllers
                 AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
                 Product productEx = _context.Products.FirstOrDefault(p => p.Id == id);
 
-                List<BasketItem> basketItem = _context.BasketItems.Where(b => b.AppUserId == user.Id && b.RestuorantId == productEx.RestuorantId).ToList();
+                List<BasketItem> basketItem = _context.BasketItems.Include(b=>b.Restuorant).ThenInclude(r=>r.Campaign).Where(b => b.AppUserId == user.Id && b.RestuorantId == productEx.RestuorantId).ToList();
 
                 foreach (BasketItem item in basketItem)
                 {
@@ -134,10 +134,10 @@ namespace Final_Project.Controllers
                         BasketItemVM basketItemVM = new BasketItemVM
                         {
                             Count = item.Count,
-                            Product = _context.Products.FirstOrDefault(p => p.Id == item.ProductId),
+                            Product = _context.Products.FirstOrDefault(p => p.Id ==            item.ProductId),
 
                         };
-                        basketItemVM.Price = basketItemVM.Product.Price;
+                        basketItemVM.Price = item.Restuorant.CampaignId==null?product.Price:product.Price*(100-item.Restuorant.Campaign.CampaignPercent)/100;
                         basketVM.Count++;
                         basketVM.TotalPrice += basketItemVM.Price * basketItemVM.Count;
                         basketVM.BasketItemVMs.Add(basketItemVM);

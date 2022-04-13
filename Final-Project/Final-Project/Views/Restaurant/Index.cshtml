@@ -149,6 +149,8 @@
        var sort = document.getElementById("sort")
        sort.addEventListener("click", function (e) {
            e.preventDefault()
+           var modal3 = document.getElementById('id10');
+           modal3.style.display = "none"
            let Isdelivery = $("#free-delivery").is(":checked") ? "true" : "false";
             let Isdicount = $("#discount").is(":checked") ? "true" : "false";
            $.ajax({

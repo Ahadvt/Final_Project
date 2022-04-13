@@ -316,7 +316,7 @@
 			document.getElementById("textarea").value = ""
             var msglist = document.getElementById("msglist")
             var divv = document.createElement("div")
-
+            var im = document.getElementById("res-image").innerHTML
             divv.classList.add("d-flex")
             divv.classList.add("justify-content-end")
             divv.classList.add("mb-4")
@@ -326,7 +326,7 @@
                         <span class="msg_time"></span>
                     </div>
                   <div class="img_cont_msg">
-                    <img src="https://localhost:44378/assets/image/cdbe7be1-6efd-473c-9f5d-1104414be4a0logo.svg"" class="rounded-circle user_img_msg">
+                    <img src="https://localhost:44378/assets/image/${im}"" class="rounded-circle user_img_msg">
                     </div>
 `
             msglist.appendChild(divv)

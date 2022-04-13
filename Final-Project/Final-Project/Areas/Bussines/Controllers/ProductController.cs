@@ -29,20 +29,22 @@ namespace Final_Project.Areas.Bussines.Controllers
             _roleManager = roleManager;
             _env = env;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page=1)
         {
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPage = Math.Ceiling((decimal)_context.Categories.Count() / 4);
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
             if (user.Role == "Store")
             {
                 Store store = _context.Stores.FirstOrDefault(r => r.AppUserId == user.Id);
-                List<Product> productss = _context.Products.Include(p => p.productCategory).Where(p => p.StoreId == store.Id).ToList();
+                List<Product> productss = _context.Products.Include(p => p.productCategory).Where(p => p.StoreId == store.Id).Skip((page - 1) * 4).Take(4).ToList();
                 return View(productss);
             }
             else
             {
 
                 Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.AppUserId == user.Id);
-                List<Product> products = _context.Products.Include(p => p.productCategory).Where(p => p.RestuorantId == restuorant.Id).ToList();
+                List<Product> products = _context.Products.Include(p => p.productCategory).Where(p => p.RestuorantId == restuorant.Id).Skip((page - 1) * 4).Take(4).ToList();
                 return View(products);
             }
         }

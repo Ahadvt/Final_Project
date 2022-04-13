@@ -12,7 +12,7 @@ namespace Final_Project.Models
         [StringLength(30)]
         [Required]
         public string Name { get; set; }
-        [StringLength(30)]
+        [StringLength(100)]
         [Required]
         public string Title { get; set; }
         public string Image { get; set; }

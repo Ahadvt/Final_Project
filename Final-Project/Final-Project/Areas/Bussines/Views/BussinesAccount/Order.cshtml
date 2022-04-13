@@ -289,7 +289,6 @@
             console.log(data)
             OrderShow(data.orderid)
             btn.click()
-
         })
 
 
@@ -334,7 +333,7 @@
                     row.appendChild(div)
                     var Productparent = document.getElementById(a)
                     $.map(data.orderItems, function (val, i) {
-                        `wjdnjnkjn`
+                       
                         p = document.createElement("p")
                         p.innerHTML = `${val.count} x ${val.product.name} ${val.product.price}:AZN`
                         Productparent.appendChild(p)

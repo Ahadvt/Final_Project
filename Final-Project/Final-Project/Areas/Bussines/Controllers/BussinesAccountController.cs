@@ -245,7 +245,7 @@ namespace Final_Project.Areas.Bussines.Controllers
         [HttpPost]
         public IActionResult ShowOrders(int orderid)
         {
-            Order order = _context.Orders.Include(o=>o.Restuorant).Include(o=>o.AppUser).Include(o => o.OrderItems).ThenInclude(oi=>oi.Product).FirstOrDefault(o => o.Id==orderid);
+            Order order = _context.Orders.Include(o=>o.Restuorant).Include(o=>o.AppUser).Include(o=>o.Store).Include(o => o.OrderItems).ThenInclude(oi=>oi.Product).FirstOrDefault(o => o.Id==orderid);
             //if (orderItems == null) return NotFound();
             return Json(order);
             

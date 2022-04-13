@@ -2,6 +2,8 @@
 
 @{
     Layout = null;
+    string price;
+    string totalprice;
 }
 <div style="display:none; position:absolute;right:3%;   width:20%; z-index:999; text-align:center; position:fixed; top: 4%; z-index:999999999;" id="mydiv" class="alert alert-primary">Added to the basket</div>
 <!DOCTYPE html>
@@ -44,7 +46,7 @@
                                                 </p>
                                             </div>*@
                                             <div class="input-group plus-minus-input">
-                                                <div class="input-group-button">
+                                                <div id="btn-in-de" class="input-group-button">
                                                     <button type="button" class="button hollow circle item-decrease " data-quantity="minus"
                                                             data-field="quantity">
                                                         <i id="@item.Product.Id" class="fa fa-minus" aria-hidden="true"></i>
@@ -64,7 +66,10 @@
                                                     @item.Product.Name
                                                 </div>
                                                 <div class="price">
-                                                    AZN @item.Product.Price
+                                                    <p style="display:none">
+                                                        @(price=item.Price.ToString())
+                                                    </p>
+                                                    AZN @(price.Length>4?price.Substring(0,5):price)
                                                 </div>
                                             </div>
                                             <div style="height:3rem;" class="image ">
@@ -85,7 +90,10 @@
                                             Check Out
                                         </div>
                                         <div class="totalprice">
-                                            Azn: @Model.BasketVM.TotalPrice
+                                            <p style="display:none;">
+                                                @(totalprice=Model.BasketVM.TotalPrice.ToString())
+                                            </p>
+                                            Azn: @(totalprice.Length>4? totalprice.Substring(0,5): totalprice)
                                         </div>
                                     </div>
                                 </div>
@@ -191,7 +199,10 @@
                                 View order
                             </div>
                             <div class="totalprice">
-                                Azn:@Model.BasketVM.TotalPrice
+                                <p style="display:none;">
+                                    @(totalprice=Model.BasketVM.TotalPrice.ToString())
+                                </p>
+                                Azn: @(totalprice.Length>4? totalprice.Substring(0,5): totalprice)
                             </div>
                         </div>
                     </div>
@@ -204,11 +215,11 @@
             {
                 <div class="basket-mobile" onclick="document.getElementById('id03').style.display='block'">
                     <div class="info-basket ">
-                        <div class="count">@Model.BasketVM.Count</div>
+                        <div id="total-mobile" class="count">@Model.BasketVM.Count</div>
                         <div class="view-order">
                             <a>View order</a>
                         </div>
-                        <div class="totalprice">
+                        <div  class="totalprice">
                             Azn:@Model.BasketVM.TotalPrice
                         </div>
                     </div>
@@ -384,11 +395,6 @@
                                 </a>
                             </div>
                         }
-
-
-
-
-
 
                     </div>
                 </div>
@@ -651,7 +657,6 @@
                 BasketAddShow(id)
             })
             function BasketAddShow(id) {
-
                 $.ajax({
                     url: "/restaurant/addtobassket",
                     data: {
@@ -676,12 +681,13 @@
                             type: "post",
                             success: function (data) {
                                 var baskets = document.getElementById("basket-items")
-                                var baskett = document.getElementById("basket-main")
-
+                                var baskett = document.getElementById("basket-main") 
+                                var table = document.getElementById("id03")
+                                baskett.style.visibility = "visible"
+                               
                                 
                                 baskets.innerHTML = ""
                                 var itemIncrase = document.querySelectorAll(".item-increase")
-
 
                                 $.map(data.basketItemVMs, function (val, i) {
                                    
@@ -689,11 +695,7 @@
                                     li.className = "basket-item-li"
                                     li.innerHTML += `
 
-                                                       <div class="count ">
-                                                                    <p>
-                                                                        ${val.count}
-                                                                    </p>
-                                                                </div>
+                                                       
                                                                      <div  class="input-group plus-minus-input">
                                             <div class="input-group-button">
                                                 <button   type="button" class="button hollow circle item-decrease " data-quantity="minus"
@@ -716,7 +718,7 @@
                                                                         ${val.product.name}
                                                                     </div>
                                                                     <div class="price">
-                                                                        AZN ${val.product.price}
+                                                                        AZN ${val.price.toString().substring(0,5)}
                                                                     </div>
                                                                 </div>
                                                               <div style="height:3rem;" class="image ">
@@ -728,7 +730,8 @@
 
                                 })
                                 $('.total-count').html(data.count)
-                                $('.totalprice').html("AZN:" + data.totalPrice)
+                                $('.totalprice').html("AZN:" + data.totalPrice.toString().substring(0, 4))
+                                $('#total-mobile').html(data.count)
                                 $('#mydiv').fadeIn('fast');
                                 setTimeout(function () {
                                     $('#mydiv').fadeOut('fast');
@@ -772,7 +775,7 @@
                                 if (data.count==0) {
                                     var baskett = document.getElementById("basket-main")
                                     var table = document.getElementById("id03")
-                                    baskett.style.display="none"
+                                    baskett.style.visibility="hidden"
                                     table.style.display="none"
                                 }
 

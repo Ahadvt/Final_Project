@@ -1,8 +1,11 @@
 ﻿@model OrderVM
+
 @{
     ViewData["Title"] = "Checkout";
     double TotalPrice = 0;
 }
+
+
 @section Css{
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 }
@@ -69,7 +72,7 @@
                         TotalPrice += (item.Count * item.Product.Price);
 
                     }
-                    <div class="id" data-id="@item.RestuorantId"></div>
+                    <div class="id" data-id="@item.StoreId"></div>
                     <div class="item">
                         <div class="name-price-count">
                             <div class="count-name">
@@ -96,7 +99,7 @@
                 }
 
             </div>
-            <a asp-controller="restaurant" asp-action="details" asp-route-id="@Model.BasketItems.FirstOrDefault().RestuorantId" class="add-more">
+            <a asp-controller="store" asp-action="details" asp-route-id="@Model.BasketItems.FirstOrDefault().StoreId" class="add-more">
                 <div class="text-icon">
                     <p href="">Addd More Item</p>
                     <i class="fa-solid fa-plus"></i>
@@ -230,7 +233,7 @@
 </div>
 @section Script{
     <script src="~/assets/js/checkout.js"></script>
- 
+
 
     <script>
         var modal2 = document.getElementById('id11');
@@ -257,7 +260,7 @@
         $(".order-button").click(function (e) {
             e.preventDefault()
             var button = document.querySelector(".order-button")
-            button.innerHTML = '  <i class="fa fa-circle-o-notch fa-spin"></i> wait for restoration response'
+            button.innerHTML = '  <i class="fa fa-circle-o-notch fa-spin"></i> wait for Store response'
             button.disabled = true;
             button.style.backgroundColor = "gray";
             let Isdelivery = $("#cbx").is(":checked") ? "true" : "false";
@@ -267,8 +270,8 @@
             }
             let IsCard = $("#cba").is(":checked") ? "true" : "false";
             var Id = document.querySelector(".id")
-            var RestuorantId = Id.getAttribute("data-id")
-            Connection.invoke("OrderProduct", RestuorantId, Isdelivery, Adress, IsCard)
+            var StoreId = Id.getAttribute("data-id")
+            Connection.invoke("OrderProductStore", StoreId, Isdelivery, Adress, IsCard)
         })
         Connection.on("orderaccept", function () {
             Swal.fire({
@@ -290,13 +293,14 @@
             Swal.fire({
                 icon: 'error',
                 text: 'Order Rejected',
-              
+
             })
             setTimeout(myfunction, 1500)
             function myfunction() {
                 location.href = `https://localhost:44378/store/details/${data}`
             }
-           
+
         })
     </script>
 }
+
