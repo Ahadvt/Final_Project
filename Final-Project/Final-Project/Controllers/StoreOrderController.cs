@@ -36,7 +36,7 @@ namespace Final_Project.Controllers
             }
             OrderVM order = new OrderVM
             {
-                BasketItems = _context.BasketItems.Include(b => b.Product).Where(b => b.AppUserId == user.Id && b.StoreId == id).ToList(),
+                BasketItems = _context.BasketItems.Include(b=>b.Store).ThenInclude(r=>r.Campaign).Include(b => b.Product).Where(b => b.AppUserId == user.Id && b.StoreId == id).ToList(),
             };
             if (order.BasketItems == null)
             {

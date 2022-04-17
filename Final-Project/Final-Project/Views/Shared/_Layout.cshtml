@@ -126,7 +126,7 @@
                     </div>
                     <div style="position:relative;" class="search col col-md-6">
                         <input class="search-input" type="text" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" />
-                        <ul id="search-ul" style="position:absolute; left:16%;  background-color:white; width:60%; z-index:99; " class=" mt-3 list-group">  
+                        <ul id="search-ul" style="position:absolute; left:16%;  background-color:white; width:60%; z-index:99; " class=" mt-3 list-group">
                         </ul>
                     </div>
                     @if (User.Identity.IsAuthenticated)
@@ -144,7 +144,7 @@
                                     <p><a asp-area="" asp-controller="account" asp-action="logout">Logout</a></p>
                                     @if (layoutservice.GetOrder().Count > 0 && layoutservice.GetOrder().FirstOrDefault().IsOrderComlete != true)
                                     {
-                                        <p><a style="cursor:pointer;" data-toggle="modal" data-target=".bd-example-modal-lg"> Order</a></p>
+                                        <p><a id="ordershowc" style="cursor:pointer;" data-toggle="modal" data-target=".bd-example-modal-lg"> Order</a></p>
                                     }
 
 
@@ -171,17 +171,17 @@
                     }
 
                     <!-- Responsive user-account-language -->
-                <div class="mobile-user-account-language col col-md-2 ">
-                    <div class="icon">
-                        <img src="~/assets/image/download.svg">
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </div>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        if (User.IsInRole("User"))
+                    <div class="mobile-user-account-language col col-md-2 ">
+                        <div class="icon">
+                            <img src="~/assets/image/download.svg">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        @if (User.Identity.IsAuthenticated)
                         {
+                            if (User.IsInRole("User"))
+                            {
 
-                                <div  class="menulist">
+                                <div class="menulist">
                                     <p><a asp-area="" asp-controller="account" asp-action="edituser">Setting</a></p>
                                     <p><a asp-area="" asp-controller="account" asp-action="logout">Logout</a></p>
                                     @if (layoutservice.GetOrder().Count > 0 && layoutservice.GetOrder().FirstOrDefault().IsOrderComlete != true)
@@ -190,35 +190,39 @@
                                     }
 
                                 </div>
+                            }
+                            else
+                            {
+                                <div class="user-account-language col col-md-3 ">
+                                    <p onclick="document.getElementById('id01').style.display='block'"><a>Log in</a></p>
+                                    <p onclick="document.getElementById('id02').style.display='block'"><a>Sign up</a></p>
+                                    <p><a asp-area="bussines" asp-controller="bussinesaccount" asp-action="login">Bussines</a></p>
+                                </div>
+                            }
                         }
                         else
                         {
-                            <div class="user-account-language col col-md-3 ">
+
+                            <div class="menulist">
                                 <p onclick="document.getElementById('id01').style.display='block'"><a>Log in</a></p>
                                 <p onclick="document.getElementById('id02').style.display='block'"><a>Sign up</a></p>
                                 <p><a asp-area="bussines" asp-controller="bussinesaccount" asp-action="login">Bussines</a></p>
                             </div>
                         }
-                    }
-                    else
-                    {
-                        
-                        <div class="menulist">
-                            <p onclick="document.getElementById('id01').style.display='block'"><a>Log in</a></p>
-                            <p onclick="document.getElementById('id02').style.display='block'"><a>Sign up</a></p>
-                            <p><a asp-area="bussines" asp-controller="bussinesaccount" asp-action="login">Bussines</a></p>
-                        </div>
-                    }
 
 
-                </div>
+                    </div>
                 </div>
                 <!-- end responsive user account language -->
 
             </div>
         </div>
     </header>
+    
 
+    <i style="color: #009DE0; font-size:300%; z-index:99999999999999; cursor:pointer; position:fixed; bottom: 10%; right: 3%;" id="btn" onclick='recognition.start()' class="fa-brands fa-centercode"></i>
+
+    <h1 id="result"></h1>
     <!-- Header-end -->
     <main role="main" class="pb-3">
         @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>*@
@@ -273,84 +277,84 @@
         @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>*@
 
 
-    <div class="login-page">
-        <div id="id01" class="modal">
-            <form class="modal-content animate" asp-area="" asp-controller="account" asp-action="login" method="post">
-                <div class="container">
-                    <div class="cancel_button"><div onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">X</div></div>
-                    <div style="display:none" id="modellogin" class="alert alert-danger"></div>
-                    <label asp-for="@layoutservice.LogginVM"><b>Username</b></label>
-                    <input class="usernamelogin" type="text" placeholder="Enter Username" asp-for="@layoutservice.LogginVM">
+        <div class="login-page">
+            <div id="id01" class="modal">
+                <form class="modal-content animate" asp-area="" asp-controller="account" asp-action="login" method="post">
+                    <div class="container">
+                        <div class="cancel_button"><div onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">X</div></div>
+                        <div style="display:none" id="modellogin" class="alert alert-danger"></div>
+                        <label asp-for="@layoutservice.LogginVM"><b>Username</b></label>
+                        <input class="usernamelogin" type="text" placeholder="Enter Username" asp-for="@layoutservice.LogginVM">
 
 
-                    <label for="psw"><b>Password</b></label>
-                    <input class="passwordlogin" type="password" asp-for="@layoutservice.LogginVM.Password" placeholder="Enter Password">
+                        <label for="psw"><b>Password</b></label>
+                        <input class="passwordlogin" type="password" asp-for="@layoutservice.LogginVM.Password" placeholder="Enter Password">
 
-                    <button class="submit_button submit_login" type="submit">Login</button>
+                        <button class="submit_button submit_login" type="submit">Login</button>
+
+                        <div class="container">
+
+                            <span onclick="document.getElementById('id03').style.display = 'block'; document.getElementById('id01').style.display='none'" id="forgot-password" class="psw"> <a href="#">Forgot password?</a></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="id02" class="modal">
+                <form class="modal-content animate" asp-area="" asp-controller="account" asp-action="register" method="post">
+                    <div style="display:none" id="modelonly" class="alert alert-danger"></div>
+                    <div class="container">
+                        <div class="cancel_button"><div onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">X</div></div>
+                        <label asp-for="@layoutservice.RegisterVM.FullName"><b>FullName</b></label>
+                        <input class="fullname" type="text" placeholder="Enter FullName" asp-for="@layoutservice.RegisterVM.FullName">
+                        <div><span id="fullname" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM.FullName"></span></div>
+
+                        <label asp-for="@layoutservice.RegisterVM.UserName"><b>UserName</b></label>
+                        <input class="username" type="text" placeholder="Enter UserName" asp-for="@layoutservice.RegisterVM.UserName">
+                        <div><span id="username" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM.UserName"></span></div>
+
+                        <label asp-for="@layoutservice.RegisterVM.PhoneNumber"><b>PhoneNumber</b></label>
+                        <input class="phonenumber" style="width: 100%;border: 1px solid #ccc; padding:12px 20px;" type="tel" placeholder="Enter PhoneNumber" asp-for="@layoutservice.RegisterVM.PhoneNumber">
+                        <div><span id="phonenumber" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM.PhoneNumber"></span></div>
+
+                        <label asp-for="@layoutservice.RegisterVM.Email"><b>Email</b></label>
+                        <input class="email" type="text" placeholder="Enter Email" asp-for="@layoutservice.RegisterVM.Email">
+                        <div><span id="email" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM.Email"></span></div>
+
+                        <label asp-for="@layoutservice.RegisterVM.Password"><b>Password</b></label>
+                        <input class="password" type="password" placeholder="Enter Password" asp-for="@layoutservice.RegisterVM.Password">
+                        <div><span id="password" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM.Password"></span></div>
+
+                        <label asp-for="@layoutservice.RegisterVM.ConfirmPassword"><b>Confirm Password</b></label>
+                        <input class="confirmpassword" type="password" placeholder="Confirm Password" asp-for="@layoutservice.RegisterVM.ConfirmPassword">
+                        <div><span id="confirmpassword" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM.ConfirmPassword"></span></div>
+
+                        <button class="submit_button submit_button_register" type="submit">Login</button>
+                        <label>
+                            <input class="terms" asp-for="@layoutservice.RegisterVM.Terms" type="checkbox" checked="checked" name="remember"> Termss
+                        </label>
+                    </div>
 
                     <div class="container">
 
-                        <span  onclick="document.getElementById('id03').style.display = 'block'; document.getElementById('id01').style.display='none'" id="forgot-password" class="psw"> <a href="#">Forgot password?</a></span>
+                        <span onclick="document.getElementById('id01').style.display = 'block'; document.getElementById('id02').style.display='none'" class="psw"> <a href="#">Alrady has account?</a></span>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
+            <div id="id03" class="modal">
+                <form class="modal-content animate" asp-area="" asp-controller="account" asp-action="login" method="post">
+                    <div class="container">
+                        <div class="cancel_button"><div onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">X</div></div>
+                        <div style="display:none" id="modelforget" class="alert alert-danger"></div>
+
+                        <label asp-for="@layoutservice.RegisterVM"><b>Email</b></label>
+                        <input id="forgot-email" class="email" type="text" placeholder="Enter Email" asp-for="@layoutservice.RegisterVM">
+                        <div><span id="email" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM"></span></div>
+                        <button class="submit_button submit_login button_forgot" type="submit">Reset Password</button>
+
+                    </div>
+                </form>
+            </div>
         </div>
-        <div id="id02" class="modal">
-            <form class="modal-content animate" asp-area="" asp-controller="account" asp-action="register" method="post">
-                <div style="display:none" id="modelonly" class="alert alert-danger"></div>
-                <div class="container">
-                    <div class="cancel_button"><div onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">X</div></div>
-                    <label asp-for="@layoutservice.RegisterVM.FullName"><b>FullName</b></label>
-                    <input class="fullname" type="text" placeholder="Enter FullName" asp-for="@layoutservice.RegisterVM.FullName">
-                    <div><span id="fullname" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM.FullName"></span></div>
-
-                    <label asp-for="@layoutservice.RegisterVM.UserName"><b>UserName</b></label>
-                    <input class="username" type="text" placeholder="Enter UserName" asp-for="@layoutservice.RegisterVM.UserName">
-                    <div><span id="username" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM.UserName"></span></div>
-
-                    <label asp-for="@layoutservice.RegisterVM.PhoneNumber"><b>PhoneNumber</b></label>
-                    <input class="phonenumber" style="width: 100%;border: 1px solid #ccc; padding:12px 20px;" type="tel" placeholder="Enter PhoneNumber" asp-for="@layoutservice.RegisterVM.PhoneNumber">
-                    <div><span id="phonenumber" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM.PhoneNumber"></span></div>
-
-                    <label asp-for="@layoutservice.RegisterVM.Email"><b>Email</b></label>
-                    <input class="email" type="text" placeholder="Enter Email" asp-for="@layoutservice.RegisterVM.Email">
-                    <div><span id="email" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM.Email"></span></div>
-
-                    <label asp-for="@layoutservice.RegisterVM.Password"><b>Password</b></label>
-                    <input class="password" type="password" placeholder="Enter Password" asp-for="@layoutservice.RegisterVM.Password">
-                    <div><span id="password" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM.Password"></span></div>
-
-                    <label asp-for="@layoutservice.RegisterVM.ConfirmPassword"><b>Confirm Password</b></label>
-                    <input class="confirmpassword" type="password" placeholder="Confirm Password" asp-for="@layoutservice.RegisterVM.ConfirmPassword">
-                    <div><span id="confirmpassword" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM.ConfirmPassword"></span></div>
-
-                    <button class="submit_button submit_button_register" type="submit">Login</button>
-                    <label>
-                        <input class="terms" asp-for="@layoutservice.RegisterVM.Terms" type="checkbox" checked="checked" name="remember"> Termss
-                    </label>
-                </div>
-
-                <div class="container">
-
-                    <span onclick="document.getElementById('id01').style.display = 'block'; document.getElementById('id02').style.display='none'" class="psw"> <a href="#">Alrady has account?</a></span>
-                </div>
-            </form>
-        </div>
-        <div id="id03" class="modal">
-            <form class="modal-content animate" asp-area="" asp-controller="account" asp-action="login" method="post">
-                <div class="container">
-                    <div class="cancel_button"><div onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">X</div></div>
-                    <div style="display:none" id="modelforget" class="alert alert-danger"></div>
-
-                    <label asp-for="@layoutservice.RegisterVM"><b>Email</b></label>
-                    <input id="forgot-email" class="email" type="text" placeholder="Enter Email" asp-for="@layoutservice.RegisterVM">
-                    <div><span id="email" class="mt-2 text text-danger" asp-validation-for="@layoutservice.RegisterVM"></span></div>
-                    <button class="submit_button submit_login button_forgot" type="submit">Reset Password</button>
-
-                </div>
-            </form>
-        </div>
-    </div>
         @RenderBody()
     </main>
     <footer data-aos="zoom-in-down">
@@ -455,7 +459,7 @@
             console.log(input.value)
             var ul = document.getElementById("search-ul")
             $(window).click(function () {
-                ul.innerHTML=" "
+                ul.innerHTML = " "
             })
             if (input.value == "") {
                 ul.innerHTML = " "
@@ -468,35 +472,35 @@
                 dataType: 'json',
                 type: "post",
                 success: function (data) {
-                   
-                    ul.innerHTML=" "
+
+                    ul.innerHTML = " "
                     $.map(data, function (val, i) {
                         var li = this.document.createElement("li")
                         li.classList.add("list-group-item")
-                            li.style.backgroundColor="white"
+                        li.style.backgroundColor = "white"
 
                         li.innerHTML =
-                               `      <a href="https://localhost:44378/restaurant/details/${val.id}" class="d-flex align-items-center ">
-                                    <div style="width:30%;">
-                                        <img style="width:100%;" src="./assets/image/${val.image}" />
-                                    </div>
-                                    <div style="padding-left:5%;">
-                                        <h6 style=" margin:0px; font-family:Arial, Helvetica, sans-serif;">${val.name}</h6>
-                                     
-                                        <p style=" color: gray; margin: 0px;" > ${val.adress}</p>
+                            `      <a href="https://localhost:44378/restaurant/details/${val.id}" class="d-flex align-items-center ">
+                                                    <div style="width:30%;">
+                                                        <img style="width:100%;" src="./assets/image/${val.image}" />
+                                                    </div>
+                                                    <div style="padding-left:5%;">
+                                                        <h6 style=" margin:0px; font-family:Arial, Helvetica, sans-serif;">${val.name}</h6>
 
-                                    </div>
-                                </a>`
-                               ul.appendChild(li)
-                              
+                                                        <p style=" color: gray; margin: 0px;" > ${val.adress}</p>
+
+                                                    </div>
+                                                </a>`
+                        ul.appendChild(li)
+
                     })
-               
+
                 },
                 error: function (status) {
                     console.log(status)
                 }
             })
-         
+
         })
     </script>
     <script>
@@ -514,7 +518,7 @@
                 dataType: 'json',
                 type: "post",
                 success: function (status) {
-                    if (status.status==404) {
+                    if (status.status == 404) {
                         var modal = document.getElementById("modelforget")
                         modal.style.display = "block"
                         modal.innerHTML = "Please add valid email"
@@ -653,12 +657,12 @@
 
         var Connection = new signalR.HubConnectionBuilder().withUrl("/orderhub").build()
         Connection.start()
-       
+
         Connection.on("orderready", function (data) {
             var ready = document.querySelectorAll(".is-ready")
             for (var i = 0; i <= ready.length; i++) {
                 var id = ready[i].getAttribute("data-id")
-                if (id==data.id) {
+                if (id == data.id) {
                     ready[i].classList.add("completed")
                     const Toast = Swal.mixin({
                         toast: true,
@@ -755,7 +759,7 @@
                     break;
                 }
             }
-       
+
         })
         Connection.on("completed", function (data) {
             var completed = document.querySelectorAll(".iscompleted")
@@ -786,6 +790,7 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" integrity="sha512-o6XqxgrUsKmchwy9G5VRNWSSxTS4Urr4loO6/0hYdpWmFUfHqGzawGxeQGMDqYzxjY9sbktPbNlkIQJWagVZQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="~/assets/js/main.js"></script>
     @RenderSection("ScriptSlider", false)
     @RenderSection("Script", false)
 

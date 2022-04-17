@@ -26,8 +26,13 @@ namespace Final_Project.Controllers
             _userManager = userManager;
             _httpContext = httpContext;
         }
-        public IActionResult Index()
+        public IActionResult Index(string content)
         {
+            if (!string.IsNullOrWhiteSpace(content))
+            {
+                List<Store> Storess = _context.Stores.Where(s => s.Name.ToLower().Contains(content.ToLower())).ToList();
+                return Json(Storess);
+            }
             List<Store> Stores = _context.Stores.ToList();
             return View(Stores);
         }
@@ -39,6 +44,7 @@ namespace Final_Project.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
+           
             BasketVM basketVM = new BasketVM
             {
                 TotalPrice = 0,
@@ -77,6 +83,17 @@ namespace Final_Project.Controllers
             return View(details);
         }
         [HttpPost]
+        public async Task<IActionResult> SearchProduct(int id, string content)
+        {
+            if (!string.IsNullOrWhiteSpace(content))
+            {
+                List<Product> Products = _context.Products.Include(p => p.productCategory).Where(p => p.StoreId == id && p.Name.ToLower().Contains(content.ToLower())).ToList();
+                return Json(Products);
+            }
+            return View();
+        }
+        
+        [HttpPost]
         public async Task<IActionResult> AddToBassket(int id)
         {
             Product product = _context.Products.FirstOrDefault(p => p.Id == id);
@@ -108,7 +125,7 @@ namespace Final_Project.Controllers
         [HttpPost]
         public async Task<IActionResult> ShowBasket(int id)
         {
-
+            
             BasketVM basketVM = new BasketVM
             {
                 TotalPrice = 0,

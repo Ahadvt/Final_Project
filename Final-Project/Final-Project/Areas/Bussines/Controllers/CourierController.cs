@@ -2,6 +2,7 @@
 using Final_Project.Dal;
 using Final_Project.Models;
 using Final_Project.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 namespace Final_Project.Areas.Bussines.Controllers
 {
     [Area("Bussines")]
+    [Authorize(Roles = "Courier")]
     public class CourierController : Controller
     {
         private readonly WoltDbContext _context;
@@ -31,13 +33,13 @@ namespace Final_Project.Areas.Bussines.Controllers
         public async Task<IActionResult> Index()
         {
             AppUser courier = await _userManager.FindByNameAsync(User.Identity.Name);
-            List<Order> order = _context.Orders.Include(o => o.Restuorant).Include(o => o.AppUser).Include(o => o.OrderItems).Where(o=> o.IsDelivery&&o.OrderComleete&&(o.IsCourierFind==false ||o.AppUserId==courier.Id)).ToList();
+            List<Order> order = _context.Orders.Include(o => o.Restuorant).Include(o => o.AppUser).Include(o => o.OrderItems).Include(o=>o.Store).Where(o=> o.IsDelivery&&o.OrderComleete&&(o.IsCourierFind==false ||o.AppUserId==courier.Id)).ToList();
             return View(order);
         }
         public async Task<IActionResult>ShowOrder(int orderid)
         {
             AppUser courier = await _userManager.FindByNameAsync(User.Identity.Name);
-            Order order = _context.Orders.Include(o=>o.Restuorant).Include(o=>o.AppUser).Include(o=>o.OrderItems).ThenInclude(oi=>oi.Product).Where(o=>o.IsDelivery).FirstOrDefault(o => o.Id == orderid);
+            Order order = _context.Orders.Include(o=>o.Restuorant).Include(o=>o.Store).Include(o=>o.AppUser).Include(o=>o.OrderItems).ThenInclude(oi=>oi.Product).Where(o=>o.IsDelivery).FirstOrDefault(o => o.Id == orderid);
             return Json(order);
         }
         public IActionResult Register()

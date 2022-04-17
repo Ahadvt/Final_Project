@@ -3,6 +3,7 @@ using Final_Project.Areas.Extensions;
 using Final_Project.Dal;
 using Final_Project.Models;
 using Final_Project.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -60,17 +61,33 @@ namespace Final_Project.Areas.Bussines.Controllers
                 ModelState.AddModelError("", "Username or password incorrect");
                 return View();
             }
-
             if (user.Role == "Store")
             {
+                if (user.LoginStatus)
+                {
                 return RedirectToAction(nameof(StoreSettingEdit));
+
+                }
+                else
+                {
+                    return RedirectToAction("StoreAcceptChat", "chat");
+                }
             }
             if (user.Role == "Courier")
             {
+
                 return RedirectToAction("index","courier");
             }
+            if (user.LoginStatus)
+            {
+                return RedirectToAction(nameof(RestuorantMain));
 
-            return RedirectToAction(nameof(RestuorantMain));
+            }
+            else
+            {
+                return RedirectToAction("RestaurantAcceptChat", "chat");
+            }
+            
         }
         public IActionResult CreateRestuorant()
         {
@@ -149,12 +166,14 @@ namespace Final_Project.Areas.Bussines.Controllers
            await _signInManager.SignInAsync(User, true);
             return RedirectToAction(nameof(RestuorantMain));
         }
+        [Authorize(Roles = "Restaurant")]
         public async Task<IActionResult> RestuorantMain()
         {
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
             Restuorant restuorant = _context.Restuorants.FirstOrDefault(c => c.AppUserId == user.Id);
             return View(restuorant);
         }
+        [Authorize(Roles = "Restaurant")]
         public async Task<IActionResult> RestuorantSettingEdit()
         {
             ViewBag.Categories = _context.Categories.ToList();
@@ -170,6 +189,7 @@ namespace Final_Project.Areas.Bussines.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Restaurant")]
         public async Task<IActionResult> RestuorantSettingEdit(RestuorantEditVm editVm)
         {
             ViewBag.Categories = _context.Categories.ToList();
@@ -193,6 +213,7 @@ namespace Final_Project.Areas.Bussines.Controllers
             restuorant.Title = editVm.restuorant.Title;
             restuorant.IsDeliveryFree = editVm.restuorant.IsDeliveryFree;
             restuorant.CampaignId = editVm.restuorant.CampaignId;
+            restuorant.IsCampaign = editVm.restuorant.CampaignId == null ? false : true;
             restuorant.Description = editVm.restuorant.Description;
             restuorant.PhoneNumber = editVm.restuorant.PhoneNumber;
             restuorant.Adress = editVm.restuorant.Adress;
@@ -236,6 +257,7 @@ namespace Final_Project.Areas.Bussines.Controllers
             return RedirectToAction(nameof(RestuorantSettingEdit));
         }
 
+        [Authorize(Roles = "Restaurant")]
         public async Task<IActionResult> Order()
         {
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
@@ -315,6 +337,7 @@ namespace Final_Project.Areas.Bussines.Controllers
             return RedirectToAction(nameof(StoreMain));
         }
 
+        [Authorize(Roles = "Store")]
         public async Task<IActionResult> StoreMain()
         {
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
@@ -323,6 +346,7 @@ namespace Final_Project.Areas.Bussines.Controllers
 
         }
 
+        [Authorize(Roles = "Store")]
         public async Task<IActionResult> StoreSettingEdit()
         {
            
@@ -338,6 +362,7 @@ namespace Final_Project.Areas.Bussines.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Store")]
         public async Task<IActionResult> StoreSettingEdit(StoreEditVM storeEditVM)
         {
             ViewBag.Campaigns = _context.Campaigns.ToList();
@@ -360,6 +385,7 @@ namespace Final_Project.Areas.Bussines.Controllers
             store.Title = storeEditVM.Store.Title;
             store.IsDeliveryFree = storeEditVM.Store.IsDeliveryFree;
             store.CampaignId = storeEditVM.Store.CampaignId;
+            store.IsCampaign = storeEditVM.Store.CampaignId == null ? false : true;
             store.Description = storeEditVM.Store.Description;
             store.PhoneNumber = storeEditVM.Store.PhoneNumber;
             store.Adress = storeEditVM.Store.Adress;

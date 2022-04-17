@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Checkout";
     double TotalPrice = 0;
+    string total;
 }
 @section Css{
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -66,7 +67,9 @@
                 @foreach (var item in Model.BasketItems)
                 {
                     {
-                        TotalPrice += (item.Count * item.Product.Price);
+                        TotalPrice += (item.Restuorant.CampaignId == null ? item.Count * item.Product.Price : item.Count * (item.Product.Price * (100 - item.Restuorant.Campaign.CampaignPercent) / 100));
+
+                        
 
                     }
                     <div class="id" data-id="@item.RestuorantId"></div>
@@ -86,7 +89,7 @@
                                 <p style="color:gray;">@item.Product.Description</p>
                             </div>
                             <div class="price">
-                                AZN:@item.Product.Price
+                                AZN: <del>@item.Product.Price</del>     @(item.Restuorant.CampaignId==null?item.Product.Price:item.Product.Price*(100-item.Restuorant.Campaign.CampaignPercent)/100)
                             </div>
                         </div>
                         <div style="width:45%; height:12rem;" class="img">
@@ -217,7 +220,13 @@
                     </div>
                     <div class="total-price">
                         <p>Total-Price</p>
-                        <p>AZN:@TotalPrice</p>
+                        <p style="display:none;">
+                            @(total=TotalPrice.ToString());
+                        </p>
+                        <p>
+                          
+                            AZN @(total.Length>4? total.Substring(0,5): total)
+                        </p>
                     </div>
                     <button class="order-button" type="Submit">
                         Order

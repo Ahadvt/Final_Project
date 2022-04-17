@@ -86,12 +86,17 @@ a:hover {
 }
 
 @media only screen and (max-width: 780px) {
-   
-  .sotring-title {
-    -webkit-box-align: center;
+    .input-group{
+        display:none!important;
+    }
+    #count-mob{
+        display:block !important;
+    }
+    .sotring-title {
+        -webkit-box-align: center;
         -ms-flex-align: center;
-            align-items: center;
-  }
+        align-items: center;
+    }
   .sotring-title .sort .icon {
     margin-bottom: 5%;
   }

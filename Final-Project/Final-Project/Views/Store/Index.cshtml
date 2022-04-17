@@ -10,10 +10,9 @@
             <div class="location col col-md-4" data-aos="fade-right">
                 <div class="location-icon">
                     <div class="icon">
-                        <i class="fa-solid fa-location-arrow"></i>
+                        <i class="fa-solid fa-house-chimney-window"></i>
                     </div>
-                    <p>Baku</p>
-                    <i class="fa-solid fa-chevron-down"></i>
+                    <p style="font-size:1.5rem;">7/24</p>
 
                 </div>
             </div>
@@ -128,7 +127,7 @@
     </div>
 
     <div class="cards row">
-        @foreach (Store store in Model)
+        @*@foreach (Store store in Model)
         {
             <div class="box  col-md-4">
                 <a asp-controller="store" asp-action="details" asp-route-id="@store.Id" class="card tada ">
@@ -167,7 +166,8 @@
 
                 </a>
             </div>
-        }
+        }*@
+        @await Html.PartialAsync("/Views/Shared/_Store2Partial.cshtml", Model)
     </div>
 </section>
 

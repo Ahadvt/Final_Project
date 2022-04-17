@@ -36,7 +36,6 @@ namespace Final_Project.Hubs
             AppUser Resuser = await _userManager.FindByNameAsync(Context.User.Identity.Name);
             AppUser admin =  _userManager.Users.Where(u => u.Role == "SuperAdmin").FirstOrDefault()
                 ;
-            Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.Id == Resuser.RestuorantId);
             Message message = new Message
             {
                 Text=text,
@@ -46,7 +45,9 @@ namespace Final_Project.Hubs
             };
             _context.Messages.Add(message);
             _context.SaveChanges();
-
+            if (Resuser.Role=="Store")
+            {
+            Store restuorant = _context.Stores.FirstOrDefault(r => r.Id == Resuser.StoreId);
             if (admin.ConnectionId!=null)
                 {
                    await Clients.Client(admin.ConnectionId).SendAsync("recivemessage",new { 
@@ -57,6 +58,26 @@ namespace Final_Project.Hubs
                    
                    });;
                 }
+            }
+            else
+            {
+                if (Resuser.Role == "Store")
+                {
+                    Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.Id == Resuser.RestuorantId);
+                    if (admin.ConnectionId != null)
+                    {
+                        await Clients.Client(admin.ConnectionId).SendAsync("recivemessage", new
+                        {
+                            id = message.Id,
+                            text = text,
+                            date = message.Date.ToString("HH:mm"),
+                            image = restuorant.Image,
+
+                        }); ;
+                    }
+                }
+            }
+
         }
         public async Task SendMessageToBussines(string text,string usser)
         {

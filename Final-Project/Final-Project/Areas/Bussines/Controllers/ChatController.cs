@@ -1,6 +1,7 @@
 ﻿using Final_Project.Dal;
 using Final_Project.Models;
 using Final_Project.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 namespace Final_Project.Areas.Bussines.Controllers
 {
         [Area("bussines")]
+    [Authorize(Roles = "Store, Restaurant")]
     public class ChatController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -28,11 +30,23 @@ namespace Final_Project.Areas.Bussines.Controllers
             ChatVM chat = new ChatVM
             {
                User= user,
-               Restuorant =_context.Restuorants.FirstOrDefault(r=>r.AppUserId==user.Id)
+               Restuorant =_context.Restuorants.FirstOrDefault(r=>r.AppUserId==user.Id),
+              
             };
             return View(chat);
         }
 
+        public async Task<IActionResult> StoreAcceptChat()
+        {
+            AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+            ChatVM chat = new ChatVM
+            {
+                User = user,
+                Store=_context.Stores.FirstOrDefault(s=>s.AppUserId==user.Id)
+
+            };
+            return View(chat);
+        }
         [HttpPost]
         public async Task<IActionResult> GetMessage( )
         {

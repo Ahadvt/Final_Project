@@ -1,6 +1,7 @@
 ﻿using Final_Project.Areas.Extensions;
 using Final_Project.Dal;
 using Final_Project.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 namespace Final_Project.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin, SuperAdmin")]
     public class SettingController : Controller
     {
         private readonly WoltDbContext _context;

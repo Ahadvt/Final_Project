@@ -1,6 +1,7 @@
 ﻿using Final_Project.Dal;
 using Final_Project.Models;
 using Final_Project.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 namespace Final_Project.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class ChatController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -30,7 +32,9 @@ namespace Final_Project.Areas.Admin.Controllers
             ChatVM chat = new ChatVM
             {
                 Users = _userManager.Users.Include(u => u.Restuorant).Where(u => u.Role == "Restaurant").ToList(),
-                Restuorants=_context.Restuorants.ToList()
+                Restuorants=_context.Restuorants.ToList(),
+                Stores=_context.Stores.ToList()
+                
             };
           
             return View(chat);

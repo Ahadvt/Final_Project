@@ -187,7 +187,10 @@
                                 <li class="nav-item"> <a class="nav-link" asp-controller="setting" asp-action="index">Setting</a></li>
                                 <li class="nav-item"> <a class="nav-link" asp-controller="slider" asp-action="index">Slider</a></li>
                                 <li class="nav-item"> <a class="nav-link" asp-controller="account" asp-action="index">AccountAdmin</a></li>
-                                <li class="nav-item"> <a class="nav-link" asp-controller="chat" asp-action="index">Messenger</a></li>
+                                @if (User.IsInRole("SuperAdmin"))
+                                {
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="chat" asp-action="index">Messenger</a></li>
+                                }
                                 <li class="nav-item"> <a class="nav-link" asp-controller="companies" asp-action="restaurant">Restaurants</a></li>
                                 <li class="nav-item"> <a class="nav-link" asp-controller="companies" asp-action="store">Stores</a></li>
                                 <li class="nav-item"> <a class="nav-link" asp-controller="companies" asp-action="courier">Couriers</a></li>

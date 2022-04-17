@@ -141,7 +141,6 @@ namespace Final_Project.Controllers
             return RedirectToAction(nameof(EditUser));
         }
 
-
         [HttpPost]
         
         public async Task<IActionResult> ForgetPasword(string email)
@@ -154,7 +153,7 @@ namespace Final_Project.Controllers
             mail.From = new MailAddress("homeedu91@gmail.com", "eduhome");
             mail.To.Add(user.Email);
             mail.Subject = "Reset Password";
-            mail.Body = $"<a href='{Link}'>Plaese click gere for reset password<a/>";
+            mail.Body = $"<a href='{Link}'>Plaese click here for reset password<a/>";
             mail.IsBodyHtml = true;
             SmtpClient smtp = new SmtpClient();
             smtp.Host = "smtp.gmail.com";
@@ -198,6 +197,7 @@ namespace Final_Project.Controllers
                 }
                 return View(model);
             }
+            await _signInManager.SignInAsync(user, true);
             return RedirectToAction("index", "home");
         }
     }

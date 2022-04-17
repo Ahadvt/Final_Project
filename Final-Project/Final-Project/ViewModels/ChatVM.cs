@@ -13,5 +13,6 @@ namespace Final_Project.ViewModels
         public Restuorant Restuorant { get; set; }
         public List<Restuorant> Restuorants { get; set; }
         public List<Store> Stores { get; set; }
+        public Store Store { get; set; }
     }
 }

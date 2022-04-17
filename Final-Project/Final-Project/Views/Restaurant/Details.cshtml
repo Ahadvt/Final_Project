@@ -35,71 +35,71 @@
                                 X
                             </div>
                         </div>
-                            <div class="orders">
-                                <ul id="basket-items">
-                                    @foreach (var item in Model.BasketVM.BasketItemVMs)
-                                    {
-                                        <li class="basket-item-li">
-                                            @*<div class="count ">
-                                                <p>
-                                                    @item.Count
-                                                </p>
-                                            </div>*@
-                                            <div class="input-group plus-minus-input">
-                                                <div id="btn-in-de" class="input-group-button">
-                                                    <button type="button" class="button hollow circle item-decrease " data-quantity="minus"
-                                                            data-field="quantity">
-                                                        <i id="@item.Product.Id" class="fa fa-minus" aria-hidden="true"></i>
-                                                    </button>
-                                                </div>
-                                                <p class="input-group-field">@item.Count</p>
-                                                <div class="input-group-button">
-                                                    <button type="button" class="button hollow circle item-increase" data-quantity="plus"
-                                                            data-field="quantity">
-                                                        <i id=" @item.Product.Id" class="fa fa-plus" aria-hidden="true"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-
-                                            <div class="name-price ">
-                                                <div class="name">
-                                                    @item.Product.Name
-                                                </div>
-                                                <div class="price">
-                                                    <p style="display:none">
-                                                        @(price=item.Price.ToString())
-                                                    </p>
-                                                    AZN @(price.Length>4?price.Substring(0,5):price)
-                                                </div>
-                                            </div>
-                                            <div style="height:3rem;" class="image ">
-                                                <img style="height:100%;" src="~/assets/image/@item.Product.Image" alt="">
-                                            </div>
-                                        </li>
-                                    }
-                                </ul>
-                            </div>
-                        
-                            <div  ><b>Your Order</b></div>
-                            <a   asp-controller="restuorantorder" asp-action="checkout" asp-route-id="@Model.Restuorant.Id" class="submit_button">
-                                <div class="basket">
-                                    <div class="info-basket ">
-                                        <div class="count total-count">@Model.BasketVM.Count</div>
-
-                                        <div class="view-order">
-                                            Check Out
-                                        </div>
-                                        <div class="totalprice">
-                                            <p style="display:none;">
-                                                @(totalprice=Model.BasketVM.TotalPrice.ToString())
+                        <div class="orders">
+                            <ul id="basket-items">
+                                @foreach (var item in Model.BasketVM.BasketItemVMs)
+                                {
+                                    <li class="basket-item-li">
+                                        <div id="count-mob" style="display:none" class="count ">
+                                            <p>
+                                                @item.Count
                                             </p>
-                                            Azn: @(totalprice.Length>4? totalprice.Substring(0,5): totalprice)
                                         </div>
+                                        <div class="input-group plus-minus-input">
+                                            <div id="btn-in-de" class="input-group-button">
+                                                <button type="button" class="button hollow circle item-decrease " data-quantity="minus"
+                                                        data-field="quantity">
+                                                    <i id="@item.Product.Id" class="fa fa-minus" aria-hidden="true"></i>
+                                                </button>
+                                            </div>
+                                            <p class="input-group-field">@item.Count</p>
+                                            <div class="input-group-button">
+                                                <button type="button" class="button hollow circle item-increase" data-quantity="plus"
+                                                        data-field="quantity">
+                                                    <i id=" @item.Product.Id" class="fa fa-plus" aria-hidden="true"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="name-price ">
+                                            <div class="name">
+                                                @item.Product.Name
+                                            </div>
+                                            <div class="price">
+                                                <p style="display:none">
+                                                    @(price=item.Price.ToString())
+                                                </p>
+                                                AZN @(price.Length>4?price.Substring(0,5):price)
+                                            </div>
+                                        </div>
+                                        <div style="height:3rem;" class="image ">
+                                            <img style="height:100%;" src="~/assets/image/@item.Product.Image" alt="">
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+
+                        <div><b>Your Order</b></div>
+                        <a asp-controller="restuorantorder" asp-action="checkout" asp-route-id="@Model.Restuorant.Id" class="submit_button">
+                            <div class="basket">
+                                <div class="info-basket ">
+                                    <div class="count total-count">@Model.BasketVM.Count</div>
+
+                                    <div class="view-order">
+                                        Check Out
+                                    </div>
+                                    <div class="totalprice">
+                                        <p style="display:none;">
+                                            @(totalprice=Model.BasketVM.TotalPrice.ToString())
+                                        </p>
+                                        Azn: @(totalprice.Length>4? totalprice.Substring(0,5): totalprice)
                                     </div>
                                 </div>
-                            </a>
-                        
-                        
+                            </div>
+                        </a>
+
+
                     </div>
                 </div>
             }
@@ -114,9 +114,10 @@
                                 <img src="~/assets/image/logo-2 white.svg" alt="">
                             </a>
                         </div>
-                        <div class="search col col-md-6">
-                            <input class="search-input" type="text" placeholder="&#xF002; Search"
-                                   style="font-family:Arial, FontAwesome" />
+                        <div style="position:relative;" class="search col col-md-6">
+                            <input class="search-input" type="text" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" />
+                            <ul id="search-ul" style="position:absolute; left:16%;  background-color:white; width:60%; z-index:99; " class=" mt-3 list-group">
+                            </ul>
                         </div>
 
                         @if (User.Identity.IsAuthenticated)
@@ -191,7 +192,7 @@
 
                 @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
                 {
-                    <div  id="basket-main" style="cursor: pointer;visibility:@(Model.BasketVM.BasketItemVMs.Count==0?"hidden":"visible;")" class="basket col-md-3 "
+                    <div id="basket-main" style="cursor: pointer;visibility:@(Model.BasketVM.BasketItemVMs.Count==0?"hidden":"visible;")" class="basket col-md-3 "
                          onclick="document.getElementById('id03').style.display='block'">
                         <div class="info-basket ">
                             <div class="count total-count">@Model.BasketVM.Count</div>
@@ -219,17 +220,32 @@
                         <div class="view-order">
                             <a>View order</a>
                         </div>
-                        <div  class="totalprice">
-                            Azn:@Model.BasketVM.TotalPrice
+                        <div class="totalprice">
+                            <p style="display:none;">
+                                @(totalprice=Model.BasketVM.TotalPrice.ToString())
+                            </p>
+                            Azn: @(totalprice.Length>4? totalprice.Substring(0,5): totalprice)
+
                         </div>
                     </div>
                 </div>
             }
-            <div class="restuorant-name">
+            <div style="position:absolute; bottom:19%;" class="restuorant-name">
                 <h1>@Model.Restuorant.Name</h1>
             </div>
 
         </header>
+        @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
+        {
+
+
+            <p id="ckeck_search" style="display:none">yes</p>
+        }
+        else
+        {
+            <p id="ckeck_search" style="display:none">no</p>
+        }
+        <p style="display:none;" id="restorantid">@Model.Restuorant.Id</p>
 
     </div>
     <main>
@@ -312,8 +328,9 @@
                 </div>
             </div>
             <div class="search">
-                <input class="search-input" type="text" placeholder="&#xF002; Search"
+                <input id="search_product" class="search-input" type="text" placeholder="&#xF002; Search"
                        style="font-family:Arial, FontAwesome" />
+
             </div>
         </div>
         <div class="pleasent-favourite-mobile" data-aos="zoom-in-down">
@@ -447,7 +464,7 @@
                 </div>
                 <div class="information col-md-3" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="600">
                     <div class="venues">
-                        <h5>Restuorant information</h5>
+                        <h5>Restaurant information</h5>
                         <div class="adress">
                             <h6>Adress</h6>
                             <p>@Model.Restuorant.Adress</p>
@@ -458,7 +475,7 @@
                         <div class="description">
                             <h6>About Me</h6>
                             <p>
-                              @Model.Restuorant.Description 😌
+                                @Model.Restuorant.Description 😌
                             </p>
                             <p>Phone:<a href="">+994515619425</a></p>
                         </div>
@@ -681,52 +698,56 @@
                             type: "post",
                             success: function (data) {
                                 var baskets = document.getElementById("basket-items")
-                                var baskett = document.getElementById("basket-main") 
+                                var baskett = document.getElementById("basket-main")
                                 var table = document.getElementById("id03")
                                 baskett.style.visibility = "visible"
-                               
-                                
+
+
                                 baskets.innerHTML = ""
                                 var itemIncrase = document.querySelectorAll(".item-increase")
 
                                 $.map(data.basketItemVMs, function (val, i) {
-                                   
+
                                     var li = document.createElement("li")
                                     li.className = "basket-item-li"
                                     li.innerHTML += `
-
-                                                       
-                                                                     <div  class="input-group plus-minus-input">
-                                            <div class="input-group-button">
-                                                <button   type="button" class="button hollow circle item-decrease " data-quantity="minus"
-                                                        data-field="quantity">
-                                                    <i id="${val.product.id}"  class="fa fa-minus" aria-hidden="true"></i>
-                                                </button>
+            <div id="count-mob" style="display:none" class="count ">
+                                                <p>
+                                                    ${val.count}
+                                                </p>
                                             </div>
-                                            <p class="input-group-field">${val.count}</p>
-                                            <div class="input-group-button">
-                                                <button  type="button" class="button hollow circle item-increase" data-quantity="plus"
-                                                        data-field="quantity">
-                                                    <i id="${val.product.id}" class="fa fa-plus" aria-hidden="true"></i>
 
-                                                </button>
-                                            </div>
-                                        </div>
+                                                                             <div  class="input-group plus-minus-input">
+                                                    <div class="input-group-button">
+                                                        <button   type="button" class="button hollow circle item-decrease " data-quantity="minus"
+                                                                data-field="quantity">
+                                                            <i id="${val.product.id}"  class="fa fa-minus" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+                                                    <p class="input-group-field">${val.count}</p>
+                                                    <div class="input-group-button">
+                                                        <button  type="button" class="button hollow circle item-increase" data-quantity="plus"
+                                                                data-field="quantity">
+                                                            <i id="${val.product.id}" class="fa fa-plus" aria-hidden="true"></i>
 
-                                                                <div class="name-price ">
-                                                                    <div class="name">
-                                                                        ${val.product.name}
-                                                                    </div>
-                                                                    <div class="price">
-                                                                        AZN ${val.price.toString().substring(0,5)}
-                                                                    </div>
-                                                                </div>
-                                                              <div style="height:3rem;" class="image ">
-                                                                    <img style="height:100%;" src="/assets/image/${val.product.image}" alt="">
-                                                                </div>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                                        <div class="name-price ">
+                                                                            <div class="name">
+                                                                                ${val.product.name}
+                                                                            </div>
+                                                                            <div class="price">
+                                                                                AZN ${val.price.toString().substring(0, 5)}
+                                                                            </div>
+                                                                        </div>
+                                                                      <div style="height:3rem;" class="image ">
+                                                                            <img style="height:100%;" src="/assets/image/${val.product.image}" alt="">
+                                                                        </div>
 `
                                     baskets.append(li)
-                                    baskett.style.visibility ="visible"
+                                    baskett.style.visibility = "visible"
 
                                 })
                                 $('.total-count').html(data.count)
@@ -772,11 +793,11 @@
                                 baskets.innerHTML = ""
                                 var itemIncrase = document.querySelectorAll(".item-increase")
                                 console.log(data)
-                                if (data.count==0) {
+                                if (data.count == 0) {
                                     var baskett = document.getElementById("basket-main")
                                     var table = document.getElementById("id03")
-                                    baskett.style.visibility="hidden"
-                                    table.style.display="none"
+                                    baskett.style.visibility = "hidden"
+                                    table.style.display = "none"
                                 }
 
                                 $.map(data.basketItemVMs, function (val, i) {
@@ -784,40 +805,40 @@
                                     var li = document.createElement("li")
                                     li.className = "basket-item-li"
                                     li.innerHTML += `
-
-                                                       <div class="count ">
-                                                                    <p>
-                                                                        ${val.count}
-                                                                    </p>
-                                                                </div>
-                                                                     <div  class="input-group plus-minus-input">
-                                            <div class="input-group-button">
-                                                <button   type="button" class="button hollow circle item-decrease " data-quantity="minus"
-                                                        data-field="quantity">
-                                                    <i id="${val.product.id}"  class="fa fa-minus" aria-hidden="true"></i>
-                                                </button>
+                    <div id="count-mob" style="display:none" class="count ">
+                                                <p>
+                                                    ${val.count}
+                                                </p>
                                             </div>
-                                             <p class="input-group-field">${val.count}</p>
-                                            <div class="input-group-button">
-                                                <button  type="button" class="button hollow circle item-increase" data-quantity="plus"
-                                                        data-field="quantity">
-                                                    <i id="${val.product.id}" class="fa fa-plus" aria-hidden="true"></i>
 
-                                                </button>
-                                            </div>
-                                        </div>
+                                                                             <div  class="input-group plus-minus-input">
+                                                    <div class="input-group-button">
+                                                        <button   type="button" class="button hollow circle item-decrease " data-quantity="minus"
+                                                                data-field="quantity">
+                                                            <i id="${val.product.id}"  class="fa fa-minus" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+                                                     <p class="input-group-field">${val.count}</p>
+                                                    <div class="input-group-button">
+                                                        <button  type="button" class="button hollow circle item-increase" data-quantity="plus"
+                                                                data-field="quantity">
+                                                            <i id="${val.product.id}" class="fa fa-plus" aria-hidden="true"></i>
 
-                                                                <div class="name-price ">
-                                                                    <div class="name">
-                                                                        ${val.product.name}
-                                                                    </div>
-                                                                    <div class="price">
-                                                                        AZN ${val.product.price}
-                                                                    </div>
-                                                                </div>
-                                                              <div style="height:3rem;" class="image ">
-                                                                    <img style="height:100%;" src="/assets/image/${val.product.image}" alt="">
-                                                                </div>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                                        <div class="name-price ">
+                                                                            <div class="name">
+                                                                                ${val.product.name}
+                                                                            </div>
+                                                                            <div class="price">
+                                                                                AZN ${val.product.price}
+                                                                            </div>
+                                                                        </div>
+                                                                      <div style="height:3rem;" class="image ">
+                                                                            <img style="height:100%;" src="/assets/image/${val.product.image}" alt="">
+                                                                        </div>
 `
                                     baskets.append(li)
 
@@ -925,6 +946,121 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" integrity="sha512-o6XqxgrUsKmchwy9G5VRNWSSxTS4Urr4loO6/0hYdpWmFUfHqGzawGxeQGMDqYzxjY9sbktPbNlkIQJWagVZQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- <script src="./assets/js/index.js"></script> -->
     <script src="~/assets/js/details.js"></script>
+    <script>
+        var input = document.querySelector(".search-input")
+        input.addEventListener("keyup", function () {
+            console.log(input.value)
+            var ul = document.getElementById("search-ul")
+            $(window).click(function () {
+                ul.innerHTML = " "
+            })
+            if (input.value == "") {
+                ul.innerHTML = " "
+            }
+            $.ajax({
+                url: "/home/search",
+                data: {
+                    content: input.value
+                },
+                dataType: 'json',
+                type: "post",
+                success: function (data) {
+
+                    ul.innerHTML = " "
+                    $.map(data, function (val, i) {
+                        var li = this.document.createElement("li")
+                        li.classList.add("list-group-item")
+                        li.style.backgroundColor = "white"
+
+                        li.innerHTML =
+                            `      <a href="https://localhost:44378/restaurant/details/${val.id}" class="d-flex align-items-center ">
+                                            <div style="width:30%;">
+                                                <img style="width:100%;" src="/assets/image/${val.image}" />
+                                            </div>
+                                            <div style="padding-left:5%;">
+                                                <h6 style=" margin:0px; font-family:Arial, Helvetica, sans-serif;">${val.name}</h6>
+
+                                                <p style=" color: gray; margin: 0px;" > ${val.adress}</p>
+
+                                            </div>
+                                        </a>`
+                        ul.appendChild(li)
+
+                    })
+
+                },
+                error: function (status) {
+                    console.log(status)
+                }
+            })
+
+        })
+    </script>
+    <script>
+        var inputt = document.getElementById("search_product")
+        var storeid = document.getElementById("restorantid").innerHTML
+        var products = document.querySelector(".products")
+        var a = products.innerHTML
+        inputt.addEventListener("keyup", function () {
+            
+            products.innerHTML = " "
+            if (input.value == "") {
+                products.innerHTML = a
+            }
+
+            $.ajax({
+                url: "/restaurant/searchproduct",
+                data: {
+                    id: storeid,
+                    content: inputt.value
+                },
+                dataType: 'json',
+                type: "post",
+                success: function (data) {
+                    var check = document.getElementById("ckeck_search").innerHTML
+                    products.innerHTML = " "
+                    $.map(data, function (val, i) {
+                      
+
+                        var a = document.createElement("a")
+                        a.style.cursor = "pointer"
+                        if (check == "yes") {
+                            a.classList.add("item-product")
+                        } else {
+                            a.classList.add("item-product-offline")
+                        }
+                        a.setAttribute("id", val.id)
+                        a.innerHTML =
+                            `
+                            <div style="padding:1% 2%;" class="product">
+                                        <div class="title-desc-price">
+                                            <div class="title">
+                                                <h6>${val.name}</h6>
+                                            </div>
+                                            <div class="description">
+                                                <p>${val.description}</p>
+                                            </div>
+                                            <div class="price">
+                                                AZN ${val.price}
+                                            </div>
+                                        </div>
+                                        <div style="width:35%; height:12rem;" class="img">
+                                            <img style="height:100%; width:100%;" src="/assets/image/${val.image}" alt="">
+                                        </div>
+                                    </div>
+                                  `
+                        console.log(data)
+                        products.appendChild(a)
+
+                    })
+                },
+                error: function (status) {
+                    console.log(status)
+                }
+            })
+
+        })
+    </script>
 </body>
 
 </html>

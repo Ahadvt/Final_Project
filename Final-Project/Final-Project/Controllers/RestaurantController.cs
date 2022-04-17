@@ -28,7 +28,7 @@ namespace Final_Project.Controllers
         }
         public IActionResult Index()
         {
-            List<Restuorant> Restuorants = _context.Restuorants.ToList();  
+            List<Restuorant> Restuorants = _context.Restuorants.Include(r=>r.Campaign).ToList();  
             return View(Restuorants);
         }
         public async Task<IActionResult> Sort(bool isdelivery, bool isdicount)
@@ -80,6 +80,16 @@ namespace Final_Project.Controllers
                 BasketVM= basketVM
             };
             return View(details);
+        }
+        [HttpPost]
+        public async Task<IActionResult> SearchProduct(int id, string content)
+        {
+            if (!string.IsNullOrWhiteSpace(content))
+            {
+                List<Product> Products = _context.Products.Include(p => p.productCategory).Where(p => p.RestuorantId == id && p.Name.ToLower().Contains(content.ToLower())).ToList();
+                return Json(Products);
+            }
+            return View();
         }
         [HttpPost]
         public async Task<IActionResult> AddToBassket(int id)

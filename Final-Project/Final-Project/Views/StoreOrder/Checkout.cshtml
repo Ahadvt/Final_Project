@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Checkout";
     double TotalPrice = 0;
+    string total;
 }
 
 
@@ -69,8 +70,9 @@
                 @foreach (var item in Model.BasketItems)
                 {
                     {
-                        TotalPrice += (item.Count * item.Product.Price);
-
+                       
+                        TotalPrice += (item.Store.CampaignId == null ? item.Count * item.Product.Price : item.Count * (item.Product.Price * (100 - item.Store.Campaign.CampaignPercent) / 100));
+                       
                     }
                     <div class="id" data-id="@item.StoreId"></div>
                     <div class="item">
@@ -89,7 +91,7 @@
                                 <p style="color:gray;">@item.Product.Description</p>
                             </div>
                             <div class="price">
-                                AZN:@item.Product.Price
+                                AZN: <del>@item.Product.Price</del>     @(item.Store.CampaignId==null?item.Product.Price:item.Product.Price*(100-item.Store.Campaign.CampaignPercent)/100)
                             </div>
                         </div>
                         <div style="width:45%; height:12rem;" class="img">
@@ -220,7 +222,13 @@
                     </div>
                     <div class="total-price">
                         <p>Total-Price</p>
-                        <p>AZN:@TotalPrice</p>
+                        <p style="display:none;">
+                            @(total=TotalPrice.ToString());
+                        </p>
+                        <p>
+
+                            AZN @(total.Length>4? total.Substring(0,5): total)
+                        </p>
                     </div>
                     <button class="order-button" type="Submit">
                         Order
@@ -277,17 +285,17 @@
             Swal.fire({
                 position: 'bottom-center',
                 icon: 'success',
-                title: 'Restaurant Acepted your order',
+                title: 'Store Acepted your order',
                 showConfirmButton: false,
                 timer: 2500
             })
-            setTimeout(myfunction,2000)
+            setTimeout(myfunction, 2000)
             function myfunction() {
-                location.href ="https://localhost:44378/"
+                location.href = "https://localhost:44378/"
             }
 
             var button = document.querySelector(".order-button")
-            button.style.display="none"
+            button.style.display = "none"
         })
         Connection.on("rejected", function myfunction(data) {
             Swal.fire({

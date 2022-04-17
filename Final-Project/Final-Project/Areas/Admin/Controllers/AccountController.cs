@@ -1,5 +1,6 @@
 ﻿using Final_Project.Models;
 using Final_Project.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -23,9 +24,7 @@ namespace Final_Project.Areas.Admin.Controllers
             _roloemanager = roloemanager;
         }
 
-        //[Authorize(Roles = "SuperAdmin")]
-
-
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult Index(int page = 1)
         {
             ViewBag.CurrentPage = page;
@@ -83,7 +82,7 @@ namespace Final_Project.Areas.Admin.Controllers
             return RedirectToAction("index", "setting");
         }
 
-        //[Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult AdminCreate()
         {
             ViewBag.Roles = _roloemanager.Roles.ToList();
@@ -91,7 +90,7 @@ namespace Final_Project.Areas.Admin.Controllers
             return View();
         }
 
-        //[Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "SuperAdmin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AdminCreate(CreateAdminVM register)
@@ -129,6 +128,7 @@ namespace Final_Project.Areas.Admin.Controllers
             return RedirectToAction("login", "account");
         }
 
+        [Authorize(Roles = "Admin SuperAdmin")]
         public async Task<IActionResult> EditAdmin(string id)
         {
             AppUser Admins = await _userManager.FindByIdAsync(id);
@@ -146,8 +146,7 @@ namespace Final_Project.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[ActionName("EditAdmin")]
-
+        [Authorize(Roles = "Amin SuperAdmin")]
         public async Task<IActionResult> EditAdmin(string id, EditAdminVM adminvm)
         {
             ViewBag.Roles = _roloemanager.Roles.ToList();

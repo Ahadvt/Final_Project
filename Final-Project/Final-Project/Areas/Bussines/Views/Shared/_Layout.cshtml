@@ -170,12 +170,15 @@
             <!-- partial:partials/_sidebar.html -->
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">
-                            <i class="mdi mdi-home menu-icon"></i>
-                            <span class="menu-title">Admin</span>
-                        </a>
-                    </li>
+                    @if (!User.IsInRole("Courier"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="BussinesAccount" asp-action="order">
+                                <i class="mdi mdi-home menu-icon"></i>
+                                <span class="menu-title">Admin</span>
+                            </a>
+                        </li>
+                    }
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                             <i class="mdi mdi-circle-outline menu-icon"></i>
@@ -186,23 +189,27 @@
                             <ul style="list-style:none;" class="nav flex-column sub-menu">
                                 @if (User.IsInRole("Restaurant"))
                                 {
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="BussinesAccount" asp-action="restuorantmain">Main</a></li>
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="BussinesAccount" asp-action="restuorantsettingedit">Setting</a></li>
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="category" asp-action="index">Menyu-Category</a></li>
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="product" asp-action="index">Menyu</a></li>
+                                    <li> <a class="nav-link" asp-controller="BussinesAccount" asp-action="restuorantmain">Main</a></li>
+                                    <li > <a class="nav-link" asp-controller="BussinesAccount" asp-action="restuorantsettingedit">Setting</a></li>
+                                    <li > <a class="nav-link" asp-controller="category" asp-action="index">Menyu-Category</a></li>
+                                    <li > <a class="nav-link" asp-controller="product" asp-action="index">Menyu</a></li>
+                                    <li > <a class="nav-link" asp-controller="BussinesAccount" asp-action="order">Orders</a></li>
+                                    <li > <a class="nav-link" asp-controller="chat" asp-action="RestaurantAcceptChat">Messenger</a></li>
                                 }
                                 else if (User.IsInRole("Courier"))
                                 {
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="courier" asp-action="index">Main</a></li>
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="courier" asp-action="setting">Setting</a></li>
-            
+                                    <li > <a class="nav-link" asp-controller="courier" asp-action="index">Main</a></li>
+                                    <li > <a class="nav-link" asp-controller="courier" asp-action="setting">Setting</a></li>
+
                                 }
                                 else
                                 {
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="BussinesAccount" asp-action="storemain">Main</a></li>
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="BussinesAccount" asp-action="StoreSettingEdit">Setting</a></li>
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="category" asp-action="index">Menyu-Category</a></li>
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="product" asp-action="index">Menyu</a></li>
+                                    <li > <a class="nav-link" asp-controller="BussinesAccount" asp-action="storemain">Main</a></li>
+                                    <li > <a class="nav-link" asp-controller="BussinesAccount" asp-action="StoreSettingEdit">Setting</a></li>
+                                    <li > <a class="nav-link" asp-controller="category" asp-action="index">Menyu-Category</a></li>
+                                    <li > <a class="nav-link" asp-controller="product" asp-action="index">Menyu</a></li>
+                                    <li > <a class="nav-link" asp-controller="BussinesAccount" asp-action="order">Menyu</a></li>
+                                    <li > <a class="nav-link" asp-controller="chat" asp-action="StoreAcceptChat">Menyu</a></li>
                                 }
                             </ul>
                         </div>
