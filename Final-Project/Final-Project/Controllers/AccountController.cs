@@ -140,9 +140,7 @@ namespace Final_Project.Controllers
             TempData["message"] = "Data saved";
             return RedirectToAction(nameof(EditUser));
         }
-
         [HttpPost]
-        
         public async Task<IActionResult> ForgetPasword(string email)
         {
             AppUser user = await _userManager.FindByEmailAsync(email);

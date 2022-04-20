@@ -32,16 +32,19 @@ namespace Final_Project.Areas.Bussines.Controllers
         }
         public async Task<IActionResult> Index(int page=1)
         {
-            ViewBag.CurrentPage = page;
-            ViewBag.TotalPage = Math.Ceiling((decimal)_context.Categories.Count() / 4);
+           
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
             if (user.Role=="Store")
             {
                 Store store = _context.Stores.FirstOrDefault(r => r.AppUserId == user.Id);
-                List<ProductCategory> productCategoriess = _context.ProductCategories.Where(pc => pc.StoreId == store.Id).ToList();
+                ViewBag.CurrentPage = page;
+                ViewBag.TotalPage = Math.Ceiling((decimal)_context.ProductCategories.Where(c =>c.StoreId==store.Id).Count()/4);
+                List<ProductCategory> productCategoriess = _context.ProductCategories.Where(pc => pc.StoreId == store.Id).Skip((page - 1) * 4).Take(4).ToList();
                 return View(productCategoriess);
             }
             Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.AppUserId == user.Id);
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPage = Math.Ceiling((decimal)_context.ProductCategories.Where(c => c.RestuorantId == restuorant.Id).Count() / 4);
             List<ProductCategory> productCategories = _context.ProductCategories.Where(pc=>pc.RestuorantId==restuorant.Id).Skip((page - 1) * 4).Take(4).ToList();
             return View(productCategories);
         }

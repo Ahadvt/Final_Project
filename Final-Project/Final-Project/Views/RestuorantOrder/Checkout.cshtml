@@ -2,7 +2,8 @@
 @{
     ViewData["Title"] = "Checkout";
     double TotalPrice = 0;
-    string total;
+    double total;
+    double price;
 }
 @section Css{
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -69,7 +70,7 @@
                     {
                         TotalPrice += (item.Restuorant.CampaignId == null ? item.Count * item.Product.Price : item.Count * (item.Product.Price * (100 - item.Restuorant.Campaign.CampaignPercent) / 100));
 
-                        
+
 
                     }
                     <div class="id" data-id="@item.RestuorantId"></div>
@@ -89,7 +90,12 @@
                                 <p style="color:gray;">@item.Product.Description</p>
                             </div>
                             <div class="price">
-                                AZN: <del>@item.Product.Price</del>     @(item.Restuorant.CampaignId==null?item.Product.Price:item.Product.Price*(100-item.Restuorant.Campaign.CampaignPercent)/100)
+                                @if (item.Restuorant.CampaignId != null)
+                                {<del>@item.Product.Price</del>}
+                            <p style="display:none;">
+                                @(price= item.Restuorant.CampaignId==null?item.Product.Price:item.Product.Price*100-item.Restuorant.Campaign.CampaignPercent/100))
+                            </p>
+                                AZN:   @price.ToString("f2")
                             </div>
                         </div>
                         <div style="width:45%; height:12rem;" class="img">
@@ -99,7 +105,7 @@
                 }
 
             </div>
-            <a asp-controller="restaurant" asp-action="details" asp-route-id="@Model.BasketItems.FirstOrDefault().RestuorantId" class="add-more">
+            <a asp-controller="restaurant" asp-action="details" asp-route-id="@Model.Restuorant.Id" class="add-more">
                 <div class="text-icon">
                     <p href="">Addd More Item</p>
                     <i class="fa-solid fa-plus"></i>
@@ -214,18 +220,21 @@
             <form action="">
                 <h3>Prices in AZN, incl. taxes</h3>
                 <div class="info-price">
-                    <div class="delivery-price">
+                    <div style="display:none;" class="delivery-price">
                         <p>Delivery</p>
                         <p>AZN:2.00</p>
                     </div>
                     <div class="total-price">
                         <p>Total-Price</p>
                         <p style="display:none;">
-                            @(total=TotalPrice.ToString());
+                            @(total=TotalPrice+2);
                         </p>
-                        <p>
-                          
-                            AZN @(total.Length>4? total.Substring(0,5): total)
+                        <p style="display:none;" id="totalwithdelivery">
+
+                            AZN @total.ToString("f2")
+                        </p>
+                        <p id="totlnodlivery">
+                          Azn  @TotalPrice.ToString("f2")
                         </p>
                     </div>
                     <button class="order-button" type="Submit">
@@ -263,21 +272,45 @@
     <script>
         //var connection = new signalR.HubConnectionBuilder().withUrl("/OrderHub").build()
         //connection.start()
+        var isddeliverybtn = document.getElementById("isdelivery")
+      
+        isddeliverybtn.addEventListener("click", function (e) {
+            let Isdelivery = $("#cbx").is(":checked") ? "true" : "false";
+            var totalwithdelivery = document.getElementById("totalwithdelivery")
+            var totlnodlivery = document.getElementById("totlnodlivery")
+            var deliveryprice=document.querySelector(".delivery-price")
+            console.log("a")
+            if (Isdelivery=="false") {
+                totalwithdelivery.style.display = "block"
+                totlnodlivery.style.display = "none"
+                deliveryprice.style.display="flex"
+            } else {
+                totalwithdelivery.style.display = "none"
+                totlnodlivery.style.display = "block"
+                deliveryprice.style.display = "none"
+            }
+            
+          
+        })
         $(".order-button").click(function (e) {
             e.preventDefault()
             var button = document.querySelector(".order-button")
-            button.innerHTML = '  <i class="fa fa-circle-o-notch fa-spin"></i> wait for restoration response'
-            button.disabled = true;
-            button.style.backgroundColor = "gray";
             let Isdelivery = $("#cbx").is(":checked") ? "true" : "false";
             var Adress;
             if (Isdelivery) {
                 Adress = $(".enter-adres").val()
+          
+               
             }
             let IsCard = $("#cba").is(":checked") ? "true" : "false";
             var Id = document.querySelector(".id")
             var RestuorantId = Id.getAttribute("data-id")
             Connection.invoke("OrderProduct", RestuorantId, Isdelivery, Adress, IsCard)
+            button.innerHTML = '  <i class="fa fa-circle-o-notch fa-spin"></i> wait for restoration response'
+            button.disabled = true;
+            button.style.backgroundColor = "gray";
+           
+          
         })
         Connection.on("orderaccept", function () {
             Swal.fire({
@@ -289,7 +322,7 @@
             })
             setTimeout(myfunction,2000)
             function myfunction() {
-                location.href ="https://localhost:44378/"
+                location.href = "https://localhost:44378/"
             }
 
             var button = document.querySelector(".order-button")
@@ -303,7 +336,7 @@
             })
             setTimeout(myfunction, 1500)
             function myfunction() {
-                location.href = `https://localhost:44378/store/details/${data}`
+                location.href = `https://localhost:44378/restaurant/details/${data}`
             }
            
         })

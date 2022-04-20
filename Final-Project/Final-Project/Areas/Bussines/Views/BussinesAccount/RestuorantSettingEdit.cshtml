@@ -29,11 +29,7 @@
 
             </div>
 
-            <div style="text-align:end;">
-                <label style="margin-bottom:10px; font-size:20px;" asp-for="@Model.restuorant.IsCampaign">Swich Discount</label>
-                <input asp-for="@Model.restuorant.IsCampaign" type="checkbox" />
-                <span class="mt-2 text text-danger" asp-validation-for="@Model.restuorant.IsCampaign"></span>
-            </div>
+            
             <div class="row align-items-center">
 
                 <div class="col-md-4">
@@ -94,7 +90,7 @@
                 </div>
 
                 <div class="col-md-4 ">
-                    <input style="margin-bottom:0px; padding-bottom:0px;" class="form-check" asp-for="@Model.restuorant.IsDeliveryFree" type="checkbox">
+                    <input style="margin-bottom:0px; padding-bottom:0px; font-size:40px;" class="form-check" asp-for="@Model.restuorant.IsDeliveryFree" type="checkbox">
                     <small style="font-size:10px; ">The deliver free?</small>
                     <span class="mt-2 text text-danger" asp-validation-for="@Model.restuorant.IsDeliveryFree"></span>
                 </div>

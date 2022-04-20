@@ -3,7 +3,8 @@
 @{
     ViewData["Title"] = "Checkout";
     double TotalPrice = 0;
-    string total;
+    double total;
+    double price;
 }
 
 
@@ -70,9 +71,9 @@
                 @foreach (var item in Model.BasketItems)
                 {
                     {
-                       
+
                         TotalPrice += (item.Store.CampaignId == null ? item.Count * item.Product.Price : item.Count * (item.Product.Price * (100 - item.Store.Campaign.CampaignPercent) / 100));
-                       
+
                     }
                     <div class="id" data-id="@item.StoreId"></div>
                     <div class="item">
@@ -91,7 +92,8 @@
                                 <p style="color:gray;">@item.Product.Description</p>
                             </div>
                             <div class="price">
-                                AZN: <del>@item.Product.Price</del>     @(item.Store.CampaignId==null?item.Product.Price:item.Product.Price*(100-item.Store.Campaign.CampaignPercent)/100)
+                                <p style="display:none;">@(price= item.Store.CampaignId==null?item.Product.Price:item.Product.Price*(100-item.Store.Campaign.CampaignPercent)/100)</p>
+                                AZN: <del>@item.Product.Price</del>  @price.ToString("f2")   
                             </div>
                         </div>
                         <div style="width:45%; height:12rem;" class="img">
@@ -101,7 +103,7 @@
                 }
 
             </div>
-            <a asp-controller="store" asp-action="details" asp-route-id="@Model.BasketItems.FirstOrDefault().StoreId" class="add-more">
+            <a asp-controller="store" asp-action="details" asp-route-id="@Model.Store.Id" class="add-more">
                 <div class="text-icon">
                     <p href="">Addd More Item</p>
                     <i class="fa-solid fa-plus"></i>
@@ -216,18 +218,21 @@
             <form action="">
                 <h3>Prices in AZN, incl. taxes</h3>
                 <div class="info-price">
-                    <div class="delivery-price">
+                    <div style="display:none;" class="delivery-price">
                         <p>Delivery</p>
                         <p>AZN:2.00</p>
                     </div>
                     <div class="total-price">
                         <p>Total-Price</p>
                         <p style="display:none;">
-                            @(total=TotalPrice.ToString());
+                            @(total=TotalPrice+2);
                         </p>
-                        <p>
+                        <p style="display:none;" id="totalwithdelivery">
 
-                            AZN @(total.Length>4? total.Substring(0,5): total)
+                            AZN @total.ToString("f2")
+                        </p>
+                        <p id="totlnodlivery">
+                            Azn  @TotalPrice.ToString("f2")
                         </p>
                     </div>
                     <button class="order-button" type="Submit">
@@ -265,6 +270,26 @@
     <script>
         //var connection = new signalR.HubConnectionBuilder().withUrl("/OrderHub").build()
         //connection.start()
+        var isddeliverybtn = document.getElementById("isdelivery")
+
+        isddeliverybtn.addEventListener("click", function (e) {
+            let Isdelivery = $("#cbx").is(":checked") ? "true" : "false";
+            var totalwithdelivery = document.getElementById("totalwithdelivery")
+            var totlnodlivery = document.getElementById("totlnodlivery")
+            var deliveryprice = document.querySelector(".delivery-price")
+            console.log("a")
+            if (Isdelivery == "false") {
+                totalwithdelivery.style.display = "block"
+                totlnodlivery.style.display = "none"
+                deliveryprice.style.display = "flex"
+            } else {
+                totalwithdelivery.style.display = "none"
+                totlnodlivery.style.display = "block"
+                deliveryprice.style.display = "none"
+            }
+
+
+        })
         $(".order-button").click(function (e) {
             e.preventDefault()
             var button = document.querySelector(".order-button")
@@ -280,6 +305,7 @@
             var Id = document.querySelector(".id")
             var StoreId = Id.getAttribute("data-id")
             Connection.invoke("OrderProductStore", StoreId, Isdelivery, Adress, IsCard)
+          
         })
         Connection.on("orderaccept", function () {
             Swal.fire({

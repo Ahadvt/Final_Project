@@ -31,9 +31,10 @@ namespace Final_Project.Areas.Admin.Controllers
         {
             ChatVM chat = new ChatVM
             {
-                Users = _userManager.Users.Include(u => u.Restuorant).Where(u => u.Role == "Restaurant").ToList(),
-                Restuorants=_context.Restuorants.ToList(),
-                Stores=_context.Stores.ToList()
+                Users = _userManager.Users.Include(u => u.Restuorant).Where(u => u.Role == "Restaurant").OrderBy(u=>u.RestuorantId).ToList(),
+                StoreUsers = _userManager.Users.Include(u => u.Store).Where(u => u.Role == "Store").OrderBy(s=>s.StoreId).ToList(),
+                Restuorants =_context.Restuorants.OrderBy(r=>r.Id).ToList(),
+                Stores=_context.Stores.OrderBy(u=>u.Id).ToList()
                 
             };
           

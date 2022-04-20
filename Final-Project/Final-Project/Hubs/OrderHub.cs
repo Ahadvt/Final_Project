@@ -47,21 +47,21 @@ namespace Final_Project.Hubs
             _context.SaveChanges();
             if (Resuser.Role=="Store")
             {
-            Store restuorant = _context.Stores.FirstOrDefault(r => r.Id == Resuser.StoreId);
-            if (admin.ConnectionId!=null)
+                     Store store = _context.Stores.FirstOrDefault(r => r.Id == Resuser.StoreId);
+                    if (admin.ConnectionId!=null)
                 {
                    await Clients.Client(admin.ConnectionId).SendAsync("recivemessage",new { 
                    id=message.Id,
                    text=text,
                    date=message.Date.ToString("HH:mm"),
-                   image=restuorant.Image,
+                   image= store.Image,
                    
                    });;
                 }
             }
             else
             {
-                if (Resuser.Role == "Store")
+                if (Resuser.Role == "Restaurant")
                 {
                     Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.Id == Resuser.RestuorantId);
                     if (admin.ConnectionId != null)
@@ -115,7 +115,7 @@ namespace Final_Project.Hubs
             Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.Id == Restuorantid);
             AppUser user = await _userManager.FindByNameAsync(Context.User.Identity.Name);
             AppUser ResUser = await _userManager.FindByIdAsync(restuorant.AppUserId);
-            List<BasketItem> basketitems = _context.BasketItems.Include(bi => bi.Product).Include(bi => bi.AppUser).Include(bi => bi.Restuorant).Include(bi => bi.Store).Where(b => b.AppUserId == user.Id && b.RestuorantId == restuorant.Id).ToList();
+            List<BasketItem> basketitems = _context.BasketItems.Include(bi => bi.Product).Include(bi => bi.AppUser).Include(bi => bi.Restuorant).ThenInclude(r=>r.Campaign).Include(bi => bi.Store).Where(b => b.AppUserId == user.Id && b.RestuorantId == restuorant.Id).ToList();
             Order order = new Order
             {
                 AppUserId = user.Id,
@@ -136,7 +136,9 @@ namespace Final_Project.Hubs
             }
             foreach (var item in basketitems)
             {
-                order.TotalPrice += item.Count * item.Product.Price;
+                order.TotalPrice += item.Restuorant.CampaignId == null ? item.Count * item.Product.Price :
+                     (item.Restuorant.CampaignId == null ? item.Count * item.Product.Price : item.Count * (item.Product.Price * (100 - item.Restuorant.Campaign.CampaignPercent) / 100));
+
                 OrderItems orderItems = new OrderItems
                 {
                     Order = order,
@@ -150,16 +152,23 @@ namespace Final_Project.Hubs
                 
                 _context.OrderItems.Add(orderItems);
             }
+            if (IsDelivery)
+            {
+                order.TotalPrice = order.TotalPrice + 2;
+            }
             _context.Orders.Add(order);
             _context.BasketItems.RemoveRange(basketitems);
             _context.SaveChanges();
             Order order2 = order;
-            await Clients.Client(ResUser.ConnectionId).SendAsync("thereisorder", new
+            if (ResUser.ConnectionId!=null)
             {
-                restuorantid = restuorantid,
-                userid = user.Id,
-                orderid=order2.Id
-            });
+                await Clients.Client(ResUser.ConnectionId).SendAsync("thereisorder", new
+                {
+                    restuorantid = restuorantid,
+                    userid = user.Id,
+                    orderid = order2.Id
+                });
+            }
 
 
         }
@@ -206,6 +215,10 @@ namespace Final_Project.Hubs
                 };
 
                 _context.OrderItems.Add(orderItems);
+            }
+            if (IsDelivery)
+            {
+                order.TotalPrice = order.TotalPrice + 2;
             }
             _context.Orders.Add(order);
             _context.BasketItems.RemoveRange(basketitems);
@@ -340,26 +353,40 @@ namespace Final_Project.Hubs
             order.IsOrderComlete = true;
             _context.SaveChanges();
         }
+
+
+
+
+
         public override Task OnConnectedAsync()
         {
             if (Context.User.Identity.IsAuthenticated)
             {
                 AppUser user = _userManager.FindByNameAsync(Context.User.Identity.Name).Result;
+
                 user.ConnectionId = Context.ConnectionId;
-                var Result = _userManager.UpdateAsync(user).Result;
-                Clients.All.SendAsync("userconnected", user.Id);
+
+                var result = _userManager.UpdateAsync(user).Result;
+
+                Clients.All.SendAsync("UserConnected", user.Id);
             }
+
             return base.OnConnectedAsync();
         }
+
         public override Task OnDisconnectedAsync(Exception exception)
         {
             if (Context.User.Identity.IsAuthenticated)
             {
                 AppUser user = _userManager.FindByNameAsync(Context.User.Identity.Name).Result;
+
                 user.ConnectionId = null;
-                var Result = _userManager.UpdateAsync(user).Result;
-                Clients.All.SendAsync("userdisconnected", user.Id);
+
+                var result = _userManager.UpdateAsync(user).Result;
+
+                Clients.All.SendAsync("UserDisConnected", user.Id);
             }
+
             return base.OnDisconnectedAsync(exception);
         }
 

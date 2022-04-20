@@ -59,14 +59,39 @@ namespace Final_Project.Areas.Admin.Controllers
             {
                 user.LoginStatus = false;
                 await _userManager.UpdateAsync(user);
+                if (user.Role == "Store")
+                {
+                    Store store = _context.Stores.FirstOrDefault(s => s.AppUserId == user.Id);
+                    store.StoreStatus = false;
+                    _context.SaveChanges();
+                }
+                if (user.Role == "Restaurant")
+                {
+                    Restuorant restaurant = _context.Restuorants.FirstOrDefault(s => s.AppUserId == user.Id);
+                    restaurant.ResStatus = false;
+                    _context.SaveChanges();
+                }
                 return Json(new { status = 200 });
             }
             else
             {
                 user.LoginStatus = true;
                 await  _userManager.UpdateAsync(user);
+                if (user.Role == "Store")
+                {
+                    Store store = _context.Stores.FirstOrDefault(s => s.AppUserId == user.Id);
+                    store.StoreStatus = true;
+                    _context.SaveChanges();
+                }
+                if (user.Role == "Restaurant")
+                {
+                    Restuorant restaurant = _context.Restuorants.FirstOrDefault(s => s.AppUserId == user.Id);
+                    restaurant.ResStatus = true;
+                    _context.SaveChanges();
+                }
                 return Json(new { status = 201 });
             }
+          
 
         }
 
@@ -77,31 +102,80 @@ namespace Final_Project.Areas.Admin.Controllers
             if (user.Role == "Restaurant")
             {
                 Restuorant restaurant = _context.Restuorants.FirstOrDefault(r => r.AppUserId == user.Id);
-
+                List<Message> messages = _context.Messages.Where(m=>m.AppUserId==user.Id||m.ReciveUserId==user.Id).ToList();
                 List<ProductCategory> productCategories = _context.ProductCategories.Where(pc=>pc.RestuorantId==restaurant.Id).ToList();
+                List<Product> products = _context.Products.Where(pc => pc.RestuorantId == restaurant.Id).ToList();
+                List<Order> orders = _context.Orders.Where(pc => pc.RestuorantId == restaurant.Id).ToList();
+                List<OrderItems> orderItems = _context.OrderItems.Where(pc => pc.RestuorantId == restaurant.Id).ToList();
+
+                List<Favorite> favorites = _context.Favorites.Where(s => s.RestuorantId == restaurant.Id).ToList();
+
+
+                foreach (var item in favorites)
+                {
+                    _context.Favorites.Remove(item);
+                }
                 foreach (var item in productCategories)
                 {
-
                     _context.ProductCategories.Remove(item);
                 }
-                _context.SaveChanges();
+                foreach (var item in messages)
+                {
+                    _context.Messages.Remove(item);
+                }
+                foreach (var item in orders)
+                {
+                    _context.Orders.Remove(item);
+                }
+                foreach (var item in orderItems)
+                {
+                    _context.OrderItems.Remove(item);
+                }
+                foreach (var item in products)
+                {
+                    _context.Products.Remove(item);
+                }
                 _context.Restuorants.Remove(restaurant);
-                
-                
+
             }
             if (user.Role == "Store")
             {
-                Store store = _context.Stores.Include(s=>s.ProductCategories).FirstOrDefault(r => r.AppUserId == user.Id);
-                List<ProductCategory> productCategories = _context.ProductCategories.Where(pc => pc.RestuorantId == store.Id).ToList();
+                Store store = _context.Stores.FirstOrDefault(r => r.AppUserId == user.Id);
+                List<Message> messages = _context.Messages.Where(m => m.AppUserId == user.Id || m.ReciveUserId == user.Id).ToList();
+                List<ProductCategory> productCategories = _context.ProductCategories.Where(pc => pc.StoreId == store.Id).ToList();
+                List<Product> products = _context.Products.Where(pc => pc.StoreId == store.Id).ToList();
+                List<Order> orders = _context.Orders.Where(pc => pc.StoreId == store.Id).ToList();
+                List<OrderItems> orderItems = _context.OrderItems.Where(pc => pc.StoreId == store.Id).ToList();
+                List<Favorite> favorites = _context.Favorites.Where(s => s.StoreId == store.Id).ToList();
+
+
+                foreach (var item in favorites)
+                {
+                    _context.Favorites.Remove(item);
+                }
                 foreach (var item in productCategories)
                 {
-
                     _context.ProductCategories.Remove(item);
                 }
-                _context.SaveChanges();
+                foreach (var item in messages)
+                {
+                    _context.Messages.Remove(item);
+                }
+                foreach (var item in orders)
+                {
+                    _context.Orders.Remove(item);
+                }
+                foreach (var item in orderItems)
+                {
+                    _context.OrderItems.Remove(item);
+                }
+                foreach (var item in products)
+                {
+                    _context.Products.Remove(item);
+                }
                 _context.Stores.Remove(store);
             }
-
+            _context.SaveChanges();
             await _userManager.DeleteAsync(user);
          
                    

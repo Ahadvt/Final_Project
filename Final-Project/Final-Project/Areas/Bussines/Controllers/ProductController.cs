@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace Final_Project.Areas.Bussines.Controllers
 {
     [Area("bussines")]
-    [Authorize(Roles = "Srote,Restaurant")]
+    [Authorize(Roles = "Store,Restaurant")]
     public class ProductController : Controller
     {
         private readonly WoltDbContext _context;
@@ -34,11 +34,12 @@ namespace Final_Project.Areas.Bussines.Controllers
         public async Task<IActionResult> Index(int page=1)
         {
             ViewBag.CurrentPage = page;
-            ViewBag.TotalPage = Math.Ceiling((decimal)_context.Categories.Count() / 4);
+            
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
             if (user.Role == "Store")
             {
                 Store store = _context.Stores.FirstOrDefault(r => r.AppUserId == user.Id);
+                ViewBag.TotalPage = Math.Ceiling((decimal)_context.Products.Where(s=>s.StoreId==store.Id).Count() / 4);
                 List<Product> productss = _context.Products.Include(p => p.productCategory).Where(p => p.StoreId == store.Id).Skip((page - 1) * 4).Take(4).ToList();
                 return View(productss);
             }
@@ -46,6 +47,7 @@ namespace Final_Project.Areas.Bussines.Controllers
             {
 
                 Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.AppUserId == user.Id);
+                ViewBag.TotalPage = Math.Ceiling((decimal)_context.Products.Where(s => s.RestuorantId == restuorant.Id).Count() / 4);
                 List<Product> products = _context.Products.Include(p => p.productCategory).Where(p => p.RestuorantId == restuorant.Id).Skip((page - 1) * 4).Take(4).ToList();
                 return View(products);
             }

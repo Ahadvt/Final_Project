@@ -28,21 +28,27 @@ namespace Final_Project.Controllers
         }
         public IActionResult Index()
         {
-            List<Restuorant> Restuorants = _context.Restuorants.Include(r=>r.Campaign).ToList();  
+
+            List<Restuorant> Restuorants = _context.Restuorants.Include(r=>r.Campaign).Where(r=>r.ResStatus).ToList();
             return View(Restuorants);
         }
         public async Task<IActionResult> Sort(bool isdelivery, bool isdicount)
         {
-            List<Restuorant> restuorants = _context.Restuorants.Where(r=>r.IsDeliveryFree==isdelivery&&r.IsCampaign==isdicount).ToList();
+            List<Restuorant> restuorants = _context.Restuorants.Where(r=>(r.IsDeliveryFree == isdelivery && r.IsCampaign == isdicount&&r.ResStatus)||(r.IsDeliveryFree&&r.ResStatus)||(r.IsCampaign&&r.ResStatus)).ToList();
             return Json(restuorants);
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.Id == id);
+            AppUser user1=new AppUser();
+            if (User.Identity.IsAuthenticated)
+            {
+            user1 = await _userManager.FindByNameAsync(User.Identity.Name);
+            }
+            Restuorant restuorant = _context.Restuorants.Where(r=>r.ResStatus).FirstOrDefault(r => r.Id == id);
             if (restuorant==null)
             {
-                return NotFound();
+                return RedirectToAction("error","home");
             }
             BasketVM basketVM = new BasketVM
             {
@@ -76,8 +82,9 @@ namespace Final_Project.Controllers
             }
             DetailsVM details = new DetailsVM
             {
-                Restuorant= _context.Restuorants.Include(r => r.ProductCategories).Include(r => r.Products).Include(r => r.BasketItems).FirstOrDefault(r => r.Id == id),
-                BasketVM= basketVM
+                Restuorant = _context.Restuorants.Include(r => r.ProductCategories).Include(r=>r.Campaign).Include(r => r.Products).Include(r => r.BasketItems).FirstOrDefault(r => r.Id == id),
+                BasketVM = basketVM,
+                Favorite = _context.Favorites.FirstOrDefault(f=>f.RestuorantId==id&&f.AppUserId==user1.Id)
             };
             return View(details);
         }
@@ -173,6 +180,11 @@ namespace Final_Project.Controllers
             }
             _context.SaveChanges();
             return Json(new { status = 200 });
+        }
+
+        public IActionResult Error()
+        {
+            return View();
         }
        
     }

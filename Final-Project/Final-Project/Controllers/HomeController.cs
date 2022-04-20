@@ -26,10 +26,10 @@ namespace Final_Project.Controllers
             HomeVM homeVM = new HomeVM
             {
                 Sliders = _context.Sliders.ToList(),
-                RestuorantsDeliveryFree = _context.Restuorants.Where(r => r.IsDeliveryFree).ToList(),
-                RestuorantsCampaign = _context.Restuorants.Include(r=>r.Campaign).Where(r=>r.CampaignId!=null).ToList(),
-                RestaurantSweet = _context.Restuorants.Include(r=>r.Restuorant_Categories).ThenInclude(rc=>rc.Category).ToList(),
-                Stores=_context.Stores.ToList()
+                RestuorantsDeliveryFree = _context.Restuorants.Where(r => r.IsDeliveryFree&&r.ResStatus).ToList(),
+                RestuorantsCampaign = _context.Restuorants.Include(r=>r.Campaign).Where(r=>r.CampaignId!=null&&r.ResStatus).ToList(),
+                RestaurantSweet = _context.Restuorants.Include(r=>r.Restuorant_Categories).ThenInclude(rc=>rc.Category).Where(r=>r.ResStatus).ToList(),
+                Stores=_context.Stores.Where(s=>s.StoreStatus).ToList()
                 
             };
             return View(homeVM);
@@ -40,11 +40,17 @@ namespace Final_Project.Controllers
         {
             if (!string.IsNullOrEmpty(content))
             {
-                var result = from x in _context.Restuorants select x;
+                var result = from x in _context.Restuorants.Where(r=>r.ResStatus) select x;
                 result = result.Where(x => x.Name.Contains(content));
                 return Json(await result.AsNoTracking().ToListAsync());
             }
             return View();
         }
+
+        public IActionResult Error()
+        {
+            return View();
+        }
+     
     }
 }

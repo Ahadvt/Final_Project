@@ -10,6 +10,7 @@ namespace Final_Project.Models
     public class AppUser:IdentityUser
     {
         [StringLength(30)]
+
         public string FullName { get; set; }
         public bool LoginStatus { get; set; }
         public int? RestuorantId { get; set; }
@@ -22,6 +23,7 @@ namespace Final_Project.Models
         public List<OrderItems> OrderItems { get; set; }
         public List<Order> Orders { get; set; }
         public List<Message> Messages { get; set; }
-
+        public List<Favorite> Favorites { get; set; }
+        
     }
 }

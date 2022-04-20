@@ -30,21 +30,26 @@ namespace Final_Project.Controllers
         {
             if (!string.IsNullOrWhiteSpace(content))
             {
-                List<Store> Storess = _context.Stores.Where(s => s.Name.ToLower().Contains(content.ToLower())).ToList();
+                List<Store> Storess = _context.Stores.Where(s =>s.StoreStatus&& s.Name.ToLower().Contains(content.ToLower())).ToList();
                 return Json(Storess);
             }
-            List<Store> Stores = _context.Stores.ToList();
+            List<Store> Stores = _context.Stores.Where(s=>s.StoreStatus).ToList();
+            
             return View(Stores);
         }
         public async Task<IActionResult> Sort(bool isdelivery, bool isdicount)
         {
-            List<Store> stores = _context.Stores.Where(r => r.IsDeliveryFree == isdelivery && r.IsCampaign == isdicount).ToList();
+            List<Store> stores = _context.Stores.Where(r => (r.IsDeliveryFree == isdelivery && r.IsCampaign == isdicount&&r.StoreStatus)||(r.IsCampaign&&r.StoreStatus)||(r.IsDeliveryFree&&r.StoreStatus)).ToList();
             return Json(stores);
         }
 
         public async Task<IActionResult> Details(int id)
         {
-           
+            AppUser user1 = new AppUser();
+            if (User.Identity.IsAuthenticated)
+            {
+                user1 = await _userManager.FindByNameAsync(User.Identity.Name);
+            }
             BasketVM basketVM = new BasketVM
             {
                 TotalPrice = 0,
@@ -77,9 +82,14 @@ namespace Final_Project.Controllers
             }
             DetailsVM details = new DetailsVM
             {
-                Store = _context.Stores.Include(r => r.ProductCategories).Include(r => r.Products).Include(r => r.BasketItems).FirstOrDefault(r => r.Id == id),
-                BasketVM = basketVM
+                Store = _context.Stores.Include(s=>s.Campaign).Include(r => r.ProductCategories).Include(r => r.Products).Include(r => r.BasketItems).FirstOrDefault(r => r.Id == id),
+                BasketVM = basketVM,
+                Favorite = _context.Favorites.FirstOrDefault(f=>f.StoreId==id&&f.AppUserId==user1.Id)
             };
+            if (details.Store== null)
+            {
+                return RedirectToAction("error","home");
+            }
             return View(details);
         }
         [HttpPost]

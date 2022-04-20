@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace Final_Project.Areas.Bussines.Controllers
 {
     [Area("Bussines")]
-    [Authorize(Roles = "Courier")]
+
     public class CourierController : Controller
     {
         private readonly WoltDbContext _context;
@@ -29,13 +29,21 @@ namespace Final_Project.Areas.Bussines.Controllers
             _signInManager = signInManager;
             _roleManager = roleManager;
         }
-
+        [Authorize(Roles = "Courier")]
         public async Task<IActionResult> Index()
         {
             AppUser courier = await _userManager.FindByNameAsync(User.Identity.Name);
             List<Order> order = _context.Orders.Include(o => o.Restuorant).Include(o => o.AppUser).Include(o => o.OrderItems).Include(o=>o.Store).Where(o=> o.IsDelivery&&o.OrderComleete&&(o.IsCourierFind==false ||o.AppUserId==courier.Id)).ToList();
             return View(order);
         }
+        [Authorize(Roles = "Courier")]
+        public async Task<IActionResult> Detail()
+        {
+            AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+            List<Order> orders = _context.Orders.Include(o=>o.AppUser).Where(o=>o.CourierID==user.Id).ToList();
+            return View(orders);
+        }
+        [Authorize(Roles = "Courier")]
         public async Task<IActionResult>ShowOrder(int orderid)
         {
             AppUser courier = await _userManager.FindByNameAsync(User.Identity.Name);
@@ -76,7 +84,7 @@ namespace Final_Project.Areas.Bussines.Controllers
             await _signInManager.SignInAsync(user, true);
             return RedirectToAction(nameof(Index));
         }
-
+        [Authorize(Roles = "Courier")]
         public async Task<IActionResult> Setting()
         {
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
@@ -91,6 +99,7 @@ namespace Final_Project.Areas.Bussines.Controllers
             return View(editUser);
         }
         [HttpPost]
+        [Authorize(Roles = "Courier")]
         public async Task<IActionResult> Setting(EditCourierVM editUser)
         {
             AppUser ExsistUser = await _userManager.FindByNameAsync(User.Identity.Name);

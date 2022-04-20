@@ -30,6 +30,7 @@ namespace Final_Project.Models
         public string WorkTime { get; set; }
         public bool IsCampaign { get; set; }
         public bool IsDeliveryFree { get; set; }
+        public bool StoreStatus { get; set; }
         public List<ProductCategory> ProductCategories { get; set; }
         public List<Product> Products { get; set; }
         public string AppUserId { get; set; }
@@ -38,5 +39,7 @@ namespace Final_Project.Models
         public List<BasketItem> BasketItems { get; set; }
         public List<OrderItems> OrderItems { get; set; }
         public List<Order> Orders { get; set; }
+        public List<Favorite> Favorites { get; set; }
+
     }
 }

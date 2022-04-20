@@ -17,7 +17,6 @@ namespace Final_Project.Services
         private readonly UserManager<AppUser> _userManager;
         private readonly IHttpContextAccessor _contextAccessor;
 
-
         public RegisterUserVM RegisterVM { get; set; }
 
         public LoginUserVM LogginVM { get; set; }
@@ -48,8 +47,6 @@ namespace Final_Project.Services
             return order;
 
         }
-
-
         public Setting GetSetting()
         {
             Setting setting = _context.Setting.FirstOrDefault();

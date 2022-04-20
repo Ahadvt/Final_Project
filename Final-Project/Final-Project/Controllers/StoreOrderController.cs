@@ -32,17 +32,15 @@ namespace Final_Project.Controllers
             Store store = _context.Stores.FirstOrDefault(r => r.Id == id);
             if (store == null)
             {
-                return NotFound();
+                return RedirectToAction("error","home");
             }
             OrderVM order = new OrderVM
             {
                 BasketItems = _context.BasketItems.Include(b=>b.Store).ThenInclude(r=>r.Campaign).Include(b => b.Product).Where(b => b.AppUserId == user.Id && b.StoreId == id).ToList(),
+                Store=store
             };
-            if (order.BasketItems == null)
-            {
-                return NotFound();
-            }
-
+         
+           
             return View(order);
         }
     }

@@ -1,33 +1,27 @@
-const btn=document.getElementById('btn')
-const SpeechRecognition=window.SpeechRecognition || window.webkitSpeechRecognition;
+const btn = document.getElementById('btn')
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
 recognition.continuous = true;
-
-
 recognition.onstart = function () {
-    console.log('You Can Speak Now')
     document.getElementById('result').innerHTML = " "
-    btn.style.color="red"
+    btn.style.color = "red"
 }
 recognition.onend = function () {
     btn.style.color = "#009DE0"
-
 }
-
 recognition.onresult = function (event) {
-    
+   
     var last = event.results.length - 1;
     const text = event.results[last][0].transcript;
-   console.log(text)
-    if (text!=" ") {
-    read(text);
+   
+    console.log(text)
+    if (text != " ") {
+        read(text);
     }
 }
-
-
 function read(text) {
     var speech = new SpeechSynthesisUtterance();
-    speech.text = ""
+    speech.text = "I am not able to understand"
     if (text.includes('time')) {
         speech.text = 'It is' + new Date().getHours() + "" + new Date().getMinutes() + " right now"
     }
@@ -58,10 +52,10 @@ function read(text) {
     }
     else if (text.includes('what is your name')) {
         speech.rate = 0.3;
-        speech.text = "My name"
+        speech.text = "My name is sam"
     }
     else if (text.includes('my orders')) {
-      
+
         var btnshoworder = document.getElementById("ordershowc");
         if (btnshoworder != null) {
             speech.text = "Okey!"
@@ -69,10 +63,10 @@ function read(text) {
         } else {
             speech.text = "Are you sure?  you do not have an order!"
         }
-       
-        
+
+
     }
-    
+
     else if (text.includes('Sam')) {
         speech.rate = 0.3;
         speech.text = "I am here"
@@ -85,11 +79,11 @@ function read(text) {
         speech.text = "I am opening "
         window.open('https://localhost:44378/store')
     }
+
     speech.rate = 1;
     speech.pitch = 2;
 
     window.speechSynthesis.speak(speech);
-    
+
 
 }
-

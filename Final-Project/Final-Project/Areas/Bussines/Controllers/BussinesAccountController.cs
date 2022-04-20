@@ -89,11 +89,17 @@ namespace Final_Project.Areas.Bussines.Controllers
             }
             
         }
+        public async Task<IActionResult> Logout()
+        {
+          await  _signInManager.SignOutAsync();
+          return  RedirectToAction(nameof(Login));
+        }
         public IActionResult CreateRestuorant()
         {
             ViewBag.Categories = _context.Categories.ToList();
             return View();
         }
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateRestuorant(RestuorantRegisterVM restuorantInfo)
@@ -164,14 +170,21 @@ namespace Final_Project.Areas.Bussines.Controllers
             await _userManager.AddToRoleAsync(User, "Restaurant");
             await _userManager.UpdateAsync(User);
            await _signInManager.SignInAsync(User, true);
-            return RedirectToAction(nameof(RestuorantMain));
+            return RedirectToAction("RestaurantAcceptChat", "chat");
         }
         [Authorize(Roles = "Restaurant")]
-        public async Task<IActionResult> RestuorantMain()
+        public async Task<IActionResult> RestuorantMain(int page=1)
         {
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
             Restuorant restuorant = _context.Restuorants.FirstOrDefault(c => c.AppUserId == user.Id);
-            return View(restuorant);
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPage = Math.Ceiling((decimal)_context.Orders.Where(r=>r.RestuorantId==restuorant.Id&&r.IsOrderComlete).Count()/5);
+            BussinesOrderVM bussinesOrderVM = new BussinesOrderVM
+            {
+                Orders= _context.Orders.Where(r => r.RestuorantId == restuorant.Id && r.IsOrderComlete).Skip((page - 1) * 5).Take(5).Include(o => o.AppUser).ToList(),
+                OrdersTotal=_context.Orders.Where(o=>o.RestuorantId==restuorant.Id&&o.IsOrderComlete).ToList()
+        };
+            return View(bussinesOrderVM);
         }
         [Authorize(Roles = "Restaurant")]
         public async Task<IActionResult> RestuorantSettingEdit()
@@ -180,6 +193,10 @@ namespace Final_Project.Areas.Bussines.Controllers
             ViewBag.Campaigns = _context.Campaigns.ToList();
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
             Restuorant restuorant = _context.Restuorants.Include(r => r.Restuorant_Categories).FirstOrDefault(c => c.AppUserId == user.Id);
+            if (restuorant==null)
+            {
+                return RedirectToAction("error", "home");
+            }
             RestuorantEditVm restuorantEdit = new RestuorantEditVm
             {
                 AppUser = user,
@@ -196,11 +213,36 @@ namespace Final_Project.Areas.Bussines.Controllers
             ViewBag.Campaigns = _context.Campaigns.ToList();
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
             Restuorant restuorant = _context.Restuorants.Include(r => r.Restuorant_Categories).FirstOrDefault(c => c.AppUserId == user.Id);
+            if (restuorant == null)
+            {
+                return RedirectToAction("error", "home");
+            }
             RestuorantEditVm restuorantEdit = new RestuorantEditVm
             {
                 AppUser = user,
                 restuorant = restuorant
             };
+            if (editVm.AppUser.UserName == null)
+            {
+                ModelState.AddModelError("Appuser.UserName", "UserName is required");
+                return View(restuorantEdit);
+            }
+            if (editVm.AppUser.FullName == null)
+            {
+                ModelState.AddModelError("Appuser.FullName", "Fullname is required");
+                return View(restuorantEdit);
+            }
+            if (editVm.AppUser.Email == null)
+            {
+                ModelState.AddModelError("Appuser.Email", "Email is required");
+                return View(restuorantEdit);
+            }
+            if (editVm.AppUser.PhoneNumber == null)
+            {
+                ModelState.AddModelError("Appuser.PhoneNumber", "PhoneNumber is required");
+                return View(restuorantEdit);
+            }
+          
             if (!ModelState.IsValid) return View(restuorantEdit);
             user.UserName = editVm.AppUser.UserName;
             user.FullName = editVm.AppUser.FullName;
@@ -257,7 +299,7 @@ namespace Final_Project.Areas.Bussines.Controllers
             return RedirectToAction(nameof(RestuorantSettingEdit));
         }
 
-        [Authorize(Roles = "Restaurant")]
+        [Authorize(Roles = "Restaurant,Store")]
         public async Task<IActionResult> Order()
         {
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
@@ -276,8 +318,6 @@ namespace Final_Project.Areas.Bussines.Controllers
         {
             return View();
         }
-      
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateStore(StoreRegisterVM storeRegister)
@@ -334,15 +374,23 @@ namespace Final_Project.Areas.Bussines.Controllers
             await _userManager.AddToRoleAsync(User, "Store");
             await _userManager.UpdateAsync(User);
             await _signInManager.SignInAsync(User, true);
-            return RedirectToAction(nameof(StoreMain));
+            return RedirectToAction("StoreAcceptChat", "chat");
         }
 
         [Authorize(Roles = "Store")]
-        public async Task<IActionResult> StoreMain()
+        public async Task<IActionResult> StoreMain(int page=1)
         {
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
             Store store = _context.Stores.FirstOrDefault(c => c.AppUserId == user.Id);
-            return View(store);
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPage = Math.Ceiling((decimal)_context.Orders.Where(o=>o.StoreId==store.Id&&o.IsOrderComlete).Count()/5);
+            
+            BussinesOrderVM bussinesOrderVM = new BussinesOrderVM
+            {
+                Orders = _context.Orders.Where(o => o.StoreId == store.Id && o.IsOrderComlete).Skip((page - 1) * 4).Take(5).Include(o => o.AppUser).ToList(),
+                OrdersTotal=_context.Orders.Where(o=>o.StoreId==store.Id&&o.IsOrderComlete).ToList()
+        };
+            return View(bussinesOrderVM);
 
         }
 
@@ -373,6 +421,26 @@ namespace Final_Project.Areas.Bussines.Controllers
                 AppUser = user,
                 Store = store
             };
+            if (storeEditVM.AppUser.UserName==null)
+            {
+                ModelState.AddModelError("Appuser.UserName", "UserName is required");
+                return View(storeEdit);
+            }
+            if (storeEditVM.AppUser.FullName == null)
+            {
+                ModelState.AddModelError("Appuser.FullName", "Fullname is required");
+                return View(storeEdit);
+            }
+            if (storeEditVM.AppUser.Email == null)
+            {
+                ModelState.AddModelError("Appuser.Email", "Email is required");
+                return View(storeEdit);
+            }
+            if (storeEditVM.AppUser.PhoneNumber == null)
+            {
+                ModelState.AddModelError("Appuser.PhoneNumber", "PhoneNumber is required");
+                return View(storeEdit);
+            }
             if (!ModelState.IsValid) return View(storeEdit);
             user.UserName = storeEditVM.AppUser.UserName;
             user.FullName = storeEditVM.AppUser.FullName;

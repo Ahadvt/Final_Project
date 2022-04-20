@@ -183,6 +183,33 @@ namespace Final_Project.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("Final_Project.Models.Favorite", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("RestuorantId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StoreId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("RestuorantId");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("Favorites");
+                });
+
             modelBuilder.Entity("Final_Project.Models.Message", b =>
                 {
                     b.Property<int>("Id")
@@ -442,6 +469,9 @@ namespace Final_Project.Migrations
                         .HasColumnType("nvarchar(13)")
                         .HasMaxLength(13);
 
+                    b.Property<bool>("ResStatus")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)")
@@ -579,6 +609,9 @@ namespace Final_Project.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(13)")
                         .HasMaxLength(13);
+
+                    b.Property<bool>("StoreStatus")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -757,6 +790,21 @@ namespace Final_Project.Migrations
 
                     b.HasOne("Final_Project.Models.Store", "Store")
                         .WithMany("BasketItems")
+                        .HasForeignKey("StoreId");
+                });
+
+            modelBuilder.Entity("Final_Project.Models.Favorite", b =>
+                {
+                    b.HasOne("Final_Project.Models.AppUser", "AppUser")
+                        .WithMany("Favorites")
+                        .HasForeignKey("AppUserId");
+
+                    b.HasOne("Final_Project.Models.Restuorant", "Restuorant")
+                        .WithMany("Favorites")
+                        .HasForeignKey("RestuorantId");
+
+                    b.HasOne("Final_Project.Models.Store", "Store")
+                        .WithMany("Favorites")
                         .HasForeignKey("StoreId");
                 });
 

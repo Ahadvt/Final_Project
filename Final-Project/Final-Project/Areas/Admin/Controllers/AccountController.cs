@@ -125,7 +125,7 @@ namespace Final_Project.Areas.Admin.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("login", "account");
+            return RedirectToAction(nameof(Login));
         }
 
         [Authorize(Roles = "Admin SuperAdmin")]

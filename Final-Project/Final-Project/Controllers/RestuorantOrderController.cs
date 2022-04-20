@@ -33,17 +33,14 @@ namespace Final_Project.Controllers
             Restuorant restuorant = _context.Restuorants.FirstOrDefault(r => r.Id == id);
             if (restuorant==null)
             {
-                return NotFound();
+                return RedirectToAction("index","home");
             }
             OrderVM order = new OrderVM
             {
                 BasketItems = _context.BasketItems.Include(b=>b.Restuorant).ThenInclude(r=>r.Campaign).Include(b=>b.Product).Where(b => b.AppUserId == user.Id && b.RestuorantId == id).ToList(),
+                Restuorant=restuorant
             };
-            if (order.BasketItems==null)
-            {
-                return NotFound();
-            }
-
+        
             return View(order);
         }
     }

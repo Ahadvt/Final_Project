@@ -168,7 +168,6 @@ C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Ra
 C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Account\EditAdmin.cshtml.g.cs
 C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Areas\Bussines\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Areas\Bussines\Views\_ViewStart.cshtml.g.cs
-C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Areas\Bussines\Views\Setting\Edit.cshtml.g.cs
 C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Areas\Bussines\Views\Category\Index.cshtml.g.cs
 C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Areas\Bussines\Views\Product\Index.cshtml.g.cs
 C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Areas\Bussines\Views\Product\Create.cshtml.g.cs
@@ -218,3 +217,6 @@ C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Ra
 C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Views\Store\Details.cshtml.g.cs
 C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Store2Partial.cshtml.g.cs
 C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Areas\Bussines\Views\Chat\StoreAcceptChat.cshtml.g.cs
+C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\DashBoard\Index.cshtml.g.cs
+C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Areas\Bussines\Views\Courier\Detail.cshtml.g.cs
+C:\Users\HP\Desktop\final\Final-Project\Final-Project\obj\Debug\netcoreapp3.1\Razor\Views\Home\Error.cshtml.g.cs

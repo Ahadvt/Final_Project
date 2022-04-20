@@ -31,6 +31,7 @@ namespace Final_Project.Models
         [StringLength(15)]
         public string WorkTime { get; set; }
         public bool IsCampaign { get; set; }
+        public bool ResStatus { get; set; }
         public bool IsDeliveryFree { get; set; }
         public List<Restuorant_Category> Restuorant_Categories { get; set; }
         public List<ProductCategory> ProductCategories { get; set; }
@@ -41,7 +42,7 @@ namespace Final_Project.Models
         public List<BasketItem> BasketItems { get; set; }
         public List<OrderItems> OrderItems { get; set; }
         public List<Order> Orders { get; set; }
-
+        public List<Favorite> Favorites { get; set; }
 
 
 

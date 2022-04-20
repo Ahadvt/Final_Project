@@ -363,7 +363,7 @@
             var orderid = $(e.target).attr('data-id')
             Connection.invoke("OrderReady", orderid)
             var a = $(this).parent()
-            a.html(`<div data-id="${orderid}" style="color:white;" class="btn btn-primary pickucp" >Coutier Pickuped</div>
+            a.html(`<div data-id="${orderid}" style="color:white;" class="btn btn-primary pickucp" >Pickuped</div>
 
 `)
         })

@@ -18,6 +18,8 @@ namespace Final_Project.ViewModels
         public bool IsDelivery { get; set; }
         public string Address { get; set; }
         public List<BasketItem> BasketItems { get; set; }
-        
+        public Restuorant Restuorant { get; set; }
+        public Store Store { get; set; }
+
     }
 }

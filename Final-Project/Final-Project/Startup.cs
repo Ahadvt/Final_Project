@@ -1,3 +1,4 @@
+using Final_Project.Areas.Bussines.Services;
 using Final_Project.Dal;
 using Final_Project.Hubs;
 using Final_Project.Models;
@@ -36,6 +37,7 @@ namespace Final_Project
             });
 
             services.AddScoped<LayoutServices>();
+            services.AddScoped<LayoutServicesBussines>();
             services.AddHttpContextAccessor();
             services.AddSignalR().AddJsonProtocol();
             services.AddSession();

@@ -12,9 +12,18 @@
                     <div class="restoran-name">
                         <h6>@restuorant.Name</h6>
                     </div>
-                    <div class="title">
-                        <p>@Html.Raw(restuorant.Title.Substring(0,17))</p>
-                    </div>
+                    @if (restuorant.Title.Length > 17)
+                    {
+                        <div class="title">
+                            <p>@Html.Raw(restuorant.Title.Substring(0, 17))</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="title">
+                            <p>@Html.Raw(restuorant.Title)</p>
+                        </div>
+                    }
                 </div>
                 <div class="time">
                     20-30<br><br>min
@@ -36,5 +45,5 @@
             </div>
 
         </a>
-        </div>
-        }
+    </div>
+}

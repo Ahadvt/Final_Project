@@ -13,5 +13,6 @@ namespace Final_Project.ViewModels
         public BasketVM BasketVM { get; set; }
         public RegisterUserVM RegisterVM { get; set; }
         public LoginUserVM loginUser { get; set; }
+        public Favorite Favorite { get; set; }
     }
 }
