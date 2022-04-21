@@ -226,15 +226,18 @@
                     </div>
                     <div class="total-price">
                         <p>Total-Price</p>
-                        <p style="display:none;">
-                            @(total=TotalPrice+2);
-                        </p>
-                        <p style="display:none;" id="totalwithdelivery">
+                        @if (!Model.Restuorant.IsDeliveryFree)
+                        {
+                            <p style="display:none;">
+                                @(total=TotalPrice+2);
+                            </p>
+                            <p style="display:none;" id="totalwithdelivery">
 
-                            AZN @total.ToString("f2")
-                        </p>
+                                AZN @total.ToString("f2")
+                            </p>
+                        }
                         <p id="totlnodlivery">
-                          Azn  @TotalPrice.ToString("f2")
+                            Azn  @TotalPrice.ToString("f2")
                         </p>
                     </div>
                     <button class="order-button" type="Submit">

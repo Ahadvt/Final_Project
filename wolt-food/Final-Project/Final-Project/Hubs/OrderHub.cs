@@ -152,7 +152,7 @@ namespace Final_Project.Hubs
                 
                 _context.OrderItems.Add(orderItems);
             }
-            if (IsDelivery)
+            if (IsDelivery&&!restuorant.IsDeliveryFree)
             {
                 order.TotalPrice = order.TotalPrice + 2;
             }
@@ -216,7 +216,7 @@ namespace Final_Project.Hubs
 
                 _context.OrderItems.Add(orderItems);
             }
-            if (IsDelivery)
+            if (IsDelivery&&!store.IsDeliveryFree)
             {
                 order.TotalPrice = order.TotalPrice + 2;
             }
