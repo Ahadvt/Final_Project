@@ -2,7 +2,7 @@
 
 @{
     Layout = null;
-    string price;
+    double price;
     string totalprice;
 }
 <div style="display:none; position:absolute;right:3%;   width:20%; z-index:999; text-align:center; position:fixed; top: 4%; z-index:999999999;" id="mydiv" class="alert alert-primary">Added to the basket</div>
@@ -66,10 +66,8 @@
                                                 @item.Product.Name
                                             </div>
                                             <div class="price">
-                                                <p style="display:none">
-                                                    @(price=item.Price.ToString())
-                                                </p>
-                                                AZN @(price.Length>4?price.Substring(0,5):price)
+
+                                                AZN @item.Price.ToString("f2");
                                             </div>
                                         </div>
                                         <div style="height:3rem;" class="image ">
@@ -90,10 +88,7 @@
                                         Check Out
                                     </div>
                                     <div class="totalprice">
-                                        <p style="display:none;">
-                                            @(totalprice=Model.BasketVM.TotalPrice.ToString())
-                                        </p>
-                                        Azn: @(totalprice.Length>4? totalprice.Substring(0,5): totalprice)
+                                     Azn:   @Model.BasketVM.TotalPrice.ToString("f2")
                                     </div>
                                 </div>
                             </div>
@@ -200,10 +195,10 @@
                                 View order
                             </div>
                             <div class="totalprice">
-                                <p style="display:none;">
-                                    @(totalprice=Model.BasketVM.TotalPrice.ToString())
-                                </p>
-                                Azn: @(totalprice.Length>4? totalprice.Substring(0,5): totalprice)
+
+                                Azn: 
+                                    @Model.BasketVM.TotalPrice.ToString("f2")
+                                
                             </div>
                         </div>
                     </div>
@@ -221,10 +216,8 @@
                             <a>View order</a>
                         </div>
                         <div class="totalprice">
-                            <p style="display:none;">
-                                @(totalprice=Model.BasketVM.TotalPrice.ToString())
-                            </p>
-                            Azn: @(totalprice.Length>4? totalprice.Substring(0,5): totalprice)
+
+                            Azn:  @Model.BasketVM.TotalPrice.ToString("f2")
 
                         </div>
                     </div>
@@ -456,7 +449,11 @@
                                         <div class="price">
                                             @if (Model.Restuorant.CampaignId != null)
                                             {<del>@product.Price</del>}
-                                            AZN @(Model.Restuorant.CampaignId==null?product.Price:(product.Price-(product.Price*Model.Restuorant.Campaign.CampaignPercent)/100))
+                                            <p style="display:none">
+
+                                             @(price= Model.Restuorant.CampaignId==null?product.Price:(product.Price-(product.Price*Model.Restuorant.Campaign.CampaignPercent)/100))
+                                            </p>
+                                            AZN:@price.ToString("f2")
                                         </div>
                                     </div>
                                     <div style="width:35%; height:12rem;" class="img">
@@ -479,7 +476,11 @@
                                         <div class="price">
                                             @if (Model.Restuorant.CampaignId != null)
                                             {<del>@product.Price</del>}
-                                            AZN @(Model.Restuorant.CampaignId==null?product.Price:(product.Price-(product.Price*Model.Restuorant.Campaign.CampaignPercent)/100))
+                                            <p style="display:none">
+
+                                                @(price= Model.Restuorant.CampaignId==null?product.Price:(product.Price-(product.Price*Model.Restuorant.Campaign.CampaignPercent)/100))
+                                            </p>
+                                            AZN:@price.ToString("f2")
                                         </div>
                                     </div>
                                     <div style="width:35%; height:12rem;" class="img">
@@ -690,40 +691,40 @@
                                     var li = document.createElement("li")
                                     li.className = "basket-item-li"
                                     li.innerHTML += `
-                            <div id="count-mob" style="display:none" class="count ">
-                                                                <p>
-                                                                    ${val.count}
-                                                                </p>
-                                                            </div>
-
-                                                                                             <div  class="input-group plus-minus-input">
-                                                                    <div class="input-group-button">
-                                                                        <button   type="button" class="button hollow circle item-decrease " data-quantity="minus"
-                                                                                data-field="quantity">
-                                                                            <i id="${val.product.id}"  class="fa fa-minus" aria-hidden="true"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                    <p class="input-group-field">${val.count}</p>
-                                                                    <div class="input-group-button">
-                                                                        <button  type="button" class="button hollow circle item-increase" data-quantity="plus"
-                                                                                data-field="quantity">
-                                                                            <i id="${val.product.id}" class="fa fa-plus" aria-hidden="true"></i>
-
-                                                                        </button>
-                                                                    </div>
+                                <div id="count-mob" style="display:none" class="count ">
+                                                                    <p>
+                                                                        ${val.count}
+                                                                    </p>
                                                                 </div>
 
-                                                                                        <div class="name-price ">
-                                                                                            <div class="name">
-                                                                                                ${val.product.name}
+                                                                                                 <div  class="input-group plus-minus-input">
+                                                                        <div class="input-group-button">
+                                                                            <button   type="button" class="button hollow circle item-decrease " data-quantity="minus"
+                                                                                    data-field="quantity">
+                                                                                <i id="${val.product.id}"  class="fa fa-minus" aria-hidden="true"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                        <p class="input-group-field">${val.count}</p>
+                                                                        <div class="input-group-button">
+                                                                            <button  type="button" class="button hollow circle item-increase" data-quantity="plus"
+                                                                                    data-field="quantity">
+                                                                                <i id="${val.product.id}" class="fa fa-plus" aria-hidden="true"></i>
+
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+
+                                                                                            <div class="name-price ">
+                                                                                                <div class="name">
+                                                                                                    ${val.product.name}
+                                                                                                </div>
+                                                                                                <div class="price">
+                                                                                                    AZN ${val.price.toString().substring(0, 5)}
+                                                                                                </div>
                                                                                             </div>
-                                                                                            <div class="price">
-                                                                                                AZN ${val.price.toString().substring(0, 5)}
+                                                                                          <div style="height:3rem;" class="image ">
+                                                                                                <img style="height:100%;" src="/assets/image/${val.product.image}" alt="">
                                                                                             </div>
-                                                                                        </div>
-                                                                                      <div style="height:3rem;" class="image ">
-                                                                                            <img style="height:100%;" src="/assets/image/${val.product.image}" alt="">
-                                                                                        </div>
 `
                                     baskets.append(li)
                                     baskett.style.visibility = "visible"
@@ -783,40 +784,40 @@
                                     var li = document.createElement("li")
                                     li.className = "basket-item-li"
                                     li.innerHTML += `
-                                    <div id="count-mob" style="display:none" class="count ">
-                                                                <p>
-                                                                    ${val.count}
-                                                                </p>
-                                                            </div>
-
-                                                                                             <div  class="input-group plus-minus-input">
-                                                                    <div class="input-group-button">
-                                                                        <button   type="button" class="button hollow circle item-decrease " data-quantity="minus"
-                                                                                data-field="quantity">
-                                                                            <i id="${val.product.id}"  class="fa fa-minus" aria-hidden="true"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                     <p class="input-group-field">${val.count}</p>
-                                                                    <div class="input-group-button">
-                                                                        <button  type="button" class="button hollow circle item-increase" data-quantity="plus"
-                                                                                data-field="quantity">
-                                                                            <i id="${val.product.id}" class="fa fa-plus" aria-hidden="true"></i>
-
-                                                                        </button>
-                                                                    </div>
+                                        <div id="count-mob" style="display:none" class="count ">
+                                                                    <p>
+                                                                        ${val.count}
+                                                                    </p>
                                                                 </div>
 
-                                                                                        <div class="name-price ">
-                                                                                            <div class="name">
-                                                                                                ${val.product.name}
+                                                                                                 <div  class="input-group plus-minus-input">
+                                                                        <div class="input-group-button">
+                                                                            <button   type="button" class="button hollow circle item-decrease " data-quantity="minus"
+                                                                                    data-field="quantity">
+                                                                                <i id="${val.product.id}"  class="fa fa-minus" aria-hidden="true"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                         <p class="input-group-field">${val.count}</p>
+                                                                        <div class="input-group-button">
+                                                                            <button  type="button" class="button hollow circle item-increase" data-quantity="plus"
+                                                                                    data-field="quantity">
+                                                                                <i id="${val.product.id}" class="fa fa-plus" aria-hidden="true"></i>
+
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+
+                                                                                            <div class="name-price ">
+                                                                                                <div class="name">
+                                                                                                    ${val.product.name}
+                                                                                                </div>
+                                                                                                <div class="price">
+                                                                                                    AZN ${val.product.price}
+                                                                                                </div>
                                                                                             </div>
-                                                                                            <div class="price">
-                                                                                                AZN ${val.product.price}
+                                                                                          <div style="height:3rem;" class="image ">
+                                                                                                <img style="height:100%;" src="/assets/image/${val.product.image}" alt="">
                                                                                             </div>
-                                                                                        </div>
-                                                                                      <div style="height:3rem;" class="image ">
-                                                                                            <img style="height:100%;" src="/assets/image/${val.product.image}" alt="">
-                                                                                        </div>
 `
                                     baskets.append(li)
 
@@ -952,16 +953,16 @@
 
                         li.innerHTML =
                             `      <a href="https://localhost:44378/restaurant/details/${val.id}" class="d-flex align-items-center ">
-                                                            <div style="width:30%;">
-                                                                <img style="width:100%;" src="/assets/image/${val.image}" />
-                                                            </div>
-                                                            <div style="padding-left:5%;">
-                                                                <h6 style=" margin:0px; font-family:Arial, Helvetica, sans-serif;">${val.name}</h6>
+                                                                <div style="width:30%;">
+                                                                    <img style="width:100%;" src="/assets/image/${val.image}" />
+                                                                </div>
+                                                                <div style="padding-left:5%;">
+                                                                    <h6 style=" margin:0px; font-family:Arial, Helvetica, sans-serif;">${val.name}</h6>
 
-                                                                <p style=" color: gray; margin: 0px;" > ${val.adress}</p>
+                                                                    <p style=" color: gray; margin: 0px;" > ${val.adress}</p>
 
-                                                            </div>
-                                                        </a>`
+                                                                </div>
+                                                            </a>`
                         ul.appendChild(li)
 
                     })
@@ -1010,23 +1011,23 @@
                         a.setAttribute("id", val.id)
                         a.innerHTML =
                             `
-                                            <div style="padding:1% 2%;" class="product">
-                                                        <div class="title-desc-price">
-                                                            <div class="title">
-                                                                <h6>${val.name}</h6>
+                                                <div style="padding:1% 2%;" class="product">
+                                                            <div class="title-desc-price">
+                                                                <div class="title">
+                                                                    <h6>${val.name}</h6>
+                                                                </div>
+                                                                <div class="description">
+                                                                    <p>${val.description}</p>
+                                                                </div>
+                                                                <div class="price">
+                                                                    AZN ${val.price}
+                                                                </div>
                                                             </div>
-                                                            <div class="description">
-                                                                <p>${val.description}</p>
-                                                            </div>
-                                                            <div class="price">
-                                                                AZN ${val.price}
+                                                            <div style="width:35%; height:12rem;" class="img">
+                                                                <img style="height:100%; width:100%;" src="/assets/image/${val.image}" alt="">
                                                             </div>
                                                         </div>
-                                                        <div style="width:35%; height:12rem;" class="img">
-                                                            <img style="height:100%; width:100%;" src="/assets/image/${val.image}" alt="">
-                                                        </div>
-                                                    </div>
-                                                  `
+                                                      `
                         console.log(data)
                         products.appendChild(a)
 

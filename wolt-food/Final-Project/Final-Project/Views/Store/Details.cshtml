@@ -69,10 +69,10 @@
                                                 @item.Product.Name
                                             </div>
                                             <div class="price">
-                                                <p style="display:none">
-                                                    @(price=item.Price.ToString())
-                                                </p>
-                                                AZN @(price.Length>4?price.Substring(0,5):price)
+
+                                                AZN @item.Price.ToString("f2")
+
+
                                             </div>
                                         </div>
                                         <div style="height:3rem;" class="image ">
@@ -93,10 +93,8 @@
                                         Check Out
                                     </div>
                                     <div class="totalprice">
-                                        <p style="display:none;">
-                                            @(totalprice=Model.BasketVM.TotalPrice.ToString())
-                                        </p>
-                                        Azn: @(totalprice.Length>4? totalprice.Substring(0,5): totalprice)
+                                       
+                                        Azn: @Model.BasketVM.TotalPrice.ToString("f2");
                                     </div>
                                 </div>
                             </div>
@@ -203,10 +201,8 @@
                                 View order
                             </div>
                             <div class="totalprice">
-                                <p style="display:none;">
-                                    @(totalprice=Model.BasketVM.TotalPrice.ToString())
-                                </p>
-                                Azn: @(totalprice.Length>4? totalprice.Substring(0,5): totalprice)
+
+                                Azn: @Model.BasketVM.TotalPrice.ToString("f2");
                             </div>
                         </div>
                     </div>
@@ -223,10 +219,7 @@
                         <div class="view-order">
                             <a>View order</a>
                         </div>
-                        <p style="display:none;">
-                            @(totalprice=Model.BasketVM.TotalPrice.ToString())
-                        </p>
-                        Azn: @(totalprice.Length>4? totalprice.Substring(0,5): totalprice)
+                        Azn: @Model.BasketVM.TotalPrice.ToString("f2");
                     </div>
                 </div>
             }
