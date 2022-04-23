@@ -37,7 +37,7 @@ namespace Final_Project.Areas.Admin.Controllers
         {
             StoreCourierRestaurant company = new StoreCourierRestaurant
             {
-                Users = _userManager.Users.OrderBy(u => u.RestuorantId).Where(u => u.Role == "Store").ToList(),
+                Users = _userManager.Users.OrderBy(u => u.StoreId).Where(u => u.Role == "Store").ToList(),
                 Stores = _context.Stores.OrderBy(o => o.Id).ToList()
             };
             return View(company);

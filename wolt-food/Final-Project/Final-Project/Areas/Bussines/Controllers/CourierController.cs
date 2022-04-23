@@ -33,7 +33,7 @@ namespace Final_Project.Areas.Bussines.Controllers
         public async Task<IActionResult> Index()
         {
             AppUser courier = await _userManager.FindByNameAsync(User.Identity.Name);
-            List<Order> order = _context.Orders.Include(o => o.Restuorant).Include(o => o.AppUser).Include(o => o.OrderItems).Include(o=>o.Store).Where(o=> o.IsDelivery&&o.OrderComleete&&(o.IsCourierFind==false ||o.AppUserId==courier.Id)).ToList();
+            List<Order> order = _context.Orders.Include(o => o.Restuorant).Include(o => o.AppUser).Include(o => o.OrderItems).Include(o=>o.Store).Where(o=> o.IsDelivery&&o.OrderComleete&&!o.IsOrderComlete&&(o.IsCourierFind==false ||o.CourierID==courier.Id)).ToList();
             return View(order);
         }
         [Authorize(Roles = "Courier")]

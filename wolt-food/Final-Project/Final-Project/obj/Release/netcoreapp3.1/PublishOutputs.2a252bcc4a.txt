@@ -95,6 +95,7 @@ C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netc
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\css\owl.carousel.min.css
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\css\owl.theme.default.min.css
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\00283917-7518-4774-b5c3-a8e2a5b83ff7slider3(2).jpg
+C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\00346393-d000-492a-84e7-e148699e37cc1.jpeg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\013b6ab8-b500-4005-b83b-d62d50c1a9d7kfc1.jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\01ec87d0-77e4-4ce3-81f1-ebe2f352cd2eezgif.com-gif-maker.jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\028d5527-7f3a-49ee-9a4b-b904ddb7f716ezgif.com-gif-maker (4).jpg
@@ -117,7 +118,9 @@ C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netc
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\1df80642-3d01-44b2-a0b1-999c23a6879cboxmaster.jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\1e55ce55-db3b-470c-bb36-aa5850fc70e4ezgif.com-gif-maker (8).jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\1e8e583a-cbac-4d3d-9554-b72c7cb8f063slider-3.jpg
+C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\1fe78f36-4ab0-4868-b820-0d100a404a473.jpeg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\20978e92-e3ff-41fb-b506-ed080b394daeezgif.com-gif-maker.jpg
+C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\20ffbdea-b817-4460-9d85-ddbe0b0319492.jpeg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\220f207e-d12f-473f-9b0f-15e90813a456ezgif.com-gif-maker (4).jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\23ae4be0-7c04-4a68-b2e9-204238e84c4fbiriki.jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\23e21c54-fd3b-4cca-89b0-f3f40690b8calogin-1.jpg
@@ -126,6 +129,7 @@ C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netc
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\26ea8932-caec-49a1-acb9-646ce8cf81fdezgif.com-gif-maker (4).jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\2777f1eb-2696-4ef6-b410-55985ef56b82login-1.jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\2aca3980-0c20-4adb-b8c2-6978a5968236login-1.jpg
+C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\2ce41826-4408-4322-83fa-e68aeb0daa3c1.png
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\2d9000bd-bfb9-4782-96d3-ba5b5f680b51ezgif.com-gif-maker (6).jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\301ad63c-dab7-40d5-aa6b-e26053ee87032.jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\33865da0-c1c2-4f21-9d58-9e08f3386c53kfc.avif
@@ -141,6 +145,8 @@ C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netc
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\3d855cb6-3e8f-4287-9bc9-1c86ede6335fezgif.com-gif-maker (1).jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\3daf8894-7478-437d-8e7c-b60be939b562ezgif.com-gif-maker.jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\3e3c1976-f851-4617-93d1-7eea372ae284slider-3.jpg
+C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\3f76c7a1-68d0-4afa-a63f-6fc0f52d9acbresul1.jpg
+C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\41807d85-518a-4a6d-90a1-4ac476b5825dezgif.com-gif-maker (3).jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\429696cc-e40a-4b17-93e6-42da03b7dd6fcorek.jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\43a2dea8-5acf-4275-b29f-e1d44a9b3c8aslider-3.jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\451befaa-63fa-45aa-b81a-b456d9e8752eezgif.com-gif-maker (2).jpg
@@ -155,6 +161,7 @@ C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netc
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\5e6fcf38-ee13-466b-a5bc-acc6cd009b46download.jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\60137c05-6cc8-4696-9d49-56397630ce810b77c760-6312-4e4a-ab2f-2495d702c21ddetails-image1.webp
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\62786939-d482-451d-8c60-0d8cfe438c5fslider-1.jpg
+C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\642ff564-cbc6-4f8f-92c9-6dbf972c6ef9arazresult.jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\64f7409f-e180-4fe2-ab22-a064bcd166aaezgif.com-gif-maker.jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\68e3ae70-a88d-42d7-a926-bc35caed37d5boxmaster.jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\693623e3-ac69-466e-9791-c3727b2e8bfb4.jpg
@@ -185,9 +192,9 @@ C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netc
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\8c595e61-7ecc-45aa-a8c3-84b949f3ce44desert.jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\8d033aaa-abc9-4dc1-8736-a77028de8c11login-1.jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\8e28f35d-a125-4a33-bdaa-07efb455a63302c5b9b8-726b-42ab-ab9f-5f300b5cc6d3a7c44a11-2e18-42a4-9e06-ae39a94ba5acdetails-image1.webp
-C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\8e509618-3e68-46b1-9d76-99a527b31fadezgif.com-gif-maker (6).jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\9080579e-993a-4292-ad3f-05af3a40d83a02c5b9b8-726b-42ab-ab9f-5f300b5cc6d3a7c44a11-2e18-42a4-9e06-ae39a94ba5acdetails-image1.webp
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\90b5d690-5609-4c48-9697-4a0a82359f48ezgif.com-gif-maker (3).jpg
+C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\924babe6-57b3-4e50-a029-477dd3edfe77ezgif.com-gif-maker (2).jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\93a00b6f-242b-46c8-8636-700a3c46ed5achickenkfc.jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\9482aea3-e231-49be-8f57-4bc1d37b08beezgif.com-gif-maker (7).jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\96e6f25a-c982-48a6-8b95-7195ec94d2e6login-1.jpg
@@ -227,6 +234,7 @@ C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netc
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\cdbe7be1-6efd-473c-9f5d-1104414be4a0logo.svg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\cf2423d6-5970-4287-b6c2-9e57e0805912ezgif.com-gif-maker (5).jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\d263598b-a952-4441-ab21-2da435cba22dbravo.jpg
+C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\d658242f-785f-4519-a223-c9b7c73f6ddeezgif.com-gif-maker (4).jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\d6755539-de10-4a90-8f72-6bb992d57de2kt.avif
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\d7714c8d-d25b-4415-9217-955d848a6360ezgif.com-gif-maker.jpg
 C:\Users\HP\Desktop\final\wolt-food\Final-Project\Final-Project\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\image\dbc5e396-90f1-487f-8bd1-8cff65797da7restuorant3.jpg

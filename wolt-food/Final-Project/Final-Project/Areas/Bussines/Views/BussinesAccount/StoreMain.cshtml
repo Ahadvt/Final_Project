@@ -6,6 +6,7 @@
     double totalcart = 0;
     double totalcash = 0;
     double totalcourier = 0;
+    double totalinterest = 0;
 }
 
 
@@ -57,7 +58,7 @@
                                         <td>@order.AppUser.FullName</td>
                                         <td>@(order.IsCard?"Card":"Cash")</td>
                                         <td>@order.Date.ToString("yyyy:dd:MMM")</td>
-                                        <td>Azn @order.TotalPrice</td>
+                                        <td>Azn @order.TotalPrice.ToString("f2")</td>
                                     </tr>
                                 }
 
@@ -152,7 +153,10 @@
                                     <i class=" me-3 icon-lg text-info fa-solid fa-percent"></i>
                                     <div class="d-flex flex-column justify-content-around">
                                         <small class="mb-1 text-muted">Interest held</small>
-                                        <h5 class="me-2 mb-0">20% Azn @((totalsale*20)/100)</h5>
+                                        <p style="display:none;">
+                                            @(totalinterest=(totalsale*20)/100)
+                                        </p>
+                                        <h5 class="me-2 mb-0">20% Azn @totalinterest.ToString("f2") </h5>
                                     </div>
                                 </div>
                                 <div class="d-flex py-3 border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">

@@ -299,10 +299,7 @@ namespace Final_Project.Hubs
             AppUser Courier = await _userManager.FindByNameAsync(Context.User.Identity.Name);
             if (order==null)
             {
-                await Clients.Client(Courier.ConnectionId).SendAsync("exsist",new
-                {
-                    id = order.Id
-                });
+                await Clients.Client(Courier.ConnectionId).SendAsync("exsist");
             }
             else
             {

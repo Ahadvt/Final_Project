@@ -60,7 +60,7 @@
                                         <td>@(order.RestuorantId==null?order.Store.Name:order.Restuorant.Name)</td>
                                         <td>@(order.IsCard?"Card":"Cash")</td>
                                         <td>@order.Date.ToString("yyyy:dd:MMM")</td>
-                                        <td>Azn @String.Format("{0:00.0}", order.TotalPrice)</td>
+                                        <td>Azn @order.TotalPrice.ToString("f2")</td>
                                     </tr>
                                 }
 

@@ -1,6 +1,8 @@
-var img=document.querySelector(".bg")
+var img = document.querySelector(".bg")
+console.log(img)
 var details=document.querySelector(".details")
-var file=img.getAttribute("src")
+var file = img.getAttribute("src")
+console.log(details)
 details.style.backgroundImage = `url(${file})`;
 details.style.backgroundSize = `cover`;
 
